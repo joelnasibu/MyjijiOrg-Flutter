@@ -6,6 +6,7 @@ import 'package:catcher/model/catcher_options.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:organizer/models/slideleft.dart';
+import 'package:organizer/screen/dashBoard/oDashboard.dart';
 import 'package:organizer/screen/splashScreen/oSplash.dart';
 import 'package:organizer/style.dart';
 import 'package:appcenter/appcenter.dart';
@@ -27,63 +28,14 @@ void main() async {
       : "f40e4999-7fec-41f6-b9e5-44b252e793d9";
   await AppCenter.start(
       app_secret, [AppCenterAnalytics.id, AppCenterCrashes.id]);
-  // CatcherOptions debugOptions =
-  // CatcherOptions(DialogReportMode(), [ConsoleHandler()]);
-
-  // //release configuration
-  // CatcherOptions releaseOptions = CatcherOptions(DialogReportMode(), [
-  //   EmailManualHandler([""])
-  // ]);
-
-  //profile configuration
-  // CatcherOptions profileOptions = CatcherOptions(
-  //   DialogReportMode(
-  //       title: "Title",
-  //       descriptionText: "Description",
-  //       acceptText: "Accept",
-  //       cancelText: "Cancel"),
-  //   [ConsoleHandler(), ToastHandler()],
-  //   handlerTimeout: 10000,
-  //   customParameters: {"example": "example_parameter"},
-  // );
-
-  //MyApp is root widget
-  // Catcher(MyOrganizer(),
-  //     debugConfig: debugOptions,
-  //     releaseConfig: releaseOptions,
-  //     profileConfig: profileOptions);
 
   runApp(MyOrganizer());
 }
 
 
 
-
-
-
-
-
-
-
-//  final ios = defaultTargetPlatform == TargetPlatform.iOS;
-
-// var app_secret = ios ? "iOSGuid" : "AndroidGuid";
-// await AppCenter
-// .start(app_secret, [AppCenterAnalytics.id, AppCenterCrashes.id]);
-
-
-
-
-
-
-
-
 class MyOrganizer extends StatelessWidget {
   // This widget is the root of your application.
- 
-
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -91,7 +43,7 @@ class MyOrganizer extends StatelessWidget {
     return MaterialApp(      
       debugShowCheckedModeBanner: false,
       theme: _themeConfig(),
-      home: Splash()
+      home: DashBoard()
     );
   }
   ThemeData _themeConfig(){

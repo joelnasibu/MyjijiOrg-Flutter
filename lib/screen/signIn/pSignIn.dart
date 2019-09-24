@@ -15,8 +15,7 @@ class _PrtSignInState extends State<PrtSignIn> {
   Widget build(BuildContext context) {
     Color fbColor = Color(0XFF3b5998);
     Color gmlColor = Color(0XFFB23121);
-    return Scaffold(
-      body: SafeArea(
+    return SafeArea(
         child: ListView(
           children: <Widget>[
             Container(
@@ -221,7 +220,6 @@ class _PrtSignInState extends State<PrtSignIn> {
             ),
           ],
         ),
-      ),
     );
   }
 }

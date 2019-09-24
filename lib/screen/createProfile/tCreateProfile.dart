@@ -13,34 +13,7 @@ class _TabCreateProfileState extends State<TabCreateProfile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.white,
-        drawer: Container(),
-        appBar: AppBar(
-          backgroundColor: Colors.white,
-          elevation: 0,
-          title: Text(
-            'Update Profile Info',
-            style: TextStyle(color: Colors.black),
-          ),
-          leading: IconButton(
-            icon: Icon(Icons.menu),
-            onPressed: () {},
-            color: Colors.black,
-          ),
-          actions: <Widget>[
-            IconButton(
-              icon: Icon(Icons.save),
-              color: AppPrimaryDark,
-              onPressed: () {},
-            ),
-            IconButton(
-              icon: Icon(Icons.more_vert),
-              color: Colors.black,
-              onPressed: () {},
-            ),
-          ],
-        ),
-        bottomNavigationBar: BottomNavigationBar(
+      bottomNavigationBar: BottomNavigationBar(
           currentIndex: _selected,
           onTap: (index) {
             setState(() {
@@ -56,7 +29,7 @@ class _TabCreateProfileState extends State<TabCreateProfile> {
                 icon: Container(), title: Text('Individual')),
           ],
         ),
-        body: selectedProfile(_selected));
+      body: selectedProfile(_selected));
   }
 
   Widget selectedProfile(int index) {

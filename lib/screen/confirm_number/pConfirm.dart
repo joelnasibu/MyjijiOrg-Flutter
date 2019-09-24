@@ -10,8 +10,7 @@ class PrtConfirm extends StatefulWidget {
 class _PrtConfirmState extends State<PrtConfirm> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
+    return SafeArea(
         child: ListView(
           children: <Widget>[
             Container(
@@ -113,7 +112,6 @@ class _PrtConfirmState extends State<PrtConfirm> {
             ),
           ],
         ),
-      ),
     );
   }
 }

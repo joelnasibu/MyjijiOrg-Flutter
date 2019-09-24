@@ -10,8 +10,7 @@ class TabSelectCity extends StatefulWidget {
 class _TabSelectCityState extends State<TabSelectCity> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
+    return SafeArea(
         child: ListView(
           children: <Widget>[
             Container(
@@ -80,7 +79,6 @@ class _TabSelectCityState extends State<TabSelectCity> {
             ),
           ],
         ),
-      ),
     );
   }
 }

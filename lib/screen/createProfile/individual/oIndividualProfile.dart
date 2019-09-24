@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:organizer/screen/createProfile/individual/pIndividualProfile.dart';
 import 'package:organizer/screen/createProfile/individual/tIndividualProfile.dart';
+import 'package:organizer/style.dart';
 
 class IndividualProfileScreen extends StatelessWidget {
   @override
@@ -8,7 +9,7 @@ class IndividualProfileScreen extends StatelessWidget {
     return Scaffold(
       body: LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
-          if (constraints.maxWidth <= 600.0) {
+          if (constraints.maxWidth <= WidthDimension) {
             return PrtIndividualProfile();
           } else {
             return TabIndividualProfile();

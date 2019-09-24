@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:organizer/screen/splashScreen/pSplash.dart';
 import 'package:organizer/screen/splashScreen/tSplash.dart';
+import 'package:organizer/style.dart';
 
 class SplashScreen extends StatelessWidget {
   @override
@@ -8,7 +9,7 @@ class SplashScreen extends StatelessWidget {
     return Scaffold(
       body: LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
-          if (constraints.maxWidth <= 600.0) {
+          if (constraints.maxWidth <= WidthDimension) {
             return PrtSplash();
           } else {
             return TabSplash();

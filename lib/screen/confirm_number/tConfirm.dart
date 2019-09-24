@@ -10,8 +10,7 @@ class TabConfirm extends StatefulWidget {
 class _TabConfirmState extends State<TabConfirm> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
+    return SafeArea(
         child: ListView(
           children: <Widget>[
             Container(
@@ -32,8 +31,7 @@ class _TabConfirmState extends State<TabConfirm> {
                       decoration: BoxDecoration(
                           border: Border(
                         left: BorderSide(width: 1.5, color: AppPrimaryDark),
-                        // width: 2.0,
-                        // color: AppPrimaryDark
+                       
                       )),
                       child: Text("Confirm Registration",
                           style: Theme.of(context).textTheme.title.copyWith(
@@ -44,7 +42,7 @@ class _TabConfirmState extends State<TabConfirm> {
             ),
             Container(
               padding: EdgeInsets.all(32.0),
-              height: MediaQuery.of(context).size.height * .78,
+              height: MediaQuery.of(context).size.height* .95,
               child: Builder(
                 builder: (context) => Form(
                     child: Column(
@@ -114,7 +112,6 @@ class _TabConfirmState extends State<TabConfirm> {
             ),
           ],
         ),
-      ),
     );
   }
 }

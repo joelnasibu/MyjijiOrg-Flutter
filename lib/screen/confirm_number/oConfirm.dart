@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:organizer/screen/confirm_number/pConfirm.dart';
 import 'package:organizer/screen/confirm_number/tConfirm.dart';
+import 'package:organizer/style.dart';
 
 class ConfirmScreen extends StatelessWidget {
   @override
@@ -8,7 +9,7 @@ class ConfirmScreen extends StatelessWidget {
     return Scaffold(
       body: LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
-          if (constraints.maxWidth <= 600.0) {
+          if (constraints.maxWidth <= WidthDimension) {
             return PrtConfirm();
           } else {
             return TabConfirm();

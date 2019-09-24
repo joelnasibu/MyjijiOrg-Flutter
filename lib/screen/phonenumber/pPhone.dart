@@ -10,8 +10,7 @@ class PrtPhone extends StatefulWidget {
 class _PrtPhoneState extends State<PrtPhone> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
+    return SafeArea(
         child: ListView(
           children: <Widget>[
             Container(
@@ -116,7 +115,6 @@ class _PrtPhoneState extends State<PrtPhone> {
             ),
           ],
         ),
-      ),
     );
   }
 }

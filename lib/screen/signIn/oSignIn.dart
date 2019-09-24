@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:organizer/screen/signIn/pSignIn.dart';
 import 'package:organizer/screen/signIn/tSignIn.dart';
+import 'package:organizer/style.dart';
 
 class SignInScreen extends StatelessWidget {
   @override
@@ -8,7 +9,7 @@ class SignInScreen extends StatelessWidget {
     return Scaffold(
       body: LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
-          if (constraints.maxWidth <= 600.0) {
+          if (constraints.maxWidth <= WidthDimension) {
             return PrtSignIn();
           } else {
             return TabSignIn();

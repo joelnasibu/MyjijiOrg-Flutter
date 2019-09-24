@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:organizer/style.dart';
 
 class TabDashBoard extends StatefulWidget {
   TabDashBoardState createState() => TabDashBoardState();
@@ -7,7 +8,7 @@ class TabDashBoard extends StatefulWidget {
 
 class TabDashBoardState extends State<TabDashBoard>{
   
-  // List<HomeJson> data = []; 
+   // List<HomeJson> data = []; 
   // HomeJson online = HomeJson();
 
    List<String> products = [
@@ -15,7 +16,11 @@ class TabDashBoardState extends State<TabDashBoard>{
     'https://www.feelgoodevents.com.au/wp-content/uploads/2017/02/10933957_908820615818063_6504247213800313682_n-960x600.jpg',
     'https://image.cnbcfm.com/api/v1/image/105462444-1537465508117echo-dot-new.jpeg?v=1537465880&w=678&h=381',
     'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80',
-    'https://dominicanexpert.com/wp-content/uploads/2016/06/fondo-2.jpg'
+    'https://dominicanexpert.com/wp-content/uploads/2016/06/fondo-2.jpg',
+    'https://images.unsplash.com/photo-1524368535928-5b5e00ddc76b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80',
+    'https://imgcld.yatra.com/ytimages/image/upload/t_seo_Holidays_w_640_h_480_c_fill_g_auto_q_auto:good_f_jpg/v1449657155/Kenya108.jpg',
+    'https://www.vividfeatures.com/wp-content/uploads/2017/01/kenya-at-50-640x313.jpg'
+
   ];
 
 
@@ -23,12 +28,34 @@ class TabDashBoardState extends State<TabDashBoard>{
 
   @override
   Widget build(BuildContext context) {
- 
-    return ListView.builder(
+    return Scaffold(
+      appBar: AppBar(),
+      backgroundColor: Colors.black,
+
+      body:Stack(
+        children:[
+          Container(
+            decoration: BoxDecoration(
+              color: Colors.black,
+              image: DecorationImage(
+                  image: NetworkImage(ThirdBackgroundImage), fit: BoxFit.cover),
+            ),
+          ),
+          Container(
+              padding: EdgeInsets.all(10),
+              decoration: BoxDecoration(color: Colors.black.withOpacity(.7)),
+          ),
+          ListView.builder(
               itemCount: products.length,
               itemBuilder: (context,index)=> listBuilder(context, index)
               
-            );
+            ),
+
+        ])
+    );
+    
+ 
+   
     //  StreamBuilder(
     //   stream: Firestore.instance.collection('events').snapshots(),//fetchdata(),
     //   builder: (context,snapshot){
@@ -132,7 +159,7 @@ class TabDashBoardState extends State<TabDashBoard>{
       
         
         Container(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
+          padding: const EdgeInsets.symmetric(horizontal: 10),
           child: Text("snapshot.data.documents[index]['description']",
           style: TextStyle(color:Colors.white),
           overflow: TextOverflow.ellipsis,

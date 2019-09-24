@@ -16,35 +16,6 @@ class _PrtCreateProfileState extends State<PrtCreateProfile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        drawer: Container(),
-        appBar: AppBar(
-          backgroundColor: Colors.white,
-          elevation: 1,
-          title: Text(
-            'Update Profile Info',
-            style: TextStyle(color: Colors.black),
-          ),
-          leading: IconButton(
-            icon: Icon(Icons.menu),
-            onPressed: () {},
-            color: Colors.black,
-          ),
-          actions: <Widget>[
-            IconButton(
-              icon: Icon(Icons.save),
-              color: AppPrimaryDark,
-              onPressed: () {
-                Route route = SlideRight(widget: DashBoard(),time: 500);
-                Navigator.push(context, route);
-              },
-            ),
-            IconButton(
-              icon: Icon(Icons.more_vert),
-              color: Colors.black,
-              onPressed: () {},
-            ),
-          ],
-        ),
         bottomNavigationBar: BottomNavigationBar(
           backgroundColor: Colors.white,
           elevation: 4,

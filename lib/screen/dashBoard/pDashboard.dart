@@ -18,7 +18,6 @@ class PrtDashBoardState extends State<PrtDashBoard>{
     'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80',
     'https://dominicanexpert.com/wp-content/uploads/2016/06/fondo-2.jpg',
     'https://images.unsplash.com/photo-1524368535928-5b5e00ddc76b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80',
-    'https://magicalkenya.com/wp-content/uploads/2014/08/iStock-479446229.jpg',
     'https://imgcld.yatra.com/ytimages/image/upload/t_seo_Holidays_w_640_h_480_c_fill_g_auto_q_auto:good_f_jpg/v1449657155/Kenya108.jpg',
     'https://www.vividfeatures.com/wp-content/uploads/2017/01/kenya-at-50-640x313.jpg'
 
@@ -29,11 +28,7 @@ class PrtDashBoardState extends State<PrtDashBoard>{
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(),
-      backgroundColor: Colors.black,
-
-      body:Stack(
+    return Stack(
         children:[
           Container(
             decoration: BoxDecoration(
@@ -52,8 +47,7 @@ class PrtDashBoardState extends State<PrtDashBoard>{
               
             ),
 
-        ])
-    );
+        ]);
     
  
    

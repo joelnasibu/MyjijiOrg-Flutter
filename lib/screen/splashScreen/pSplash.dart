@@ -50,8 +50,8 @@ class _PrtSplashState extends State<PrtSplash> {
                 ),
                 Container(
                   height: screenHeight * .35,
-                  margin: EdgeInsets.symmetric(horizontal: 60.0),
-                  padding: EdgeInsets.all(32.0),
+                  margin: EdgeInsets.symmetric(horizontal: 50.0),
+                  padding: EdgeInsets.all(30.0),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(16.0),
                     color: Colors.white.withOpacity(.4),
@@ -75,7 +75,7 @@ class _PrtSplashState extends State<PrtSplash> {
                                     builder: (context) => SignInScreen()));
                           },
                           child: Text(
-                            "Sign In",
+                            "Sign In ",
                             style: TextStyle(
                               fontWeight: FontWeight.w700,
                               fontSize: NormalFonteSize,

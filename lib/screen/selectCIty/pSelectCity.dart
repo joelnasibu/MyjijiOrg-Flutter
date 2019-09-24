@@ -10,8 +10,7 @@ class PrtSelectCity extends StatefulWidget {
 class _PrtSelectCityState extends State<PrtSelectCity> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
+    return SafeArea(
         child: ListView(
           children: <Widget>[
             Container(
@@ -80,7 +79,6 @@ class _PrtSelectCityState extends State<PrtSelectCity> {
             ),
           ],
         ),
-      ),
     );
   }
 }

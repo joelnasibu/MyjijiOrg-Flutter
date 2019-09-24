@@ -43,7 +43,7 @@ class MyOrganizer extends StatelessWidget {
     return MaterialApp(      
       debugShowCheckedModeBanner: false,
       theme: _themeConfig(),
-      home: DashBoard()
+      home: Splash()
     );
   }
   ThemeData _themeConfig(){

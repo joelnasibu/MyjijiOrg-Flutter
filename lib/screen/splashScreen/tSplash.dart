@@ -58,7 +58,7 @@ class _TabSplashState extends State<TabSplash> {
                                   builder: (context) => SignInScreen()));
                         },
                         child: Text(
-                          "Sign In",
+                          "Sign In ",
                           style: TextStyle(
                             fontWeight: FontWeight.w700,
                             fontSize: NormalFonteSize,

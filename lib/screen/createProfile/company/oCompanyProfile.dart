@@ -6,8 +6,9 @@ import 'package:organizer/style.dart';
 class CompanyProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: LayoutBuilder(
+    return Scaffold(      
+        backgroundColor: Colors.grey[200],       
+        body: LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
           if (constraints.maxWidth <= WidthDimension) {
             return PrtCompanyProfile();

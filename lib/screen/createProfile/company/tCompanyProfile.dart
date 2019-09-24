@@ -17,16 +17,7 @@ class _TabCompanyProfileState extends State<TabCompanyProfile> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        backgroundColor: Colors.grey[200],
-        floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
-        floatingActionButton: FloatingActionButton.extended(                    
-          backgroundColor: AppPrimaryDark,
-          label: Text('Create Event',style:TextStyle(fontSize: TinyFontSize)),
-          icon: Icon(Icons.add_circle, color: Colors.white),
-          onPressed: () {},
-        ),
-        body: SafeArea(
+    return SafeArea(
           child: SingleChildScrollView(
             child: Stack(fit: StackFit.loose, children: <Widget>[
               Container(
@@ -84,10 +75,10 @@ class _TabCompanyProfileState extends State<TabCompanyProfile> {
                 ),
               ),
               Positioned(
-                top: MediaQuery.of(context).size.height * .6,
+                top: MediaQuery.of(context).size.height * .62,
                 left: 20.0,
                 child: Container(
-                  height: MediaQuery.of(context).size.height,
+                  height: MediaQuery.of(context).size.height * 1.5,
                   width: MediaQuery.of(context).size.width * .95,
                   padding: EdgeInsets.symmetric(horizontal: 30.0),
                   child: Column(
@@ -141,7 +132,7 @@ class _TabCompanyProfileState extends State<TabCompanyProfile> {
                         ),
                         SizedBox(height: 20.0),
                         Text(
-                          'Product and Services Images',
+                          'Create Event',
                           style: TextStyle(color: AppPrimaryDark),
                         ),
                         SizedBox(height: 10.0),
@@ -192,7 +183,7 @@ class _TabCompanyProfileState extends State<TabCompanyProfile> {
               ),
             ]),
           ),
-        ));
+        );
   }
 
   Widget _getImageProducts(int i) {

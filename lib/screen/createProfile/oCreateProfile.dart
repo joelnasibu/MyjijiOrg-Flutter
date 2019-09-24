@@ -9,9 +9,9 @@ class CreateProfileScreen extends StatefulWidget {
 }
 
 class _CreateProfileScreenState extends State<CreateProfileScreen>{
+  int _selected = 0;
   @override
   Widget build(BuildContext context) {
-    int _selected = 0;
     return Scaffold(
       backgroundColor: Colors.white,
       drawer: Container(),
@@ -20,7 +20,7 @@ class _CreateProfileScreenState extends State<CreateProfileScreen>{
         elevation: 0,
         title: Text(
           'Update Profile Info',          
-          style: TextStyle(fontSize: NormalFonteSize,color: Colors.black),
+          style: TextStyle(fontSize: SmallFontSize,color: Colors.black),
         ),
         leading: IconButton(
           icon: Icon(Icons.menu),
@@ -40,15 +40,11 @@ class _CreateProfileScreenState extends State<CreateProfileScreen>{
           ),
         ],
       ),
-
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Colors.white,
-        elevation: 4,
         currentIndex: _selected,
-        onTap: (index) {
+        onTap: (index){
           setState(() {
-            _selected = index;
-            print (_selected);
+           _selected = index; 
           });
         },
         items: [
@@ -62,12 +58,14 @@ class _CreateProfileScreenState extends State<CreateProfileScreen>{
             title: Text('Individual',
               style: TextStyle(fontSize: NormalFonteSize))),
           ],
-        ),
-        body: selectedProfile(_selected));
-  }
+      ),
+      body: selectedProfile(_selected),
+    );
+ }
 
-  Widget selectedProfile(int index) {
-    switch (index) {
+  Widget selectedProfile(int i) {
+    
+    switch (i) {
       case 0:
         return CompanyProfileScreen();
       case 1:
@@ -76,8 +74,6 @@ class _CreateProfileScreenState extends State<CreateProfileScreen>{
       default:
         return CompanyProfileScreen();
         break;
-    }
-  }     
-        
-   
+    }   
+  }
 }

@@ -17,16 +17,7 @@ class _TabIndividualProfileState extends State<TabIndividualProfile> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        backgroundColor: Colors.grey[200],
-        floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
-        floatingActionButton: FloatingActionButton.extended(                    
-          backgroundColor: AppPrimaryDark,
-          label: Text('Create Event',style:TextStyle(fontSize: TinyFontSize)),
-          icon: Icon(Icons.add_circle, color: Colors.white),
-          onPressed: () {},
-        ),
-        body: SafeArea(
+    return SafeArea(
           child: SingleChildScrollView(
             child: Stack(fit: StackFit.loose, children: <Widget>[
               Container(
@@ -85,7 +76,7 @@ class _TabIndividualProfileState extends State<TabIndividualProfile> {
                 ),
               ),
               Positioned(
-                top: MediaQuery.of(context).size.height * .6,
+                top: MediaQuery.of(context).size.height * .62,
                 left: 20.0,
                 child: Container(
                   height: MediaQuery.of(context).size.height *2,
@@ -153,7 +144,7 @@ class _TabIndividualProfileState extends State<TabIndividualProfile> {
                         ),
                         SizedBox(height: 20.0),
                         Text(
-                          'Product and Services Images',
+                          'Create Event',
                           style: TextStyle(color: AppPrimaryDark),
                         ),
                         SizedBox(height: 10.0),
@@ -204,7 +195,7 @@ class _TabIndividualProfileState extends State<TabIndividualProfile> {
               ),
             ]),
           ),
-        ));
+        );
   }
 
   Widget _getImageProducts(int i) {

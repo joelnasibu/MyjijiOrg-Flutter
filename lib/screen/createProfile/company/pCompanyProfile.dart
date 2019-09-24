@@ -17,22 +17,12 @@ class _PrtCompanyProfileState extends State<PrtCompanyProfile> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      
-        backgroundColor: Colors.grey[200],
-        floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
-        floatingActionButton: FloatingActionButton.extended(                    
-          backgroundColor: AppPrimaryDark,
-          label: Text('Create Event',style:TextStyle(fontSize: TinyFontSize)),
-          icon: Icon(Icons.add_circle, color: Colors.white),
-          onPressed: () {},
-        ),
-        body: SafeArea(
+    return SafeArea(
           child: SingleChildScrollView(
             child: Stack(fit: StackFit.loose, children: <Widget>[
               Container(
                 margin: EdgeInsets.all(8.0),
-                height: MediaQuery.of(context).size.height,
+                height: MediaQuery.of(context).size.height *1.15,
                 width: MediaQuery.of(context).size.width,
                 decoration: BoxDecoration(
                   color: Colors.white,
@@ -85,7 +75,7 @@ class _PrtCompanyProfileState extends State<PrtCompanyProfile> {
                 ),
               ),
               Positioned(
-                top: MediaQuery.of(context).size.height * .35,
+                top: MediaQuery.of(context).size.height * .37,
                 left: 20.0,
                 child: Container(
                   height: MediaQuery.of(context).size.height,
@@ -142,7 +132,7 @@ class _PrtCompanyProfileState extends State<PrtCompanyProfile> {
                         ),
                         SizedBox(height: 20.0),
                         Text(
-                          'Product and Services Images',
+                          'Create Event',
                           style: TextStyle(color: AppPrimaryDark),
                         ),
                         SizedBox(height: 10.0),
@@ -193,7 +183,7 @@ class _PrtCompanyProfileState extends State<PrtCompanyProfile> {
               ),
             ]),
           ),
-        ));
+        );
   }
 
   Widget _getImageProducts(int i) {

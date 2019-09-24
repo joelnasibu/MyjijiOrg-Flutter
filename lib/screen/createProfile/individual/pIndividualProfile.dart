@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:organizer/style.dart';
 
 class PrtIndividualProfile extends StatefulWidget {
@@ -17,16 +18,7 @@ class _PrtIndividualProfileState extends State<PrtIndividualProfile> {
 
   @override
   Widget build(BuildContext context) {
-  return Scaffold(
-        backgroundColor: Colors.grey[200],
-        floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
-        floatingActionButton: FloatingActionButton.extended(                    
-          backgroundColor: AppPrimaryDark,
-          label: Text('Create Event',style:TextStyle(fontSize: TinyFontSize)),
-          icon: Icon(Icons.add_circle, color: Colors.white),
-          onPressed: () {},
-        ),
-        body: SafeArea(
+  return SafeArea(
           child: SingleChildScrollView(
             child: Stack(fit: StackFit.loose, children: <Widget>[
               Container(
@@ -76,16 +68,23 @@ class _PrtIndividualProfileState extends State<PrtIndividualProfile> {
                     border: Border.all(width: 3.0, color: Colors.white),
                     borderRadius: BorderRadius.circular(50),
                   ),
-                  child: CircleAvatar(
-                    backgroundColor: Colors.black.withOpacity(.4),
-                    backgroundImage: AssetImage(SystemImagePath + 'user.png'),
-                    child: Text('LOGO',
-                        style: TextStyle(fontWeight: FontWeight.bold)),
+                  child: InkWell(
+                    onTap: (){
+                       Fluttertoast.showToast(
+                                  msg: "Coming Soon",
+                                  toastLength: Toast.LENGTH_SHORT);
+                    },
+                    child: CircleAvatar(
+                      backgroundColor: Colors.black.withOpacity(.4),
+                      backgroundImage: AssetImage(SystemImagePath + 'user.png'),
+                      child: Text('LOGO',
+                          style: TextStyle(fontWeight: FontWeight.bold)),
+                    ),
                   ),
                 ),
               ),
               Positioned(
-                top: MediaQuery.of(context).size.height * .35,
+                top: MediaQuery.of(context).size.height * .37,
                 left: 20.0,
                 child: Container(
                   height: MediaQuery.of(context).size.height,
@@ -153,7 +152,7 @@ class _PrtIndividualProfileState extends State<PrtIndividualProfile> {
                         ),
                         SizedBox(height: 20.0),
                         Text(
-                          'Product and Services Images',
+                          'Create Event',
                           style: TextStyle(color: AppPrimaryDark),
                         ),
                         SizedBox(height: 10.0),
@@ -204,7 +203,7 @@ class _PrtIndividualProfileState extends State<PrtIndividualProfile> {
               ),
             ]),
           ),
-        ));
+        );
   }
 
   Widget _getImageProducts(int i) {

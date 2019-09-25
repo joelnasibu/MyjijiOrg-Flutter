@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:organizer/models/slideRight.dart';
+import 'package:organizer/models/slideleft.dart';
 import 'package:organizer/screen/createProfile/company/oCompanyProfile.dart';
 import 'package:organizer/screen/createProfile/individual/oIndividualProfile.dart';
+import 'package:organizer/screen/dashBoard/oDashboard.dart';
 import 'package:organizer/style.dart';
 
 class CreateProfileScreen extends StatefulWidget {
@@ -31,7 +34,12 @@ class _CreateProfileScreenState extends State<CreateProfileScreen>{
           IconButton(
             icon: Icon(Icons.save),
             color: AppPrimaryDark,
-            onPressed: () {},
+            onPressed: () {
+              Route route  = SlideLeft(
+                widget: DashBoard(),
+              );
+              Navigator.push(context, route);
+            },
           ),
           IconButton(
             icon: Icon(Icons.more_vert),

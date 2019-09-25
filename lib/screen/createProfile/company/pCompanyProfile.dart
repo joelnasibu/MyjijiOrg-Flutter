@@ -1,5 +1,7 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:organizer/style.dart';
+import 'package:image_picker/image_picker.dart';
 
 class PrtCompanyProfile extends StatefulWidget {
   @override
@@ -14,6 +16,9 @@ class _PrtCompanyProfileState extends State<PrtCompanyProfile> {
     'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80',
     'https://dominicanexpert.com/wp-content/uploads/2016/06/fondo-2.jpg'
   ];
+
+  Future <File> coverpageImage;
+  Future <File> profileImage;
 
   @override
   Widget build(BuildContext context) {
@@ -34,25 +39,70 @@ class _PrtCompanyProfileState extends State<PrtCompanyProfile> {
                 ),
               ),
               Positioned(
-                child: Container(
-                  margin: EdgeInsets.all(16.0),
-                  height: MediaQuery.of(context).size.height * .25,
-                  width: MediaQuery.of(context).size.width,
-                  child: Padding(
-                    padding: EdgeInsets.only(top: 16.0, right: 10.0),
-                    child: Text(
-                      'Upload cover photo',
-                      style: TextStyle(
-                          color: Colors.grey, fontSize: NormalFonteSize),
-                      textAlign: TextAlign.end,
-                    ),
-                  ),
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image:
-                          AssetImage(SystemImagePath + 'imageplaceholder.jpg'),
-                      fit: BoxFit.cover,
-                    ),
+                child: InkWell(
+                  onTap: (){
+                    fetchImage(ImageSource.gallery);
+                  },
+                  child: FutureBuilder<File>(
+                    future: coverpageImage,
+                    builder: (context, snapshot){
+                      if(snapshot.connectionState == ConnectionState.done && snapshot !=null){
+                        return Container(
+                          margin: EdgeInsets.all(16.0),
+                          height: MediaQuery.of(context).size.height * .25,
+                          width: MediaQuery.of(context).size.width,
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image: FileImage(snapshot.data),
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                          );
+
+                      }else if (snapshot.error !=null){
+                        return Container(
+                           margin: EdgeInsets.all(16.0),
+                            height: MediaQuery.of(context).size.height * .25,
+                            width: MediaQuery.of(context).size.width,
+                            child: Padding(
+                              padding: EdgeInsets.only(top: 16.0, right: 10.0),
+                              child: Icon(Icons.error,size: 50),
+                            ),
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                image:
+                                    AssetImage(SystemImagePath + 'imageplaceholder.jpg'),
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          );
+
+                      }else{
+                        return Container(
+                            margin: EdgeInsets.all(16.0),
+                            height: MediaQuery.of(context).size.height * .25,
+                            width: MediaQuery.of(context).size.width,
+                            child: Padding(
+                              padding: EdgeInsets.only(top: 16.0, right: 10.0),
+                              child: Text(
+                                'Upload cover photo',
+                                style: TextStyle(
+                                    color: Colors.grey, fontSize: NormalFonteSize),
+                                textAlign: TextAlign.end,
+                              ),
+                            ),
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                image:
+                                    AssetImage(SystemImagePath + 'imageplaceholder.jpg'),
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          );
+                      }
+
+                    },
+
                   ),
                 ),
               ),
@@ -184,6 +234,10 @@ class _PrtCompanyProfileState extends State<PrtCompanyProfile> {
             ]),
           ),
         );
+  }
+
+  void fetchImage(ImageSource source){
+    ImagePicker.pickImage(source: source);
   }
 
   Widget _getImageProducts(int i) {

@@ -1,12 +1,8 @@
 import 'dart:async';
 import 'dart:math';
-import 'package:catcher/catcher_plugin.dart';
-import 'package:catcher/mode/dialog_report_mode.dart';
-import 'package:catcher/model/catcher_options.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:organizer/models/slideleft.dart';
-import 'package:organizer/screen/dashBoard/oDashboard.dart';
 import 'package:organizer/screen/splashScreen/oSplash.dart';
 import 'package:organizer/style.dart';
 import 'package:appcenter/appcenter.dart';

@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:organizer/style.dart';
 
 class PrtIndividualProfile extends StatefulWidget {
@@ -15,6 +18,11 @@ class _PrtIndividualProfileState extends State<PrtIndividualProfile> {
     'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80',
     'https://dominicanexpert.com/wp-content/uploads/2016/06/fondo-2.jpg'
   ];
+
+  
+
+  Future<File> coverpageImage;
+  Future<File> profileImage;
 
   @override
   Widget build(BuildContext context) {
@@ -34,55 +42,23 @@ class _PrtIndividualProfileState extends State<PrtIndividualProfile> {
                   ),
                 ),
               ),
-              Positioned(
-                child: Container(
-                  margin: EdgeInsets.all(16.0),
-                  height: MediaQuery.of(context).size.height * .25,
-                  width: MediaQuery.of(context).size.width,
-                  child: Padding(
-                    padding: EdgeInsets.only(top: 16.0, right: 10.0),
-                    child: Text(
-                      'Upload cover photo',
-                      style: TextStyle(
-                          color: Colors.grey, fontSize: NormalFonteSize),
-                      textAlign: TextAlign.end,
-                    ),
-                  ),
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image:
-                          AssetImage(SystemImagePath + 'imageplaceholder.jpg'),
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
-              ),
-              Positioned(
-                top: MediaQuery.of(context).size.height * .20,
-                left: 30.0,
-                child: Container(
-                  height: 90.0,
-                  width: 90.0,
-                  padding: EdgeInsets.all(4.0),
-                  decoration: BoxDecoration(
-                    border: Border.all(width: 3.0, color: Colors.white),
-                    borderRadius: BorderRadius.circular(50),
-                  ),
-                  child: InkWell(
-                    onTap: (){
-                       Fluttertoast.showToast(
-                                  msg: "Coming Soon",
-                                  toastLength: Toast.LENGTH_SHORT);
-                    },
-                    child: CircleAvatar(
-                      backgroundColor: Colors.black.withOpacity(.4),
-                      backgroundImage: AssetImage(SystemImagePath + 'user.png'),
-                      child: Text('LOGO',
-                          style: TextStyle(fontWeight: FontWeight.bold)),
-                    ),
-                  ),
-                ),
-              ),
+               Positioned(
+            child: InkWell(
+              onTap: () {
+                fetchImage(ImageSource.gallery, 0);
+              },
+              child: _coverPage(),
+            ),
+          ),
+          Positioned(
+              top: MediaQuery.of(context).size.height * .20,
+              left: 30.0,
+              child: InkWell(
+                onTap: () {
+                  fetchImage(ImageSource.gallery, 1);
+                },
+                child: _profilePicture(),
+              )),
               Positioned(
                 top: MediaQuery.of(context).size.height * .37,
                 left: 20.0,
@@ -205,6 +181,130 @@ class _PrtIndividualProfileState extends State<PrtIndividualProfile> {
           ),
         );
   }
+
+
+  void fetchImage(ImageSource source, int pos) {
+    setState(() {
+      switch (pos) {
+        case 0:
+          coverpageImage = ImagePicker.pickImage(source: source);
+          break;
+        case 1:
+          profileImage = ImagePicker.pickImage(source: source);
+          break;
+        default:
+          break;
+      }
+    });
+  }
+
+  Widget _coverPage() {
+    return FutureBuilder<File>(
+      future: coverpageImage,
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.done &&
+            snapshot != null) {
+          return Container(
+            margin: EdgeInsets.all(16.0),
+            height: MediaQuery.of(context).size.height * .25,
+            width: MediaQuery.of(context).size.width,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: FileImage(snapshot.data),
+                fit: BoxFit.cover,
+              ),
+            ),
+          );
+        } else if (snapshot.error != null) {
+          return Container(
+            margin: EdgeInsets.all(16.0),
+            height: MediaQuery.of(context).size.height * .25,
+            width: MediaQuery.of(context).size.width,
+            child: Padding(
+              padding: EdgeInsets.only(top: 16.0, right: 10.0),
+              child: Icon(Icons.error, size: 50),
+            ),
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage(SystemImagePath + 'imageplaceholder.jpg'),
+                fit: BoxFit.cover,
+              ),
+            ),
+          );
+        } else {
+          return Container(
+            margin: EdgeInsets.all(16.0),
+            height: MediaQuery.of(context).size.height * .25,
+            width: MediaQuery.of(context).size.width,
+            child: Padding(
+              padding: EdgeInsets.only(top: 16.0, right: 10.0),
+              child: Text(
+                'Upload cover photo',
+                style: TextStyle(color: Colors.grey, fontSize: NormalFonteSize),
+                textAlign: TextAlign.end,
+              ),
+            ),
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage(SystemImagePath + 'imageplaceholder.jpg'),
+                fit: BoxFit.cover,
+              ),
+            ),
+          );
+        }
+      },
+    );
+  }
+
+  Widget _profilePicture() {
+    return FutureBuilder<File>(
+        future: profileImage,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.done &&
+              snapshot != null) {
+            return Container(
+              height: 90.0,
+              width: 90.0,
+              padding: EdgeInsets.all(4.0),
+              decoration: BoxDecoration(
+                border: Border.all(width: 3.0, color: Colors.white),
+                borderRadius: BorderRadius.circular(50),
+              ),
+              child: CircleAvatar(
+                backgroundImage: FileImage(snapshot.data),
+              ),
+            );
+          } else if (snapshot.error != null) {
+            return Container(
+                height: 90.0,
+                width: 90.0,
+                padding: EdgeInsets.all(4.0),
+                decoration: BoxDecoration(
+                  border: Border.all(width: 3.0, color: Colors.white),
+                  borderRadius: BorderRadius.circular(50),
+                ),
+                child: CircleAvatar(
+                    backgroundColor: Colors.black.withOpacity(.4),
+                    child: Icon(Icons.error)));
+          } else {
+            return Container(
+              height: 90.0,
+              width: 90.0,
+              padding: EdgeInsets.all(4.0),
+              decoration: BoxDecoration(
+                border: Border.all(width: 3.0, color: Colors.white),
+                borderRadius: BorderRadius.circular(50),
+              ),
+              child: CircleAvatar(
+                backgroundColor: Colors.black.withOpacity(.4),                
+                backgroundImage: AssetImage(SystemImagePath + 'user.png'),
+              )
+            );
+          }
+        });
+  }
+
+  
 
   Widget _getImageProducts(int i) {
     return Padding(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:organizer/screen/signUp/pSignUp.dart';
 import 'package:organizer/screen/signUp/tSignUp.dart';
+import 'package:organizer/screen/signUp/txSignUp.dart';
 import 'package:organizer/style.dart';
 
 class SignUpScreen extends StatelessWidget {
@@ -12,8 +13,10 @@ class SignUpScreen extends StatelessWidget {
         builder: (BuildContext context, BoxConstraints constraints) {
           if (constraints.maxWidth <= WidthDimension) {
             return PrtSignUp();
-          } else {
+          } else if(constraints.maxWidth > WidthDimension && constraints.maxWidth < TabwidthDimension){
             return TabSignUp();
+          }else{
+            return TabXSignUp();
           }
         },
       ),

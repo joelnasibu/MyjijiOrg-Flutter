@@ -73,14 +73,13 @@ class _TabConfirmState extends State<TabConfirm> {
                                             letterSpacing: 50.0,
                                           ),
                                           maxLength: 4,
-                                          textAlign: TextAlign.center,
                                           keyboardType: TextInputType.number,
                                           decoration: InputDecoration(
                                               contentPadding:
                                                   EdgeInsets.all(15.0),
                                               hintText: '----',
                                               hintStyle: TextStyle(
-                                                  fontSize: LargeFontSize),
+                                                  fontSize: ExtraLargeSize),
                                               border: OutlineInputBorder(
                                                   borderRadius:
                                                       BorderRadius.circular(

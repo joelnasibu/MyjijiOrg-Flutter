@@ -11,7 +11,10 @@ class PhoneScreen extends StatelessWidget {
         builder: (BuildContext context, BoxConstraints constraints) {
           if (constraints.maxWidth <= WidthDimension) {
             return PrtPhone();
-          } else {
+          }else if (constraints.maxWidth >TabwidthDimension){
+            return PrtPhone();
+          } 
+           else {
             return TabPhone();
           }
         },

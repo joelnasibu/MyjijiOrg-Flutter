@@ -22,6 +22,7 @@ const TinyFontSize      = 12.0;
 
 //Maximum Width Size Dimension
 const WidthDimension    = 530.0;
+const TabwidthDimension  = 900;
 
 // Main Image Assets Location
 const SystemImagePath   = 'assets/images/systems/';

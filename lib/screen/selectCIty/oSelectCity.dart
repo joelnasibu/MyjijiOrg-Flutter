@@ -11,7 +11,10 @@ class SelectCityScreen extends StatelessWidget {
         builder: (BuildContext context, BoxConstraints constraints) {
           if (constraints.maxWidth <= WidthDimension) {
             return PrtSelectCity();
-          } else {
+          } else if (constraints.maxWidth >TabwidthDimension){
+            return PrtSelectCity();
+          } 
+          else {
             return TabSelectCity();
           }
         },

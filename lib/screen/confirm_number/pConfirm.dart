@@ -73,14 +73,13 @@ class _PrtConfirmState extends State<PrtConfirm> {
                                             letterSpacing: 30.0,
                                           ),
                                           maxLength: 4,
-                                          textAlign: TextAlign.center,
                                           keyboardType: TextInputType.number,
                                           decoration: InputDecoration(
                                               contentPadding:
-                                                  EdgeInsets.all(10.0),
+                                                  EdgeInsets.symmetric(horizontal:30.0,vertical: 15.0),
                                               hintText: '----',
                                               hintStyle: TextStyle(
-                                                  fontSize: LargeFontSize),
+                                                  fontSize: ExtraLargeSize),
                                               border: OutlineInputBorder(
                                                   borderRadius:
                                                       BorderRadius.circular(

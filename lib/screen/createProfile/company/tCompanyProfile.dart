@@ -61,7 +61,7 @@ class _TabCompanyProfileState extends State<TabCompanyProfile> {
                 top: MediaQuery.of(context).size.height * .62,
                 left: 20.0,
                 child: Container(
-                  height: MediaQuery.of(context).size.height * 1.5,
+                  height: MediaQuery.of(context).size.height ,
                   width: MediaQuery.of(context).size.width * .95,
                   padding: EdgeInsets.symmetric(horizontal: 30.0),
                   child: Column(
@@ -71,7 +71,7 @@ class _TabCompanyProfileState extends State<TabCompanyProfile> {
                         TextFormField(
                           decoration: InputDecoration(
                               contentPadding: EdgeInsets.all(8.0),
-                              hintText: 'Business Name',
+                              hintText: 'Business Name ',
                               hintStyle: TextStyle(fontSize: TinyFontSize),
                               border: OutlineInputBorder(),
                               enabledBorder: OutlineInputBorder(

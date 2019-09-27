@@ -11,7 +11,10 @@ class ConfirmScreen extends StatelessWidget {
         builder: (BuildContext context, BoxConstraints constraints) {
           if (constraints.maxWidth <= WidthDimension) {
             return PrtConfirm();
-          } else {
+          } else if (constraints.maxWidth >TabwidthDimension){
+            return PrtConfirm();
+          } 
+          else {
             return TabConfirm();
           }
         },

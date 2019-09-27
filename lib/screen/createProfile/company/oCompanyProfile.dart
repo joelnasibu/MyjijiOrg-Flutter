@@ -12,7 +12,10 @@ class CompanyProfileScreen extends StatelessWidget {
         builder: (BuildContext context, BoxConstraints constraints) {
           if (constraints.maxWidth <= WidthDimension) {
             return PrtCompanyProfile();
-          } else {
+          } else if (constraints.maxWidth >TabwidthDimension){
+            return PrtCompanyProfile();
+          } 
+          else {
             return TabCompanyProfile();
           }
         },

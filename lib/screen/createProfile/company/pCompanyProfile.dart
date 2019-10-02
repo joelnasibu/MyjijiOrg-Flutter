@@ -41,7 +41,7 @@ class _PrtCompanyProfileState extends State<PrtCompanyProfile> {
           Positioned(
             child: InkWell(
               onTap: () {
-               // fetchImage(ImageSource.gallery, 0);
+                fetchImage(ImageSource.gallery, 0);
               },
               child: _coverPage(),
             ),

@@ -22,28 +22,292 @@ class PrtDashBoardState extends State<PrtDashBoard>{
     'https://www.vividfeatures.com/wp-content/uploads/2017/01/kenya-at-50-640x313.jpg'
 
   ];
+  String selected = null;
+  String selectCat = null;
+
+  List <String> _dropevent = [
+    'Event 1',
+    'Event 2',
+    'Event 3',
+    'Event 4',
+    'Event 5'
+  ];
+
+  List <String> _dropCategory = [
+    'Category 1',
+    'Category 2',
+    'Category 3',
+    'Category 4',
+    'Category 5',
+  ];
 
 
+  
+
+
+ 
  
 
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
-    return ListView(
-        children:[
-          Container(
+    double screenHeight = MediaQuery.of(context).size.height;
+
+    final section_1 =  Container(
             padding: EdgeInsets.symmetric(horizontal: 28.0,vertical: 10),
-            height: 45,
+            height: 50,                 
             decoration: BoxDecoration(
               color: Colors.grey[200],
             ),
             child: Container(
-              width: 15,
-              child: DropdownButton(
+              width: 200,
+              height: 20,
+              child: DropdownButton( 
+                items: _dropevent.map((value)=> DropdownMenuItem<String>(
+                  child: Text(value),
+                  value: value,
+                )).toList(),
+                underline: DropdownButtonHideUnderline(
+                  child: Text(''),
+                ),
+                hint: Text('Select Event'),
+                value: selected,
+                onChanged: (value){
+                  setState(() {
+                   selected = value; 
+                  });
+                },
                 
               )
             ),
+          );
+
+    final section_2 = Container(
+      height: screenHeight * .3,
+      margin: EdgeInsets.symmetric(horizontal:24.0),
+      decoration: BoxDecoration(  
+        borderRadius: BorderRadius.only(topLeft: Radius.circular(10.0), topRight: Radius.circular(10.0)),      
+        color: Colors.red,
+        image: DecorationImage(
+          image:AssetImage(SystemImagePath + 'images.jpg'),
+          fit: BoxFit.cover
+        )
+      ),
+      child: Align(
+        alignment: AlignmentDirectional.bottomStart,
+        child: Container(
+          height: 50,
+          color: Colors.black.withOpacity(.4),
+          padding: EdgeInsets.symmetric(horizontal: 16.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Text('Event Name',style:TextStyle(
+                color: Colors.white,
+                fontSize: NormalFonteSize
+              )),
+              Container(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: <Widget>[
+                    Icon(Icons.star, color:Colors.yellow,),
+                    Icon(Icons.star, color:Colors.yellow,),
+                    Icon(Icons.star, color:Colors.yellow,),
+                    Icon(Icons.star_half, color:Colors.yellow,),
+                    Icon(Icons.star_border, color:Colors.yellow,),
+                  ],
+                ),
+              )
+            ],
+          ),
+        ),
+
+      ),
+    );
+
+    final section_3 = Container(
+      height: 80,
+      padding: EdgeInsets.symmetric(horizontal: 24.0,vertical: 5),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: <Widget>[
+          Container(
+            width: (screenWidth-48) /3,
+            decoration: BoxDecoration(
+              border: Border(right: BorderSide(width: 1,color: Colors.grey[300]))
+            ),
+            child: Column(              
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                DropdownButton(
+                  value: selectCat,
+                  hint: Text("Category"),
+                  items: _dropCategory.map((val)=>DropdownMenuItem(
+                    child: Text(val,style: boldView,),
+                    value: val)).toList(),
+                  onChanged: (val){
+                    setState(() {
+                     selectCat = val; 
+                    });
+                  },
+                ),
+                Text("VIP001W",style: boldViewDown,)
+              ],
+            ),
+          ),
+          Container(            
+            width: (screenWidth-48)/3 ,
+             decoration: BoxDecoration(
+              border: Border(right: BorderSide(width: 1,color: Colors.grey[300]))
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                Text("ATTENDANCE",style: boldView,),
+                Text("3489",style: boldViewDown,)
+              ],
+            ),
+
+          ),
+          Container(            
+            width:  (screenWidth-48) /3,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                Text("Ticket Rate",style: boldView,),
+                Text("\$ 20",style: boldViewDown,)
+              ],
+            ),
+
           )
+
+        ],
+      ),
+    );
+
+    final section_4 = Container();
+   
+   
+    final section_5 = Container(
+      padding: EdgeInsets.symmetric(vertical:10.0,horizontal: 24.0),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Text('Statistics',style: boldView.merge(boldViewDown)),
+          Container(
+            padding: EdgeInsets.symmetric(vertical: 80),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                Column(
+                  children: <Widget>[
+                    Container(
+                      decoration:BoxDecoration(
+                        borderRadius: BorderRadius.circular(50),
+                        border: Border.all(width: 3,color: Colors.black)),
+                      width: 90,
+                      height: 90,
+                      child: Center(child:Text("46%",style: boldViewDown,)),
+                    ),
+                    Text("Platinum",style: boldViewDown,)
+                  ],
+                ),
+                Column(
+                  children: <Widget>[
+                    Container(
+                      decoration:BoxDecoration(
+                        borderRadius: BorderRadius.circular(50),
+                        border: Border.all(width: 3,color: Colors.orange)),
+                      width: 90,
+                      height: 90,
+                      child: Center(child:Text("53%",style: boldViewDown,)),
+                    ),
+                    Text("Gold",style: boldViewDown.apply(color: Colors.orange),)
+                  ],
+                ),
+                Column(
+                  children: <Widget>[
+                    Container(
+                      decoration:BoxDecoration(
+                        borderRadius: BorderRadius.circular(50),
+                        border: Border.all(width: 3,color: Colors.grey[400])),
+                      width: 90,
+                      height: 90,
+                      child: Center(child:Text("100%",style: boldViewDown,)),
+                    ),
+                    Text("Total",style: boldViewDown.apply(color: Colors.grey[400]),)
+                  ],
+                ),
+              ],
+            ),
+
+          )
+        ],
+      ),
+   );
+    
+    
+    
+    
+    
+    final section_6 = Container(
+      alignment: AlignmentDirectional.bottomCenter,
+      decoration: BoxDecoration(
+        border: Border(top: BorderSide(color: Colors.grey[300]))
+      ),
+      padding: EdgeInsets.symmetric(vertical: 10),
+      margin: EdgeInsets.symmetric(horizontal: 24.0),
+      child: ListTile(
+        leading: CircleAvatar(
+          radius: 30,
+          child: Icon(Icons.bluetooth),
+          ),
+        title: Text('Total Income',style: boldViewDown),
+        trailing: Text("\$ 69,489",style: boldViewDown.apply(color: Colors.green)),
+
+          
+
+      ),
+    );
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    return ListView(
+        children:[
+          section_1,
+          section_2,
+          section_3,
+          section_4,
+          section_5,
+          section_6
+         
         ]);   
   }
 

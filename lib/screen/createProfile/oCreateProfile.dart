@@ -3,7 +3,6 @@ import 'package:organizer/models/slideleft.dart';
 import 'package:organizer/screen/createProfile/company/oCompanyProfile.dart';
 import 'package:organizer/screen/createProfile/individual/oIndividualProfile.dart';
 import 'package:organizer/screen/dashBoard/oDashboard.dart';
-import 'package:organizer/screen/home/oHomepage.dart';
 import 'package:organizer/style.dart';
 
 class CreateProfileScreen extends StatefulWidget {

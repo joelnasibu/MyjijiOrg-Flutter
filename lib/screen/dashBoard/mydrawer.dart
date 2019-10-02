@@ -41,7 +41,7 @@ class MyDrawer extends StatelessWidget {
             ),
             ListTile(
               leading: Icon(Icons.trending_up),
-              title:  Text('My Services'),
+              title:  Text('Recent Events'),
              
               onTap: () {
                 
@@ -51,7 +51,7 @@ class MyDrawer extends StatelessWidget {
 
             ListTile(
               leading: Icon(Icons.history),
-              title: Text('History'),
+              title: Text('Get Venues'),
               trailing:  Container(
                     padding: const EdgeInsets.all(5.0), 
                     child: Text('10',style: TextStyle(color:Colors.white)),

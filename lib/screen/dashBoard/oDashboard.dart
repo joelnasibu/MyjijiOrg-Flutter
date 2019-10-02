@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:organizer/screen/dashBoard/pDashboard.dart';
 import 'package:organizer/screen/dashBoard/tDashboard.dart';
+import 'package:organizer/screen/dashBoard/mydrawer.dart';
 import 'package:organizer/style.dart';
 
 class DashBoard extends StatelessWidget {
@@ -10,6 +11,7 @@ class DashBoard extends StatelessWidget {
       appBar: AppBar(
         title: Text('Hot Event'),
       ),
+      drawer:MyDrawer(),
       body: LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
           if (constraints.maxWidth <= WidthDimension) {

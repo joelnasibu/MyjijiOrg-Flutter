@@ -20,11 +20,11 @@ void main() async {
 
   final ios = defaultTargetPlatform == TargetPlatform.iOS;
 
-  var app_secret = ios
+  var appSecret = ios
       ? "7c60e778-312a-4271-ac74-de209e975d88" 
       : "f40e4999-7fec-41f6-b9e5-44b252e793d9";
   await AppCenter.start(
-      app_secret, [AppCenterAnalytics.id, AppCenterCrashes.id]);
+      appSecret, [AppCenterAnalytics.id, AppCenterCrashes.id]);
 
   runApp(MyOrganizer());
 }

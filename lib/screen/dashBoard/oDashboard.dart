@@ -10,7 +10,6 @@ class DashBoard extends StatelessWidget {
       appBar: AppBar(
         title: Text('Hot Event'),
       ),
-      backgroundColor: Colors.black,
       body: LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
           if (constraints.maxWidth <= WidthDimension) {

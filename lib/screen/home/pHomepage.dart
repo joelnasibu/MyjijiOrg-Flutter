@@ -109,7 +109,7 @@ class PrtHomepageState extends State<PrtHomepage>{
   Widget listBuilder(BuildContext context, int index){//, AsyncSnapshot snapshot){
   return Card(
     color: Colors.grey[600].withOpacity(.4),
-    margin: const EdgeInsets.fromLTRB(10,10,10,40),
+    margin: const EdgeInsets.fromLTRB(10,10,10,10),
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(10)
     ),

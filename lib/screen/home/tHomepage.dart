@@ -28,11 +28,7 @@ class TabHomepageState extends State<TabHomepage>{
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(),
-      backgroundColor: Colors.black,
-
-      body:Stack(
+    return Stack(
         children:[
           Container(
             decoration: BoxDecoration(
@@ -51,8 +47,8 @@ class TabHomepageState extends State<TabHomepage>{
               
             ),
 
-        ])
-    );
+        ]);
+    
     
  
    

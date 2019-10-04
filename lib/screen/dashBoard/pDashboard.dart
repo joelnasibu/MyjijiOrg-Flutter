@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:organizer/style.dart';
+import 'package:charts_flutter/flutter.dart' as charts;
+
 
 class PrtDashBoard extends StatefulWidget {
   PrtDashBoardState createState() => PrtDashBoardState();
@@ -23,6 +25,7 @@ class PrtDashBoardState extends State<PrtDashBoard>{
 
   ];
   String selected = null;
+  String eventName = "Event Name";
   String selectCat = null;
 
   List <String> _dropevent = [
@@ -42,7 +45,35 @@ class PrtDashBoardState extends State<PrtDashBoard>{
   ];
 
 
+
+
+
   
+  static List< charts.Series<EventPop,String>> createSeries(){
+    final mydata = [
+        EventPop(1,200,charts.MaterialPalette.black),
+        EventPop(2,130,charts.MaterialPalette.deepOrange.shadeDefault),
+        EventPop(3,310,charts.MaterialPalette.deepOrange.shadeDefault),
+        EventPop(4,300,charts.MaterialPalette.black),
+        EventPop(5,200,charts.MaterialPalette.black),
+        EventPop(6,320,charts.MaterialPalette.green.shadeDefault),
+        EventPop(7,350,charts.MaterialPalette.deepOrange.shadeDefault),
+        EventPop(8,150,charts.MaterialPalette.green.shadeDefault),
+        EventPop(9,50,charts.MaterialPalette.deepOrange.shadeDefault),
+        EventPop(10,250,charts.MaterialPalette.green.shadeDefault),
+      ];
+
+    return [
+      charts.Series<EventPop,String>(
+        data: mydata,
+        id: "Tickets",
+        domainFn: (EventPop event, _)=> event.attendants.toString(),
+        measureFn: (EventPop event, _)=> event.tickets,
+      colorFn: (EventPop event,__)=> event.color,
+      )
+    ];
+
+  } 
 
 
  
@@ -75,6 +106,7 @@ class PrtDashBoardState extends State<PrtDashBoard>{
                 onChanged: (value){
                   setState(() {
                    selected = value; 
+                   eventName = value;
                   });
                 },
                 
@@ -86,10 +118,9 @@ class PrtDashBoardState extends State<PrtDashBoard>{
       height: screenHeight * .3,
       margin: EdgeInsets.symmetric(horizontal:24.0),
       decoration: BoxDecoration(  
-        borderRadius: BorderRadius.only(topLeft: Radius.circular(10.0), topRight: Radius.circular(10.0)),      
         color: Colors.red,
         image: DecorationImage(
-          image:AssetImage(SystemImagePath + 'images.jpg'),
+          image:AssetImage(SystemImagePath + 'event.jpg'),
           fit: BoxFit.cover
         )
       ),
@@ -97,12 +128,12 @@ class PrtDashBoardState extends State<PrtDashBoard>{
         alignment: AlignmentDirectional.bottomStart,
         child: Container(
           height: 50,
-          color: Colors.black.withOpacity(.4),
+          color: Colors.black.withOpacity(.6),
           padding: EdgeInsets.symmetric(horizontal: 16.0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              Text('Event Name',style:TextStyle(
+              Text(eventName,style:TextStyle(
                 color: Colors.white,
                 fontSize: NormalFonteSize
               )),
@@ -138,10 +169,13 @@ class PrtDashBoardState extends State<PrtDashBoard>{
               border: Border(right: BorderSide(width: 1,color: Colors.grey[300]))
             ),
             child: Column(              
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 DropdownButton(
+                  underline: DropdownButtonHideUnderline(
+                    child: Text(""),
+                  ),
                   value: selectCat,
                   hint: Text("Category"),
                   items: _dropCategory.map((val)=>DropdownMenuItem(
@@ -163,7 +197,7 @@ class PrtDashBoardState extends State<PrtDashBoard>{
               border: Border(right: BorderSide(width: 1,color: Colors.grey[300]))
             ),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 Text("ATTENDANCE",style: boldView,),
@@ -175,7 +209,7 @@ class PrtDashBoardState extends State<PrtDashBoard>{
           Container(            
             width:  (screenWidth-48) /3,
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 Text("Ticket Rate",style: boldView,),
@@ -189,13 +223,25 @@ class PrtDashBoardState extends State<PrtDashBoard>{
       ),
     );
 
-    final section_4 = Container();
+    final section_4 = Container(
+      height: 250,
+      padding: EdgeInsets.symmetric(horizontal:24.0,vertical: 10.0),
+
+     child: 
+       charts.BarChart(
+         createSeries(),
+         animate: true,
+        
+       ),
+      
+    );
    
    
     final section_5 = Container(
+      color: Colors.grey[100],
       padding: EdgeInsets.symmetric(vertical:10.0,horizontal: 24.0),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Text('Statistics',style: boldView.merge(boldViewDown)),
@@ -225,7 +271,7 @@ class PrtDashBoardState extends State<PrtDashBoard>{
                         border: Border.all(width: 3,color: Colors.orange)),
                       width: 90,
                       height: 90,
-                      child: Center(child:Text("53%",style: boldViewDown,)),
+                      child: Center(child:Text("54%",style: boldViewDown,)),
                     ),
                     Text("Gold",style: boldViewDown.apply(color: Colors.orange),)
                   ],
@@ -252,48 +298,26 @@ class PrtDashBoardState extends State<PrtDashBoard>{
    );
     
     
-    
-    
-    
     final section_6 = Container(
-      alignment: AlignmentDirectional.bottomCenter,
       decoration: BoxDecoration(
-        border: Border(top: BorderSide(color: Colors.grey[300]))
+        color: AppPrimaryDark,
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(35),topRight: Radius.circular(35.0))
       ),
-      padding: EdgeInsets.symmetric(vertical: 10),
-      margin: EdgeInsets.symmetric(horizontal: 24.0),
+      padding: EdgeInsets.symmetric(horizontal:10.0,vertical: 24),
+     // margin: EdgeInsets.symmetric(horizontal: 24.0),
       child: ListTile(
         leading: CircleAvatar(
+          backgroundColor: Colors.white,
           radius: 30,
-          child: Icon(Icons.bluetooth),
+          child: Icon(Icons.attach_money,size:40,color:AppPrimaryDark)
           ),
-        title: Text('Total Income',style: boldViewDown),
-        trailing: Text("\$ 69,489",style: boldViewDown.apply(color: Colors.green)),
-
-          
-
+        title: Text('Total Income',style: boldViewDown.copyWith(color:Colors.white)),
+        trailing: Text("\$ 69,489",style: boldViewDown.copyWith(
+          fontSize: ExtraLargeSize,
+          color: Colors.yellow)),
       ),
     );
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -311,4 +335,16 @@ class PrtDashBoardState extends State<PrtDashBoard>{
         ]);   
   }
 
+}
+
+
+
+
+
+class EventPop {
+  int tickets;
+  int attendants;
+  charts.Color color;
+
+  EventPop(this.attendants,this.tickets,this.color);
 }

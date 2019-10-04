@@ -10,6 +10,16 @@ class DashBoard extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Hot Event'),
+        actions: <Widget>[
+          IconButton(
+            icon:Icon(Icons.add_circle),
+            onPressed: (){},
+          ),
+           IconButton(
+            icon:Icon(Icons.more_vert),
+            onPressed: (){},
+          ),
+        ],
       ),
       drawer:MyDrawer(),
       body: LayoutBuilder(

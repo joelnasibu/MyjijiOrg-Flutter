@@ -12,116 +12,58 @@ class MyDrawer extends StatelessWidget {
          
           children: <Widget> [
             Container(
-              height: 230.0,
+              height: 200.0,
               child: UserAccountsDrawerHeader(
                 currentAccountPicture: CircleAvatar(
                   backgroundImage: NetworkImage('https://randomuser.me/api/portraits/men/4.jpg')),
                 accountName: Text("Profile Name"),
                 accountEmail: Text("Email",style:TextStyle(color: Colors.white)),
-
               decoration: BoxDecoration(   
                 color: AppPrimaryDark,             
               ),
-                    
-                
-
+                 
               )), 
            
-           
-           
-           
-            ListTile(
-              leading: Icon(Icons.dashboard),
-              title: Text('Dashboard'),
-              onTap: () {                
-                Navigator.push(context,MaterialPageRoute(
-                  builder: (context)=>DashBoard()
-                ));
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.trending_up),
-              title:  Text('Recent Events'),
-             
-              onTap: () {
-                
-                Navigator.pop(context);
-              },
-            ),
+            _listTileFormat(context, Icons.dashboard, "Dashboard", 0,DashBoard()),
+            _listTileFormat(context, Icons.trending_up, "Recent events", 0,DashBoard()),
+            _listTileFormat(context, Icons.high_quality,"Venues", 10,DashBoard()),
+            _listTileFormat(context, Icons.card_membership,"Tickets", 0,DashBoard()),
 
-            ListTile(
-              leading: Icon(Icons.history),
-              title: Text('Get Venues'),
-              trailing:  Container(
-                    padding: const EdgeInsets.all(5.0), 
-                    child: Text('10',style: TextStyle(color:Colors.white)),
-                    decoration: BoxDecoration(                      
-                      color: Colors.blue, 
-                      shape: BoxShape.circle                  
-                    ),
-                    
-                  ),
-              onTap: () {                
-                Navigator.pop(context);
-              },
-            ),
-
-            ListTile(
-              leading: Icon(Icons.pie_chart_outlined),
-              title:  Text('Analytics'),
-              trailing:  Container(
-                    padding: const EdgeInsets.all(5.0), 
-                    child: Text('5',style: TextStyle(color:Colors.white)),
-                    decoration: BoxDecoration(                      
-                      color: Colors.deepOrange[800], 
-                      shape: BoxShape.circle                  
-                    ),
-                    
-                  ),
-              onTap: () {
-                
-                Navigator.pop(context);
-              },
-            ),
-
-          
+                 
             Divider(),
-            ListTile(leading: Icon(Icons.settings),
-              title: Text('Settings'),
-              onTap: () {                
-                Navigator.pop(context);
-              },
-            ),
-            
-            ListTile(
 
-              leading: Icon(Icons.info_outline),
-              title: Text('about'),
-              onTap: () {                
-                Navigator.pop(context);
-              },
-            ),
+            _listTileFormat(context, Icons.settings,"Settings", 0, DashBoard()),
+            _listTileFormat(context, Icons.info_outline,"About", 0, DashBoard()),
+            _listTileFormat(context, Icons.help_outline,"Help", 0, DashBoard()),
+            _listTileFormat(context, Icons.power_settings_new,"Logout", 0, DashBoard()),
 
-            ListTile(
-              leading: Icon(Icons.help_outline),
-              title: Text('Help'),
-              onTap: () {                
-                Navigator.pop(context);
-              },
-            ),
-
-            ListTile(
-              leading: Icon(Icons.power_settings_new),
-              title: Text('Logout'),
-              onTap: () {                
-                Navigator.pop(context);
-              },
-            ),
 
 
 
           ],
         ),
     );
+  }
+
+
+  Widget _listTileFormat(BuildContext context,IconData icon, String title, int trailer,Widget page){
+   return  ListTile(
+              leading: Icon(icon,color: AppPrimaryDark,),
+              title: Text(title),
+              trailing:  trailer != 0 ? Container(
+                    padding: const EdgeInsets.all(5.0), 
+                    child: Text(trailer.toString(),style: TextStyle(color:Colors.white)),
+                    decoration: BoxDecoration(                      
+                      color: Colors.deepOrange[800], 
+                      shape: BoxShape.circle                  
+                    ),                    
+                  ): null,
+
+              onTap: () {                
+                Navigator.push(context,MaterialPageRoute(
+                  builder: (context)=>page
+                ));
+              },
+            );
   }
 }

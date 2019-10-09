@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:organizer/screen/dashBoard/pDashboard.dart';
 import 'package:organizer/screen/dashBoard/tDashboard.dart';
-import 'package:organizer/screen/dashBoard/mydrawer.dart';
 import 'package:organizer/style.dart';
 
 class DashBoard extends StatelessWidget {
@@ -10,9 +9,14 @@ class DashBoard extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Hot Event'),
+        leading: IconButton(
+          icon: Icon(Icons.menu),
+          onPressed: (){
+            Scaffold.of(context).openDrawer();
+          }),
         actions: <Widget>[
           IconButton(
-            icon:Icon(Icons.add_circle),
+            icon:Icon(Icons.add_circle,size: 30,),
             onPressed: (){},
           ),
            IconButton(
@@ -21,8 +25,7 @@ class DashBoard extends StatelessWidget {
           ),
         ],
       ),
-      drawer:MyDrawer(),
-      body: LayoutBuilder(
+      body:LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
           if (constraints.maxWidth <= WidthDimension) {
             return PrtDashBoard();
@@ -33,7 +36,7 @@ class DashBoard extends StatelessWidget {
             return TabDashBoard();
           }
         },
-      ),
+      )
     );
   }
 }

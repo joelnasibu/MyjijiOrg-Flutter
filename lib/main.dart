@@ -41,7 +41,7 @@ class MyOrganizer extends StatelessWidget {
     return MaterialApp(      
       debugShowCheckedModeBanner: false,
       theme: _themeConfig(),
-      home: CreateProfileScreen ()
+      home: Homepage ()
     );
   }
   ThemeData _themeConfig(){
@@ -60,7 +60,7 @@ class MyOrganizer extends StatelessWidget {
         backgroundColor         : AppSecondaryDark,         
       ),  
 
-      bottomAppBarColor         : AppPrimaryColor, 
+      bottomAppBarColor         : AppPrimaryDark, 
 
      
     );

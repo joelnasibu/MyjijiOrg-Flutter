@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:organizer/screen/dashBoard/oDashboard.dart';
+import 'package:organizer/screen/home/oHomepage.dart' as home;
 import 'package:organizer/style.dart';
 
-class MyDrawer extends StatelessWidget {
+class MyDrawer extends StatefulWidget {
+
+  @override
+  MyDrawerState createState() => MyDrawerState();
+}
+
+class MyDrawerState extends State<MyDrawer>{
+  
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -24,18 +31,18 @@ class MyDrawer extends StatelessWidget {
                  
               )), 
            
-            _listTileFormat(context, Icons.dashboard, "Dashboard", 0,DashBoard()),
-            _listTileFormat(context, Icons.trending_up, "Recent events", 0,DashBoard()),
-            _listTileFormat(context, Icons.high_quality,"Venues", 10,DashBoard()),
-            _listTileFormat(context, Icons.card_membership,"Tickets", 0,DashBoard()),
+            _listTileFormat(context, Icons.dashboard, "Dashboard", 0,0),
+            _listTileFormat(context, Icons.trending_up, "Recent events", 0,1),
+            _listTileFormat(context, Icons.high_quality,"Venues", 10,2),
+            _listTileFormat(context, Icons.card_membership,"Tickets", 0,3),
 
                  
             Divider(),
 
-            _listTileFormat(context, Icons.settings,"Settings", 0, DashBoard()),
-            _listTileFormat(context, Icons.info_outline,"About", 0, DashBoard()),
-            _listTileFormat(context, Icons.help_outline,"Help", 0, DashBoard()),
-            _listTileFormat(context, Icons.power_settings_new,"Logout", 0, DashBoard()),
+            _listTileFormat(context, Icons.settings,"Settings", 0, 4),
+            _listTileFormat(context, Icons.info_outline,"About", 0, 5),
+            _listTileFormat(context, Icons.help_outline,"Help", 0, 6),
+            _listTileFormat(context, Icons.power_settings_new,"Logout", 0, 7),
 
 
 
@@ -46,7 +53,7 @@ class MyDrawer extends StatelessWidget {
   }
 
 
-  Widget _listTileFormat(BuildContext context,IconData icon, String title, int trailer,Widget page){
+  Widget _listTileFormat(BuildContext context,IconData icon, String title, int trailer, int page){
    return  ListTile(
               leading: Icon(icon,color: AppPrimaryDark,),
               title: Text(title),
@@ -59,11 +66,10 @@ class MyDrawer extends StatelessWidget {
                     ),                    
                   ): null,
 
-              onTap: () {                
-                Navigator.push(context,MaterialPageRoute(
-                  builder: (context)=>page
-                ));
-              },
+              onTap: () {
+                home.HomepageState().clicked(page);
+                print (page);
+              }
             );
   }
 }

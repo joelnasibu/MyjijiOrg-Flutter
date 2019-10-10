@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:organizer/models/slideRight.dart';
+import 'package:organizer/screen/createEvent/oCreateEvent.dart';
 import 'package:organizer/screen/dashBoard/pDashboard.dart';
 import 'package:organizer/screen/dashBoard/tDashboard.dart';
 import 'package:organizer/style.dart';
@@ -17,7 +19,13 @@ class DashBoard extends StatelessWidget {
         actions: <Widget>[
           IconButton(
             icon:Icon(Icons.add_circle,size: 30,),
-            onPressed: (){},
+            onPressed: (){
+              Route route = SlideRight(
+                widget: CreateEvent(),
+                time: 500
+              );
+              Navigator.push(context, route);
+            },
           ),
            IconButton(
             icon:Icon(Icons.more_vert),

@@ -14,8 +14,6 @@ class _PrtTicketsState extends State<PrtTickets> {
   String selected = null;
   @override
   Widget build(BuildContext context) {
-    double screenHeight = MediaQuery.of(context).size.height;
-    double screenwidth = MediaQuery.of(context).size.width;
 
     final section_1 = Container(
       padding: const EdgeInsets.all(16.0),
@@ -119,7 +117,7 @@ class _PrtTicketsState extends State<PrtTickets> {
           radius: 30,
           child: Icon(Icons.attach_money,size:30,color:Colors.white)
           ),
-        title: Text('Revenu',style: boldViewDown),
+        title: Text('Revenue',style: boldViewDown),
         trailing: Text("\$ 9,489",style: boldViewDown.copyWith(
           fontSize: ExtraLargeSize,
           color: Colors.green)),

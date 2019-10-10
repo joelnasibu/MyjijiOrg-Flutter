@@ -49,7 +49,6 @@ class HomepageState extends State <Homepage>{
 
   @override
   Widget build(BuildContext context) {
-    double screenWidth= MediaQuery.of(context).size.width;
     return Scaffold(
 
       body: selectedPage(_selectedIndex),

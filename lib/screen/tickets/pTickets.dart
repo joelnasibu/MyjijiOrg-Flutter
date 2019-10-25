@@ -21,8 +21,8 @@ class _PrtTicketsState extends State<PrtTickets> {
     );
    
     final section_2 = Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0,vertical: 4.0),
-      margin: const EdgeInsets.symmetric(horizontal: 24.0,vertical: 10.0),
+      padding: const EdgeInsets.symmetric(horizontal: 10.0,vertical: 4.0),
+      margin: const EdgeInsets.symmetric(horizontal: 18.0,vertical: 10.0),
       height: 140,
       decoration: BoxDecoration(        
         borderRadius: BorderRadius.circular(10.0),
@@ -38,7 +38,7 @@ class _PrtTicketsState extends State<PrtTickets> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Container(
-                padding: EdgeInsets.symmetric(horizontal: 10),
+                padding: EdgeInsets.only(left: 2),
                 child: DropdownButton(                
                   underline: DropdownButtonHideUnderline(child: Text("")),
                   hint: Text('Select Category'),
@@ -56,7 +56,7 @@ class _PrtTicketsState extends State<PrtTickets> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(left:12.0),
+                padding: const EdgeInsets.only(left:4.0),
                 child: Text('Sales of now',style: boldView.copyWith(fontSize: 16.0),),
               ),
             ],
@@ -66,7 +66,7 @@ class _PrtTicketsState extends State<PrtTickets> {
 
             children: <Widget>[
               Container(
-                padding: EdgeInsets.symmetric(horizontal:12, vertical:16.0),
+                padding: EdgeInsets.symmetric(horizontal:4, vertical:16.0),
                 child: Text('Advantage Code',style: boldViewDown.copyWith(color: AppPrimaryDark,fontSize: 14.0))
               ),
               Text('GOLDDHA345'),
@@ -80,7 +80,7 @@ class _PrtTicketsState extends State<PrtTickets> {
     
     final section_3 = Container(
       padding: const EdgeInsets.symmetric(horizontal: 24.0,vertical: 16.0),
-      margin: const EdgeInsets.symmetric(horizontal: 24.0,vertical: 10.0),
+      margin: const EdgeInsets.symmetric(horizontal: 18.0,vertical: 10.0),
       decoration: BoxDecoration(
          borderRadius: BorderRadius.circular(10.0),
         border: Border.all(color: Colors.grey[300])

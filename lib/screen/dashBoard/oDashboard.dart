@@ -22,7 +22,7 @@ class DashBoard extends StatelessWidget {
             onPressed: (){
               Route route = SlideRight(
                 widget: CreateEvent(),
-                time: 500
+                time: 800
               );
               Navigator.push(context, route);
             },

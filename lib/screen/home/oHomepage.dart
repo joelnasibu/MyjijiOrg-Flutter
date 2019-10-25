@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:organizer/screen/Events/oEvents.dart';
+import 'package:organizer/screen/SetCategories/setCategories.dart';
 import 'package:organizer/screen/dashBoard/oDashboard.dart';
 import 'package:organizer/screen/tickets/oTickets.dart';
 import 'package:organizer/style.dart';
@@ -18,11 +20,11 @@ class HomepageState extends State <Homepage>{
     switch(option){
       case 0: return DashBoard();
         break;
-      case 1: return DashBoard();
+      case 1: return Events();
         break;
       case 2: return DashBoard();
         break;
-      case 3: return Tickets();
+      case 3: return SetCategories();
         break;
       case 4:return DashBoard();
         break;
@@ -59,7 +61,8 @@ class HomepageState extends State <Homepage>{
                   height: 200.0,
                   child: UserAccountsDrawerHeader(
                     currentAccountPicture: CircleAvatar(
-                      backgroundImage: NetworkImage('https://randomuser.me/api/portraits/men/4.jpg')),
+                      backgroundImage: AssetImage('assets/images/display_pictures/sheril.jpg')),
+                      //NetworkImage('https://randomuser.me/api/portraits/men/4.jpg')),
                     accountName: Text("Profile Name"),
                     accountEmail: Text("Email",style:TextStyle(color: Colors.white)),
                   decoration: BoxDecoration(   
@@ -71,7 +74,7 @@ class HomepageState extends State <Homepage>{
                 _listTileFormat(context, Icons.dashboard, "Dashboard", 0,0),
                 _listTileFormat(context, Icons.trending_up, "Recent events", 0,1),
                 _listTileFormat(context, Icons.high_quality,"Venues", 10,2),
-                _listTileFormat(context, Icons.card_membership,"Tickets", 0,3),
+                _listTileFormat(context, Icons.card_membership,"set Categories", 0,3),
 
                     
                 Divider(),
@@ -105,7 +108,6 @@ class HomepageState extends State <Homepage>{
 
               onTap: () {
                 clicked(page);
-                print (page);
               }
             );
   }

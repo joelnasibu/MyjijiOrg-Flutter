@@ -4,6 +4,9 @@ import 'package:organizer/screen/createEvent/tcreateEvent.dart';
 import 'package:organizer/style.dart';
 
 class CreateEvent extends StatelessWidget {
+  
+ // var globalformKey = GlobalKey<FormState>();
+ 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -13,6 +16,10 @@ class CreateEvent extends StatelessWidget {
         iconTheme: IconThemeData(
           color: Colors.black
         ),
+        actionsIconTheme: IconThemeData(
+          color: AppPrimaryDark
+        ),
+       
       ),
       body: LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {

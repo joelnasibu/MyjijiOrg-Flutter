@@ -12,23 +12,23 @@ import 'package:appcenter_analytics/appcenter_analytics.dart';
 import 'package:appcenter_crashes/appcenter_crashes.dart';
 
 
-//void main() => runApp(MyOrganizer());
+void main() => runApp(MyOrganizer());
 
 
-void main() async {
-  //debug configuration
-  //TargetPlatform defaultTargetPlatform;
+// void main() async {
+//   //debug configuration
+//   //TargetPlatform defaultTargetPlatform;
 
-  final ios = defaultTargetPlatform == TargetPlatform.iOS;
+//   final ios = defaultTargetPlatform == TargetPlatform.iOS;
 
-  var appSecret = ios
-      ? "7c60e778-312a-4271-ac74-de209e975d88" 
-      : "f40e4999-7fec-41f6-b9e5-44b252e793d9";
-  await AppCenter.start(
-      appSecret, [AppCenterAnalytics.id, AppCenterCrashes.id]);
+//   var appSecret = ios
+//       ? "7c60e778-312a-4271-ac74-de209e975d88" 
+//       : "f40e4999-7fec-41f6-b9e5-44b252e793d9";
+//   await AppCenter.start(
+//       appSecret, [AppCenterAnalytics.id, AppCenterCrashes.id]);
 
-  runApp(MyOrganizer());
-}
+//   runApp(MyOrganizer());
+// }
 
 
 
@@ -41,7 +41,7 @@ class MyOrganizer extends StatelessWidget {
     return MaterialApp(      
       debugShowCheckedModeBanner: false,
       theme: _themeConfig(),
-      home: Homepage ()
+      home: Splash()
     );
   }
   ThemeData _themeConfig(){
@@ -76,15 +76,22 @@ class Splash extends StatefulWidget {
 
 class _SplashState extends State<Splash> with SingleTickerProviderStateMixin {
  
+ AnimationController controller;
+ Animation<Offset> animate;
   @override
   void initState() {     
     super.initState();
+    controller = AnimationController(vsync: this,duration: Duration(milliseconds: 1000));
+    animate = Tween<Offset>(begin: Offset.zero,end: Offset(-1.0,0.0)).animate(CurvedAnimation(curve: Curves.fastLinearToSlowEaseIn,parent:controller));
+
     Timer(Duration(seconds: 5),(){
       Route route = SlideLeft(widget:SplashScreen(),time: 2000);
-        Navigator.pushReplacement(context, route);
+      //  Navigator.pushReplacement(context, route);
 
       }
     );
+    
+    controller.forward();
   }
 
 
@@ -94,8 +101,9 @@ class _SplashState extends State<Splash> with SingleTickerProviderStateMixin {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
-      body:  Container(
-             
+      body: Row(
+        children: <Widget>[
+           Container(             
               child: Center(
                 child: Hero(
                   placeholderBuilder: (context,size,child){
@@ -141,6 +149,35 @@ class _SplashState extends State<Splash> with SingleTickerProviderStateMixin {
                 )
             )
         ),      
+
+
+        AnimatedBuilder(
+          animation: animate,
+          builder: (context,child){
+            return SlideTransition(
+              position:animate,
+              child: child,
+            );
+          },
+          child: Container(
+          decoration: BoxDecoration(
+            color:Colors.white
+          ),
+          width:200,
+          height:200,
+        )),
+
+        FlatButton(
+          color: Colors.purple,
+          child:Text('animate'),
+          onPressed:(){
+            setState(() {
+             controller.forward();
+            });
+          }
+        )
+        ],
+      )
     );
   }
 

@@ -24,7 +24,8 @@ class _PrtTicketsState extends State<PrtTickets> {
       padding: const EdgeInsets.symmetric(horizontal: 10.0,vertical: 4.0),
       margin: const EdgeInsets.symmetric(horizontal: 18.0,vertical: 10.0),
       height: 140,
-      decoration: BoxDecoration(        
+      decoration: BoxDecoration(    
+        color: Colors.white,    
         borderRadius: BorderRadius.circular(10.0),
         border: Border.all(color: Colors.grey[300])
       ),
@@ -82,6 +83,7 @@ class _PrtTicketsState extends State<PrtTickets> {
       padding: const EdgeInsets.symmetric(horizontal: 24.0,vertical: 16.0),
       margin: const EdgeInsets.symmetric(horizontal: 18.0,vertical: 10.0),
       decoration: BoxDecoration(
+        color:Colors.white,
          borderRadius: BorderRadius.circular(10.0),
         border: Border.all(color: Colors.grey[300])
       ),
@@ -132,7 +134,7 @@ class _PrtTicketsState extends State<PrtTickets> {
         section_1,
         section_2,
         section_3,
-        section_4
+      section_4
       ],
     );
   }

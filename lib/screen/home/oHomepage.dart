@@ -74,7 +74,7 @@ class HomepageState extends State <Homepage>{
                 _listTileFormat(context, Icons.dashboard, "Dashboard", 0,0),
                 _listTileFormat(context, Icons.trending_up, "Recent events", 0,1),
                 _listTileFormat(context, Icons.high_quality,"Venues", 10,2),
-                _listTileFormat(context, Icons.card_membership,"set Categories", 0,3),
+                _listTileFormat(context, Icons.card_membership,"Categories", 0,3),
 
                     
                 Divider(),

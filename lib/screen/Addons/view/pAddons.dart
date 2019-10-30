@@ -1,5 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:organizer/style.dart';
 
 class PrtAddons extends StatefulWidget {
@@ -8,87 +12,87 @@ class PrtAddons extends StatefulWidget {
 }
 
 class _PrtAddonsState extends State<PrtAddons> with SingleTickerProviderStateMixin {
+  
   AnimationController _cnt;
   Animation<double> animation;
 
-   Map<String,dynamic> product = { 
+   Map<String,dynamic> products = { 
     'Soft-Drink':{
       'soda':{
           'price':100,
-          'picture':'soda.jpg'
+          'picture':'http://www.pngmart.com/files/7/Soda-Transparent-Background.png'
       },
       'Juice':{
           'price':120,
-          'picture':'juice.jpg'
+          'picture':'http://www.pngall.com/wp-content/uploads/2016/04/Juice-Download-PNG.png'
       },
       'Water':{
           'price':50,
-          'picture':'water.jpg'
+          'picture':'http://pngimg.com/uploads/water_bottle/water_bottle_PNG10157.png'
       }
     },
 
     'Accessories':{
       'T-shirt':{
           'price':350,
-          'picture':'water.jpg'
+          'picture':'http://pngimg.com/uploads/tshirt/tshirt_PNG5448.png'
       },
-      'Hat':{
+      'Cap':{
           'price':500,
-          'picture':'water.jpg'
+          'picture':'http://pngimg.com/uploads/cap/cap_PNG5686.png'
       },
       'Wrist Band':{
           'price':50,
-          'picture':'band.jpg'
+          'picture':'https://reminderbandblog.files.wordpress.com/2017/07/classic-3-stack.png?w=550'
         }
     },
    
     'Snack':{
       'Pop-Corn':{
           'price':100,
-          'picture':'pop.jpg'
+          'picture':'https://www.pngarts.com/files/4/Popcorn-PNG-Pic.png'
       },
       'Candy':{
           'price':30,
-          'picture':'candy.jpg'
+          'picture':'http://www.pngall.com/wp-content/uploads/2/Candy-Transparent.png'
       },
       'Crisps':{
           'price':80,
-          'picture':'water.jpg'
+          'picture':'https://img.fireden.net/v/image/1465/61/1465618724298.png'
       }
     },
     
     'Alcohol':{
       'Wine':{
           'price':800,
-          'picture':'wine.jpg'
+          'picture':'http://pngimg.com/uploads/wine/wine_PNG9456.png'
       },
       'Spirits':{
           'price':500,
-          'picture':'spirits.jpg'
+          'picture':'https://horizonlives3.s3.amazonaws.com/PR1517/d557a044a23f4eaaa367e7f387d206cc.png'
       },
       'Beer':{
           'price':150,
-          'picture':'beer.jpg'
+          'picture':'http://pngimg.com/uploads/beer/beer_PNG2374.png'
       }
     }
   };
   
-
-   Map<String,dynamic> products = {
-    'Soft-Drink':['Soda','Juice','Water'],
-    'Accessories':['T-Shirt','Hat','Bracelet'],
-    'Snack':['Pop-Corn','Chips','Chocolate','Sweets'],
-    'Alcohol':['champagne','beer','wine','spirits']
-  };
-
   List<String> populate = List<String>();
 
   String _productSelected;
+  String _newProductSlt;
   String _subSelected;
+  String _addedCat;
   String imageLink ;
   bool enableChecked=false;
-  double price= 0.0;
+  bool secondCheck = false;
+  bool portion = false;
+  int price= 0;
+  Future<File> uploaded;
+
   TextEditingController _edtController = TextEditingController();
+  TextEditingController _edtCatController = TextEditingController();
   var formKey = GlobalKey<FormState>();
   
 @override
@@ -109,8 +113,6 @@ class _PrtAddonsState extends State<PrtAddons> with SingleTickerProviderStateMix
       )),
     
     );
-
-
 
     final section_2 = Container(
       
@@ -137,14 +139,13 @@ class _PrtAddonsState extends State<PrtAddons> with SingleTickerProviderStateMix
                     );                    
                    
                     _subSelected = null;
-                    populate.clear();
-                    for (val in products[_productSelected]){
-                     populate.add(val);
-                    }
+                    imageLink = null;
+                    price = 0;
+                    populate = products[_productSelected].keys.toList();
                     
                   });
                 },
-                items: product.keys.map((val)=>                  
+                items: products.keys.map((val)=>                  
                   DropdownMenuItem<String>(                    
                     child: Text(val),
                     value: val
@@ -174,6 +175,9 @@ class _PrtAddonsState extends State<PrtAddons> with SingleTickerProviderStateMix
                 onChanged: (value){
                   setState(() {
                     _subSelected = value;
+
+                    price = products[_productSelected][_subSelected]['price'];
+                    imageLink = products[_productSelected][_subSelected]['picture'];
                     
                   });
                 }, 
@@ -191,17 +195,18 @@ class _PrtAddonsState extends State<PrtAddons> with SingleTickerProviderStateMix
         children: <Widget>[
           enableChecked?Expanded(
             child: TextFormField(
-              onFieldSubmitted: (val){
-                price = double.parse(val);
+              onSaved: (val){
+                price = int.parse(val);
               },
               keyboardType: TextInputType.number,
               controller: _edtController,
               decoration: InputDecoration(     
+                contentPadding: EdgeInsets.all(8.0),
                 border: OutlineInputBorder(                           
-                  borderRadius: BorderRadius.circular(20),
+                  borderRadius: BorderRadius.circular(10),
                 ),           
                 enabledBorder: OutlineInputBorder(                  
-                  borderRadius: BorderRadius.circular(20),
+                  borderRadius: BorderRadius.circular(10),
                   borderSide: BorderSide(color: Colors.grey[300]),
                 )
               ),
@@ -210,10 +215,14 @@ class _PrtAddonsState extends State<PrtAddons> with SingleTickerProviderStateMix
           Container(
             padding: EdgeInsets.symmetric(horizontal:50,vertical: 10),
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
+              borderRadius: BorderRadius.circular(10),
               border: Border.all(color:Colors.grey[300])
             ),
-            child:Text('KES $price'),
+            child:Text('KES $price',style: TextStyle(
+                    fontSize: NormalFonteSize,
+                    color: AppPrimaryDark,
+                    fontWeight: FontWeight.w700
+            ))
           ),
 
           Expanded(
@@ -221,14 +230,19 @@ class _PrtAddonsState extends State<PrtAddons> with SingleTickerProviderStateMix
             Container(
               margin: EdgeInsets.symmetric(horizontal: 24.0),
               child:RaisedButton(
-              child: Text('Save'),
-              onPressed: (){
-                final form = formKey.currentState;
+                color: AppPrimaryDark,                
+                child: Text('Save',style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.w700,
 
-                setState(() {
-                 form.save();
-                 enableChecked = !enableChecked;
-                });
+                )),
+                onPressed: (){
+                  final form = formKey.currentState;
+
+                  setState(() {
+                  form.save();
+                  enableChecked = !enableChecked;
+                  });
 
               
               },
@@ -243,37 +257,292 @@ class _PrtAddonsState extends State<PrtAddons> with SingleTickerProviderStateMix
                   
                 })
           )),
-          
           Container(
             width: 50,
             height: 50,
-            
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: imageLink!=null?
-                  NetworkImage(imageLink):
-                  AssetImage(SystemImagePath +'imageplaceholder.jpg')
-              )
-            ),
+            child: imageLink!=null?
+              FadeInImage.assetNetwork(
+                image: imageLink,
+                placeholder: SystemImagePath +'circlebar.gif'):
+              Image.asset(SystemImagePath +'imageplaceholder.jpg')  
           )
         ],
       ),
     );
-    final section_5 = Container();
+    
+    final section_5 = Container(
+      padding: EdgeInsets.only(top:10),
+      child: Card(
+        child: Padding(
+          padding:EdgeInsets.all(16.0),
+          child:Column(
+            children: <Widget>[
+              Container(
+                child: Row(
+                  children: <Widget>[
+                    Expanded(
+                      child: secondCheck?
+                        TextFormField(
+                          onFieldSubmitted: (val){
+                           _addedCat = val;
+                          },
+                          controller: _edtCatController,
+                          decoration: InputDecoration(     
+                          contentPadding: EdgeInsets.all(8.0),
+                            border: OutlineInputBorder(                           
+                              borderRadius: BorderRadius.circular(10),
+                            ),           
+                            enabledBorder: OutlineInputBorder(                  
+                              borderRadius: BorderRadius.circular(10),
+                              borderSide: BorderSide(color: Colors.grey[300]),
+                            )
+                          ),
+                        )
+                      :DropdownButtonFormField(
+                      
+                        decoration: InputDecoration(
+                          hintText:'Select Category',
+                          hintStyle: TextStyle(fontSize: TinyFontSize),
+                          contentPadding: EdgeInsets.all(8.0),
+                          border: OutlineInputBorder(),
+                          enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.grey[300]))),
+                              
+                        value: _newProductSlt,
+                        items: products.keys.map((val)=>
+                          DropdownMenuItem(
+                            child:Text(val),
+                            value:val)
+                        ).toList(),
 
+                        onChanged: (val){
+                          _newProductSlt = val;
+                        },
+                        
+
+                      ),
+                    ),
+
+
+                    Expanded(
+                     child:secondCheck?
+                      Container(
+                        margin: EdgeInsets.symmetric(horizontal: 24.0),
+                        child:RaisedButton(
+                          color: AppPrimaryDark,                
+                          child: Text('Save',style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w700,
+
+                          )),
+                          onPressed: (){
+                            setState(() {
+                              if(_addedCat!=null){
+                                products.addAll({
+                                  _addedCat:""
+                                  });
+                                  _newProductSlt = _addedCat;
+                                
+                              }
+                              formKey.currentState.save();
+                              secondCheck = !secondCheck;
+                             
+                            });
+
+                        
+                        },
+                      ))
+                      :CheckboxListTile(              
+                        title: Text('New Category',style: TextStyle(
+                          fontSize: TinyFontSize,
+                        ),),
+                        value: secondCheck,
+                        onChanged: (val)=>
+                          setState((){
+                            secondCheck = val;
+                           // _edtCatController.text = price.toString();
+                            
+                          })
+          )),
+                    
+                  ],
+                ),
+              ),
+            Container(
+              padding: EdgeInsets.symmetric(vertical:10),
+              child: Row(
+                children: <Widget>[
+                  Expanded(
+                    child: TextFormField(
+                      decoration: InputDecoration(                        
+                        hintText: "Add Item ",
+                        hintStyle: TextStyle(fontSize: TinyFontSize),
+                        contentPadding: EdgeInsets.all(8.0),
+                        border: OutlineInputBorder(),
+                        enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey[300]))),
+                         
+                    ),
+                  ),
+                  SizedBox(width: 5.0),
+                  Expanded(
+                    child: TextFormField(  
+                      keyboardType: TextInputType.number,
+                      decoration: InputDecoration(
+                        hintStyle: TextStyle(fontSize: TinyFontSize),
+                        hintText: "Add Price",
+                      contentPadding: EdgeInsets.all(8.0),
+                      border: OutlineInputBorder(),
+                      enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.grey[300]))),
+                         
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            
+            Container(
+              child: Row(
+                mainAxisAlignment:MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  Container(
+                      width:70,
+                      height:70,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage(SystemImagePath+'imageplaceholder.jpg')
+                        )
+                      ),
+
+                    child: FutureBuilder(
+                      future: uploaded,
+                      builder: (context, snapshot){
+                        if(snapshot.connectionState == ConnectionState.done &&
+                        snapshot.data!=null){
+                          return Container(
+                            width:70,
+                            height:70,
+                            decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image: FileImage(snapshot.data),
+                              fit: BoxFit.cover
+                            )
+                          ));
+
+                        }
+                        else if(snapshot.error !=null){
+                          return Container();
+                        }
+                        else{
+                          return InkWell(
+                            onTap: (){
+                              setState(() {
+                                uploaded = ImagePicker.pickImage(source: ImageSource.gallery);
+                              });
+                      
+                            },                      
+                            child:Container(
+                              decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                    image: AssetImage(SystemImagePath+'imageplaceholder.jpg')
+                                  )
+                                )
+                            )
+                        
+                          );
+                        }
+                      }
+                            
+                ),
+                  ),
+                Container(                  
+                  child: RaisedButton(
+                    color: AppPrimaryDark,
+                    child: Text("Save Addon",style:TextStyle(
+                      color:Colors.white
+                    )),
+                    onPressed: (){
+                      setState(() {
+                       portion = !portion; 
+                       uploaded = null;
+                        Fluttertoast.showToast(
+                          msg: 'Coming Soon',
+                          toastLength: Toast.LENGTH_SHORT,
+                        );
+                      });
+
+                    },
+                  ),
+                )
+              ],),
+            )
+            ],
+            
+
+
+          ),
+        ),
+      ),
+    );
+
+    final section_6 = Card(
+      margin: EdgeInsets.symmetric(horizontal:16,vertical: 20),
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 20,vertical: 20),
+        child: RaisedButton(
+          color: AppPrimaryDark,
+          child:Text('New Addons',style: TextStyle(
+            color: Colors.white
+          ),),
+          onPressed: (){
+            setState(() {
+              
+            portion = !portion;
+            });
+          },
+          
+        )
+      ,),
+    );
+
+    final section_7 = Container(
+      width: MediaQuery.of(context).size.width,
+      decoration: BoxDecoration(
+        border: Border.all(color:AppPrimaryColor)
+      ),
+      child:RaisedButton(
+        color: Colors.white,        
+        child: Padding(          
+          padding: const EdgeInsets.all(18.0),
+          child: Text('Save',style: boldViewDown.copyWith(color:AppPrimaryDark),),
+        ),
+        onPressed: (){
+          final form = formKey.currentState;
+          if(form.validate()){
+            form.save();
+          }
+          Fluttertoast.showToast(
+              msg:"Coming Soon",
+              toastLength: Toast.LENGTH_SHORT);
+        },
+    ));
+
+    
 
     return Container(
       padding: EdgeInsets.symmetric(horizontal:16),
 
       child: Form(
         key: formKey,
-        child:Column(
+        child:ListView(
         children: [
           section_1,
           section_2,
           section_3,
           section_4,
-          section_5
+          portion?section_5:section_6,
+          section_7
         ],      
     ))
     );

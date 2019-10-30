@@ -26,7 +26,7 @@ const TabwidthDimension  = 900;
 
 // Main Image Assets Location
 const SystemImagePath   = 'assets/images/systems/';
-const AppLogo           = 'assets/images/systems/logo.PNG';
+const AppLogo           = 'assets/images/systems/logo.png';
 const FirstBackgroundImage = 'assets/images/photo_picture.jpeg';
 const SecondBackgroundImage = 'assets/images/verification_code.jpeg';
 const ThirdBackgroundImage = 'https://c.pxhere.com/photos/f2/d6/adult_black_and_white_blur_fashion_furnitures_group_indoors_man-1488379.jpg!d';

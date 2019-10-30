@@ -8,7 +8,6 @@ import 'package:organizer/style.dart';
 class Tickets extends StatefulWidget {
   @override
   TicketsState createState() => TicketsState();
-
 }
 
 class TicketsState extends State<Tickets> with SingleTickerProviderStateMixin{
@@ -16,6 +15,7 @@ class TicketsState extends State<Tickets> with SingleTickerProviderStateMixin{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey[100],
       appBar: AppBar(        
         backgroundColor: Colors.white,
         title: Text('Tickets',style: TextStyle(

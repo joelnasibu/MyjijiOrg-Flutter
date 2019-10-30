@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:organizer/screen/Addons/view/oAddons.dart';
+import 'package:organizer/screen/bookings/obookings.dart';
 import 'package:organizer/screen/packages/oPackages.dart';
 import 'package:organizer/screen/tickets/oTickets.dart';
 import 'package:organizer/style.dart';
@@ -49,9 +50,9 @@ class SetCategoriesState extends State<SetCategories> with SingleTickerProviderS
         items :[
 
             _listBottomFormat(Icons.attach_money, "Tickets"),            
-            _listBottomFormat(Icons.open_in_browser, "Packages"),            
-            _listBottomFormat(Icons.category, "Addons"),            
-            _listBottomFormat(Icons.more_vert, "More"),            
+            _listBottomFormat(Icons.open_in_browser, "Packages"),           
+            _listBottomFormat(Icons.bookmark, "Bookings"),          
+            _listBottomFormat(Icons.category, "Addons"),               
 
         ]
       
@@ -68,9 +69,9 @@ class SetCategoriesState extends State<SetCategories> with SingleTickerProviderS
         break;
       case 1: return Packages();
         break;
-      case 2: return Addons();
+      case 2: return Bookings();
         break;
-      case 3: return Center(child: Text("More Settings"));
+      case 3: return Addons();
         break;
       default: return Tickets();
         break;

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:organizer/models/slideleft.dart';
 import 'package:organizer/screen/createProfile/company/oCompanyProfile.dart';
 import 'package:organizer/screen/createProfile/individual/oIndividualProfile.dart';
-import 'package:organizer/screen/dashBoard/oDashboard.dart';
+import 'package:organizer/screen/home/oHomepage.dart';
 import 'package:organizer/style.dart';
 
 class CreateProfileScreen extends StatefulWidget {
@@ -16,7 +16,6 @@ class _CreateProfileScreenState extends State<CreateProfileScreen>{
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      drawer: Container(),
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
@@ -32,10 +31,10 @@ class _CreateProfileScreenState extends State<CreateProfileScreen>{
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.save),
-            color: AppPrimaryDark,
+            color: AppPrimaryColor,
             onPressed: () {
               Route route  = SlideLeft(
-                widget: DashBoard(), time: 500
+                widget: Homepage(), time: 500
               );
               Navigator.push(context, route);
             },

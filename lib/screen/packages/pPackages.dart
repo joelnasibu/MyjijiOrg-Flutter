@@ -41,7 +41,7 @@ class _PrtPackagesState extends State<PrtPackages> {
   @override
   Widget build(BuildContext context){
     return Card(
-      margin: EdgeInsets.all(15.0),
+      margin: EdgeInsets.fromLTRB(15,15,15,70),
       elevation: 10.0,
       child:ListView.builder(
         itemCount: packages.length,

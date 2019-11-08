@@ -30,6 +30,7 @@ dependencies:
   appcenter_crashes: ^0.2.1
   image_picker: ^0.6.1+4
   charts_flutter: ^0.8.1
+  carousel_pro: ^1.0.0
 
 dev_dependencies:
   flutter_test:
@@ -52,6 +53,7 @@ flutter:
     - assets/images/
     - assets/images/systems/
     - assets/images/display_pictures/
+    - assets/images/banners/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

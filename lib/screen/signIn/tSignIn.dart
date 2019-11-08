@@ -26,7 +26,7 @@ class _TabSignInState extends State<TabSignIn> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     IconButton(
-                        icon: Icon(Icons.arrow_back, color: AppPrimaryDark),
+                        icon: Icon(Icons.arrow_back, color: AppPrimaryColor),
                         onPressed: () => Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
@@ -37,12 +37,12 @@ class _TabSignInState extends State<TabSignIn> {
                       padding: EdgeInsets.only(left: 16.0),
                       decoration: BoxDecoration(
                           border: Border(
-                        left: BorderSide(width: 1.5, color: AppPrimaryDark),
+                        left: BorderSide(width: 1.5, color: AppPrimaryColor),
                       )),
                       child: Text("Login",
                           style: Theme.of(context).textTheme.display1.copyWith(
                               fontWeight: FontWeight.w700,
-                              color: AppPrimaryDark)),
+                              color: AppPrimaryColor)),
                     )
                   ]),
             ),
@@ -104,11 +104,11 @@ class _TabSignInState extends State<TabSignIn> {
                           width: MediaQuery.of(context).size.width,
                           decoration: BoxDecoration(
                             border:
-                                Border.all(width: 1.5, color: AppPrimaryDark),
+                                Border.all(width: 1.5, color: AppPrimaryColor),
                             borderRadius: BorderRadius.circular(8.0),
                           ),
                           child: MaterialButton(
-                            textColor: AppPrimaryDark,
+                            textColor: AppPrimaryColor,
                             onPressed: () {
                               Scaffold.of(context).showSnackBar(SnackBar(
                                 content: Text('Coming Soon',
@@ -200,7 +200,7 @@ class _TabSignInState extends State<TabSignIn> {
                               child: MaterialButton(
                                 child: Text("Sign Up",
                                     style: TextStyle(
-                                      color: AppPrimaryDark,
+                                      color: AppPrimaryColor,
                                       fontWeight: FontWeight.w700,
                                     )),
                                 onPressed: () {

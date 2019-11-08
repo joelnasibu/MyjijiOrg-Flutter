@@ -63,11 +63,11 @@ class _PrtSplashState extends State<PrtSplash> {
                       Container(
                         width: screenWidth,
                         decoration: BoxDecoration(
-                          border: Border.all(width: 2.0, color: AppPrimaryDark),
+                          border: Border.all(width: 2.0, color: AppPrimaryColor),
                           borderRadius: BorderRadius.circular(10.0),
                         ),
                         child: MaterialButton(
-                          textColor: AppPrimaryDark,
+                          textColor: AppPrimaryColor,
                           onPressed: () {
                             Navigator.push(
                                 context,
@@ -86,7 +86,7 @@ class _PrtSplashState extends State<PrtSplash> {
                       Container(
                         width: screenWidth,
                         decoration: BoxDecoration(
-                          color: AppPrimaryDark,
+                          color: AppPrimaryColor,
                           borderRadius: BorderRadius.circular(10.0),
                         ),
                         child: MaterialButton(

@@ -22,7 +22,7 @@ class _TabConfirmState extends State<TabConfirm> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     IconButton(
-                        icon: Icon(Icons.arrow_back, color: AppPrimaryDark),
+                        icon: Icon(Icons.arrow_back, color: AppPrimaryColor),
                         onPressed: () => Navigator.pop(context)),
                     SizedBox(height: 8.0),
                     Container(
@@ -30,13 +30,13 @@ class _TabConfirmState extends State<TabConfirm> {
                       padding: EdgeInsets.only(left: 16.0),
                       decoration: BoxDecoration(
                           border: Border(
-                        left: BorderSide(width: 1.5, color: AppPrimaryDark),
+                        left: BorderSide(width: 1.5, color: AppPrimaryColor),
                        
                       )),
                       child: Text("Confirm Registration",
                           style: Theme.of(context).textTheme.title.copyWith(
                               fontWeight: FontWeight.w700,
-                              color: AppPrimaryDark)),
+                              color: AppPrimaryColor)),
                     )
                   ]),
             ),
@@ -90,7 +90,7 @@ class _TabConfirmState extends State<TabConfirm> {
                                         ),
                                         RaisedButton(
                                           child: Text('Resend Code'),
-                                          color: AppPrimaryDark,
+                                          color: AppPrimaryColor,
                                           textColor: Colors.white,
                                           onPressed: () {},
                                         ),

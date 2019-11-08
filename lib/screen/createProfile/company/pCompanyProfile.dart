@@ -110,7 +110,7 @@ class _PrtCompanyProfileState extends State<PrtCompanyProfile> {
                     SizedBox(height: 20.0),
                     Text(
                       'Create Event',
-                      style: TextStyle(color: AppPrimaryDark),
+                      style: TextStyle(color: AppPrimaryColor),
                     ),
                     SizedBox(height: 10.0),
                     Container(

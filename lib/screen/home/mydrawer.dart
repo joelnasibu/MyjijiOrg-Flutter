@@ -26,7 +26,7 @@ class MyDrawerState extends State<MyDrawer>{
                 accountName: Text("Profile Name"),
                 accountEmail: Text("Email",style:TextStyle(color: Colors.white)),
               decoration: BoxDecoration(   
-                color: AppPrimaryDark,             
+                color: AppPrimaryColor,             
               ),
                  
               )), 
@@ -55,7 +55,7 @@ class MyDrawerState extends State<MyDrawer>{
 
   Widget _listTileFormat(BuildContext context,IconData icon, String title, int trailer, int page){
    return  ListTile(
-              leading: Icon(icon,color: AppPrimaryDark,),
+              leading: Icon(icon,color: AppPrimaryColor,),
               title: Text(title),
               trailing:  trailer != 0 ? Container(
                     padding: const EdgeInsets.all(5.0), 

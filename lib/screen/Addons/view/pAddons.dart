@@ -220,7 +220,7 @@ class _PrtAddonsState extends State<PrtAddons> with SingleTickerProviderStateMix
             ),
             child:Text('KES $price',style: TextStyle(
                     fontSize: NormalFonteSize,
-                    color: AppPrimaryDark,
+                    color: AppPrimaryColor,
                     fontWeight: FontWeight.w700
             ))
           ),
@@ -230,7 +230,7 @@ class _PrtAddonsState extends State<PrtAddons> with SingleTickerProviderStateMix
             Container(
               margin: EdgeInsets.symmetric(horizontal: 24.0),
               child:RaisedButton(
-                color: AppPrimaryDark,                
+                color: AppPrimaryColor,                
                 child: Text('Save',style: TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.w700,
@@ -329,7 +329,7 @@ class _PrtAddonsState extends State<PrtAddons> with SingleTickerProviderStateMix
                       Container(
                         margin: EdgeInsets.symmetric(horizontal: 24.0),
                         child:RaisedButton(
-                          color: AppPrimaryDark,                
+                          color: AppPrimaryColor,                
                           child: Text('Save',style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.w700,
@@ -458,7 +458,7 @@ class _PrtAddonsState extends State<PrtAddons> with SingleTickerProviderStateMix
                   ),
                 Container(                  
                   child: RaisedButton(
-                    color: AppPrimaryDark,
+                    color: AppPrimaryColor,
                     child: Text("Save Addon",style:TextStyle(
                       color:Colors.white
                     )),
@@ -491,7 +491,7 @@ class _PrtAddonsState extends State<PrtAddons> with SingleTickerProviderStateMix
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 20,vertical: 20),
         child: RaisedButton(
-          color: AppPrimaryDark,
+          color: AppPrimaryColor,
           child:Text('New Addons',style: TextStyle(
             color: Colors.white
           ),),
@@ -515,7 +515,7 @@ class _PrtAddonsState extends State<PrtAddons> with SingleTickerProviderStateMix
         color: Colors.white,        
         child: Padding(          
           padding: const EdgeInsets.all(18.0),
-          child: Text('Save',style: boldViewDown.copyWith(color:AppPrimaryDark),),
+          child: Text('Save',style: boldViewDown.copyWith(color:AppPrimaryColor),),
         ),
         onPressed: (){
           final form = formKey.currentState;

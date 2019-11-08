@@ -18,21 +18,21 @@ class HomepageState extends State <Homepage>{
  
   Widget selectedPage(int option){
     switch(option){
-      case 0: return DashBoard();
+      case 0: return Events();
         break;
-      case 1: return Events();
+      case 1: return DashBoard();
         break;
       case 2: return DashBoard();
         break;
       case 3: return SetCategories();
         break;
-      case 4:return DashBoard();
+      case 4:return SetCategories();
         break;
       case 5:return DashBoard();
         break;
       case 6:return DashBoard();
         break;
-      case 7:return DashBoard();
+      case 7:return SetCategories();
         break;
       default: return DashBoard();                     
         break;
@@ -66,17 +66,12 @@ class HomepageState extends State <Homepage>{
                     accountName: Text("Profile Name"),
                     accountEmail: Text("Email",style:TextStyle(color: Colors.white)),
                   decoration: BoxDecoration(   
-                    color: AppPrimaryDark,             
+                    color: AppPrimaryColor,             
                   ),
                     
                   )), 
               
-                _listTileFormat(context, Icons.dashboard, "Dashboard", 0,0),
-                _listTileFormat(context, Icons.trending_up, "Recent events", 0,1),
-                _listTileFormat(context, Icons.high_quality,"Venues", 10,2),
-                _listTileFormat(context, Icons.card_membership,"Categories", 0,3),
-
-                    
+                               
                 Divider(),
 
                 _listTileFormat(context, Icons.settings,"Settings", 0, 4),
@@ -90,12 +85,51 @@ class HomepageState extends State <Homepage>{
               ],
             ),
         ),      
+    
+      
+ bottomNavigationBar: BottomNavigationBar(
+     //   backgroundColor: AppPrimaryColor,
+      //  type: BottomNavigationBarType.fixed,
+        currentIndex: _selectedIndex,
+        selectedItemColor: AppPrimaryColor,
+        unselectedItemColor: Colors.grey,
+        showUnselectedLabels: false,
+       // shape: CircularNotchedRectangle(), 
+
+       onTap: (index){
+         setState(() {
+          _selectedIndex = index; 
+
+         });
+       },
+
+        items :[
+
+            _listBottomFormat(Icons.home, "Home"),            
+            _listBottomFormat(Icons.dashboard, "Dashboard"),           
+            _listBottomFormat(Icons.notifications, "Notifications"),          
+            _listBottomFormat(Icons.person, "Account"),               
+            _listBottomFormat(Icons.more_vert, "More"),               
+
+        ]
+      
+      ),      
+         
+
+    
     );
+  }
+
+   _listBottomFormat(IconData icon, String title){      
+      return BottomNavigationBarItem(        
+        title:Text(title,style:TextStyle(fontSize:TinyFontSize)),
+        icon: Icon(icon,size: 20,),
+      );
   }
 
   Widget _listTileFormat(BuildContext context,IconData icon, String title, int trailer, int page){
    return  ListTile(
-              leading: Icon(icon,color: AppPrimaryDark ,),
+              leading: Icon(icon,color: AppPrimaryColor ,),
               title: Text(title),
               trailing:  trailer != 0 ? Container(
                     padding: const EdgeInsets.all(5.0), 
@@ -112,3 +146,5 @@ class HomepageState extends State <Homepage>{
             );
   }
 }
+
+

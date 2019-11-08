@@ -68,7 +68,7 @@ class _PrtTicketsState extends State<PrtTickets> {
             children: <Widget>[
               Container(
                 padding: EdgeInsets.symmetric(horizontal:4, vertical:16.0),
-                child: Text('Advantage Code',style: boldViewDown.copyWith(color: AppPrimaryDark,fontSize: 14.0))
+                child: Text('Advantage Code',style: boldViewDown.copyWith(color: AppPrimaryColor,fontSize: 14.0))
               ),
               Text('GOLDDHA345'),
             ],
@@ -92,7 +92,7 @@ class _PrtTicketsState extends State<PrtTickets> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Container(
-            child: Text('Events',style: boldViewDown.copyWith(color: AppPrimaryDark),),
+            child: Text('Events',style: boldViewDown.copyWith(color: AppPrimaryColor),),
           ),
           ListView.builder(
             shrinkWrap: true,
@@ -115,7 +115,7 @@ class _PrtTicketsState extends State<PrtTickets> {
      // margin: EdgeInsets.symmetric(horizontal: 24.0),
       child: ListTile(
         leading: CircleAvatar(
-          backgroundColor: AppPrimaryDark,
+          backgroundColor: AppPrimaryColor,
           radius: 30,
           child: Icon(Icons.attach_money,size:30,color:Colors.white)
           ),
@@ -176,7 +176,7 @@ class _PrtTicketsState extends State<PrtTickets> {
               crossAxisAlignment: CrossAxisAlignment.end,
               children: <Widget>[
                 Text("Safari Park",style:boldViewDown.copyWith(
-                  color:AppPrimaryDark,fontSize: 16.0)),
+                  color:AppPrimaryColor,fontSize: 16.0)),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical:8.0),
                   child: Text("23-06-2019"),

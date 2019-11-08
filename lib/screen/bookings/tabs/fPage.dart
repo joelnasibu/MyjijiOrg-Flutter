@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:organizer/style.dart';
 
 class FPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return  Container(
-      padding: EdgeInsets.symmetric(horizontal: 16.0,vertical: 10),
+      padding: EdgeInsets.fromLTRB(8.0,8.0,16,70),
       color: Colors.grey[100],
       child: CustomScrollView(
       slivers:[
@@ -33,9 +34,14 @@ class FPage extends StatelessWidget {
 
   _bookingLayout(BuildContext context,String title, int number, int likes,String image ){
     return Padding(
-      padding: const EdgeInsets.all(10),
+      padding: const EdgeInsets.all(4.0),
       child: InkWell(
-        onTap: (){},
+        onTap: (){
+          Fluttertoast.showToast(
+            msg: '$title\n Coming Soon',
+            toastLength: Toast.LENGTH_SHORT,
+          );
+        },
         child: Card(
           color: Colors.white,
           child: Column(
@@ -43,6 +49,7 @@ class FPage extends StatelessWidget {
               Expanded(
                   child: Container(
                   decoration: BoxDecoration(
+                    borderRadius: BorderRadius.only(topLeft: Radius.circular(4.0),topRight: Radius.circular(4.0)),
                     image: DecorationImage(
                       image: NetworkImage(image),
                       fit: BoxFit.cover
@@ -60,10 +67,10 @@ class FPage extends StatelessWidget {
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-                    Icon(Icons.bookmark,color: AppPrimaryDark,size: 20),
+                    Icon(Icons.bookmark,color: AppPrimaryColor,size: 20),
                     Padding(
                       padding: const EdgeInsets.only(left:8.0),
-                      child: Text('$number Bookings',style:TextStyle(color:AppPrimaryDark,fontSize: TinyFontSize)),
+                      child: Text('$number Bookings',style:TextStyle(color:AppPrimaryColor,fontSize: TinyFontSize)),
                     ),
                   ],
                 ),
@@ -75,10 +82,10 @@ class FPage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-                    Icon(Icons.favorite,color:AppPrimaryDark,size: 20,),
+                    Icon(Icons.favorite,color:Colors.blue[800],size: 20,),
                     Container(
                       width: 100,
-                      child: Text('$likes Following', style: TextStyle(fontSize:TinyFontSize,color:AppPrimaryDark))),
+                      child: Text('$likes Following', style: TextStyle(fontSize:TinyFontSize,color:Colors.blue[800]))),
                   ],
                 ),
               ),

@@ -12,81 +12,61 @@ class SetCategories extends StatefulWidget {
 }
 
 class SetCategoriesState extends State<SetCategories> with SingleTickerProviderStateMixin{
-  AnimationController _controller;
-  Animation _animate;
-  
-  String bottomTitle = "";
-  int _currentIndex = 0;
+  TabController _controller;
 
   @override
   void initState() { 
     super.initState();
-    _controller = AnimationController(vsync: this,duration: Duration(milliseconds: 500));
-    _animate = Tween(begin: 0, end: 1).animate(CurvedAnimation(parent: _controller,curve:Curves.fastOutSlowIn));
+    _controller = TabController(vsync:this,length: 4);
   }
 
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      
       extendBody: true,
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: AppPrimaryDark,
-        type: BottomNavigationBarType.fixed,
-        currentIndex: _currentIndex, 
-        selectedItemColor: Colors.yellow,
-        unselectedItemColor: Colors.white,
-        showUnselectedLabels: false,
-       // shape: CircularNotchedRectangle(), 
+      appBar: AppBar(
+        title: Text("More ... "),
+        bottom: TabBar(
+          controller: _controller,
+          tabs: <Widget>[
+            Container(
+              decoration: BoxDecoration(
+                color: Colors.white
+              ),
+              child: Text('Tickets'),
+            ),
+            Container(
+              child: Text('Packages'),
 
-       onTap: (index){
-         setState(() {
-          _currentIndex = index; 
+            ),
+            Container(
+              child: Text('Bookings'),
 
-         });
-       },
+            ),
+            Container(
+              child: Text('Addons'),
 
-        items :[
+            ),
 
-            _listBottomFormat(Icons.attach_money, "Tickets"),            
-            _listBottomFormat(Icons.open_in_browser, "Packages"),           
-            _listBottomFormat(Icons.bookmark, "Bookings"),          
-            _listBottomFormat(Icons.category, "Addons"),               
 
-        ]
+          ],
+          
+        ),
+      ),
       
-      ),      
-         
+      body: TabBarView(
+        controller: _controller,
+        children: <Widget>[
+          Tickets(),
+          Packages(),
+          Bookings(),
+          Addons()
+
+        ],
+      ),
+    );
+
      
-      body: _selectedPage(_currentIndex)
-  );
   }
-
-  Widget _selectedPage(int option){
-    switch(option){
-      case 0: return Tickets();
-        break;
-      case 1: return Packages();
-        break;
-      case 2: return Bookings();
-        break;
-      case 3: return Addons();
-        break;
-      default: return Tickets();
-        break;
-    }
-  }
-
-  
- _listBottomFormat(IconData icon, String title){      
-      return BottomNavigationBarItem(        
-        title:Text(title,style:TextStyle(fontSize:TinyFontSize)),
-        icon: Icon(icon),
-      );
-  }
-
-
 }
-
-         

@@ -51,10 +51,7 @@ TabController _tabController;
             ],
             onTap: (index){
 
-            },
-              
-
-            
+            },            
             ),
           ),
 

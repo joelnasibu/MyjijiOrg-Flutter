@@ -10,10 +10,9 @@ import 'package:organizer/style.dart';
 import 'package:appcenter/appcenter.dart';
 import 'package:appcenter_analytics/appcenter_analytics.dart';
 import 'package:appcenter_crashes/appcenter_crashes.dart';
-
+import 'package:organizer/testing.dart';
 
 void main() => runApp(MyOrganizer());
-
 
 // void main() async {
 //   //debug configuration
@@ -22,7 +21,7 @@ void main() => runApp(MyOrganizer());
 //   final ios = defaultTargetPlatform == TargetPlatform.iOS;
 
 //   var appSecret = ios
-//       ? "7c60e778-312a-4271-ac74-de209e975d88" 
+//       ? "7c60e778-312a-4271-ac74-de209e975d88"
 //       : "f40e4999-7fec-41f6-b9e5-44b252e793d9";
 //   await AppCenter.start(
 //       appSecret, [AppCenterAnalytics.id, AppCenterCrashes.id]);
@@ -30,161 +29,89 @@ void main() => runApp(MyOrganizer());
 //   runApp(MyOrganizer());
 // }
 
-
-
 class MyOrganizer extends StatelessWidget {
   // This widget is the root of your application.
 
   @override
   Widget build(BuildContext context) {
-    
-    return MaterialApp(      
-      debugShowCheckedModeBanner: false,
-      theme: _themeConfig(),
-      home: Splash()
+    return MaterialApp(
+        debugShowCheckedModeBanner: false,
+        theme: _themeConfig(),
+        home: Splash()
     );
   }
-  ThemeData _themeConfig(){
-    final baseTheme = ThemeData(
-      fontFamily: MainFontFamily
-    );
+
+  ThemeData _themeConfig() {
+    final baseTheme = ThemeData(fontFamily: MainFontFamily);
 
     return baseTheme.copyWith(
-      primaryColor              : AppPrimaryColor,
-      primaryColorLight         : AppPrimaryLight,
-      primaryColorDark          : AppPrimaryDark,
-      accentColor               : AppAccentColor,
-
-      buttonColor               : AppSecondaryDark,
-      floatingActionButtonTheme : FloatingActionButtonThemeData(
-        backgroundColor         : AppSecondaryDark,         
-      ),  
-
-      bottomAppBarColor         : AppPrimaryDark, 
-
-     
+      primaryColor: AppPrimaryColor,
+      primaryColorLight: AppPrimaryLight,
+      primaryColorDark: AppPrimaryDark,
+      accentColor: AppAccentColor,
+      buttonColor: AppSecondaryDark,
+      floatingActionButtonTheme: FloatingActionButtonThemeData(
+        backgroundColor: AppSecondaryColor,
+        focusColor: Colors.grey,
+      ),
+      bottomAppBarColor: AppPrimaryDark,
     );
   }
-
 }
-
 
 class Splash extends StatefulWidget {
   @override
   _SplashState createState() => _SplashState();
 }
 
-class _SplashState extends State<Splash> with SingleTickerProviderStateMixin {
- 
- AnimationController controller;
- Animation<Offset> animate;
+class _SplashState extends State<Splash> with TickerProviderStateMixin {
   @override
-  void initState() {     
+  void initState() {
     super.initState();
-    controller = AnimationController(vsync: this,duration: Duration(milliseconds: 1000));
-    animate = Tween<Offset>(begin: Offset.zero,end: Offset(-1.0,0.0)).animate(CurvedAnimation(curve: Curves.fastLinearToSlowEaseIn,parent:controller));
 
-    Timer(Duration(seconds: 5),(){
-      Route route = SlideLeft(widget:SplashScreen(),time: 2000);
-      //  Navigator.pushReplacement(context, route);
-
-      }
-    );
-    
-    controller.forward();
+    Timer(Duration(seconds: 5), () {
+      Route route = SlideLeft(widget: SplashScreen(), time: 2000);
+      Navigator.pushReplacement(context, route);
+    });
   }
-
-
-
 
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
+
     return Scaffold(
-      backgroundColor: Colors.black,
-      body: Row(
-        children: <Widget>[
-           Container(             
-              child: Center(
-                child: Hero(
-                  placeholderBuilder: (context,size,child){
-                    return Opacity(opacity: .2,child: child);
-
-                  },
-
-                  flightShuttleBuilder: (
-                    BuildContext flightContext,
+        backgroundColor: AppPrimaryColor,
+        body: Center(
+            child: Hero(
+                placeholderBuilder: (context, size, child) {
+                  return Opacity(opacity: .2, child: child);
+                },
+                flightShuttleBuilder: (BuildContext flightContext,
                     Animation<double> animation,
                     HeroFlightDirection flightDirection,
                     BuildContext fromHeroContext,
-                    BuildContext toHeroContext){
-                      final Hero hero = toHeroContext.widget;
+                    BuildContext toHeroContext) {
+                  final Hero hero = toHeroContext.widget;
 
-                      return ScaleTransition(
-                        scale: animation.drive(
-                          Tween<double>(begin: 0.0,end:1).chain(
-                            CurveTween(
-                            curve: Interval(0.0, 1.0,
-                                curve: PeakQuadraticCurve()
-                              ),
-                          ))
-                        ),
-                        child: hero.child,
-                      );
-
-
-                  },
-                  
-
-                  tag: 'myLogo',
-                  child:Container(
+                  return ScaleTransition(
+                    scale: animation.drive(
+                        Tween<double>(begin: 0.0, end: 1).chain(CurveTween(
+                      curve: Interval(0.0, 1.0, curve: PeakQuadraticCurve()),
+                    ))),
+                    child: hero.child,
+                  );
+                },
+                tag: 'myLogo',
+                child: Container(
                     height: 150.0,
                     width: 150.0,
                     decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image:AssetImage(AppLogo),
-                        fit: BoxFit.contain,
-                      )
-                    )
-                  )
-                )
-            )
-        ),      
-
-
-        AnimatedBuilder(
-          animation: animate,
-          builder: (context,child){
-            return SlideTransition(
-              position:animate,
-              child: child,
-            );
-          },
-          child: Container(
-          decoration: BoxDecoration(
-            color:Colors.white
-          ),
-          width:200,
-          height:200,
-        )),
-
-        FlatButton(
-          color: Colors.purple,
-          child:Text('animate'),
-          onPressed:(){
-            setState(() {
-             controller.forward();
-            });
-          }
-        )
-        ],
-      )
-    );
+                        image: DecorationImage(
+                      image: AssetImage(AppLogo),
+                      fit: BoxFit.contain,
+                    ))))));
   }
-
-
-
 }
-
 
 class PeakQuadraticCurve extends Curve {
   @override
@@ -193,4 +120,3 @@ class PeakQuadraticCurve extends Curve {
     return -10 * pow(t, 2) + 10 * t + 1;
   }
 }
-

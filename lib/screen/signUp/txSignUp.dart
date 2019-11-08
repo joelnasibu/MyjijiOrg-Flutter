@@ -27,7 +27,7 @@ class _TabXSignUpState extends State<TabXSignUp> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     IconButton(
-                      icon: Icon(Icons.arrow_back, color: AppPrimaryDark),
+                      icon: Icon(Icons.arrow_back, color: AppPrimaryColor),
                       onPressed: () => Navigator.pop(context),
                     ),
                     SizedBox(height: 8.0),
@@ -36,12 +36,12 @@ class _TabXSignUpState extends State<TabXSignUp> {
                       padding: EdgeInsets.only(left: 16.0),
                       decoration: BoxDecoration(
                           border: Border(
-                        left: BorderSide(width: 1.5, color: AppPrimaryDark),
+                        left: BorderSide(width: 1.5, color: AppPrimaryColor),
                       )),
                       child: Text("Sign Up",
                           style: Theme.of(context).textTheme.display1.copyWith(
                               fontWeight: FontWeight.w700,
-                              color: AppPrimaryDark)),
+                              color: AppPrimaryColor)),
                     )
                   ]),
             ),
@@ -142,7 +142,7 @@ class _TabXSignUpState extends State<TabXSignUp> {
                           height: 45.0,
                           width: MediaQuery.of(context).size.width,
                           decoration: BoxDecoration(
-                            color: AppPrimaryDark,
+                            color: AppPrimaryColor,
                             borderRadius: BorderRadius.circular(8.0),
                           ),
                           child: MaterialButton(
@@ -242,7 +242,7 @@ class _TabXSignUpState extends State<TabXSignUp> {
                               child: MaterialButton(
                                 child: Text("Login",
                                     style: TextStyle(
-                                      color: AppPrimaryDark,
+                                      color: AppPrimaryColor,
                                       fontWeight: FontWeight.w700,
                                     )),
                                 onPressed: () {

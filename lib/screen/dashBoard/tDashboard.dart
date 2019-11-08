@@ -299,7 +299,7 @@ class TabDashBoardState extends State<TabDashBoard>{
     
     final section_6 = Container(
       decoration: BoxDecoration(
-        color: AppPrimaryDark,
+        color: AppPrimaryColor,
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(35),topRight: Radius.circular(35.0))
       ),
@@ -309,7 +309,7 @@ class TabDashBoardState extends State<TabDashBoard>{
         leading: CircleAvatar(
           backgroundColor: Colors.white,
           radius: 30,
-          child: Icon(Icons.attach_money,size:40,color:AppPrimaryDark)
+          child: Icon(Icons.attach_money,size:40,color:AppPrimaryColor)
           ),
         title: Text('Total Income',style: boldViewDown.copyWith(color:Colors.white)),
         trailing: Text("\$ 69,489",style: boldViewDown.copyWith(

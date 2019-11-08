@@ -22,7 +22,7 @@ class _TabPhoneState extends State<TabPhone> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     IconButton(
-                        icon: Icon(Icons.arrow_back, color: AppPrimaryDark),
+                        icon: Icon(Icons.arrow_back, color: AppPrimaryColor),
                         onPressed: () => Navigator.pop(context)),
                     SizedBox(height: 8.0),
                     Container(
@@ -30,14 +30,14 @@ class _TabPhoneState extends State<TabPhone> {
                       padding: EdgeInsets.only(left: 16.0),
                       decoration: BoxDecoration(
                           border: Border(
-                        left: BorderSide(width: 1.5, color: AppPrimaryDark),
+                        left: BorderSide(width: 1.5, color: AppPrimaryColor),
                         // width: 2.0,
-                        // color: AppPrimaryDark
+                        // color: AppPrimaryColor
                       )),
                       child: Text("Enter Phone Number",
                           style: Theme.of(context).textTheme.title.copyWith(
                               fontWeight: FontWeight.w700,
-                              color: AppPrimaryDark)),
+                              color: AppPrimaryColor)),
                     )
                   ]),
             ),

@@ -17,7 +17,7 @@ class CreateEvent extends StatelessWidget {
           color: Colors.black
         ),
         actionsIconTheme: IconThemeData(
-          color: AppPrimaryDark
+          color: AppPrimaryColor
         ),
        
       ),

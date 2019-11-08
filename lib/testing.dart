@@ -6,81 +6,64 @@ class Testing extends StatefulWidget {
   _TestingState createState() => _TestingState();
 }
 
-class _TestingState extends State<Testing> {
-   final _formKey = GlobalKey<FormState>();
+class _TestingState extends State<Testing> with TickerProviderStateMixin {
+  AnimationController controller;
+  Animation animation;
 
-  int num1;
-  int num2;
-  int sum;
+  @override
+  void initState() {
+    super.initState();
+
+    controller = AnimationController(vsync: this,duration: Duration(seconds: 2 ));
+    animation = Tween(begin: -1.0,end: 1.0).animate(CurvedAnimation(parent: controller ,curve:Curves.easeInOut));
+
+    //controller.forward();
+  }
+  
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(title: Text("Testing Forms")),
-      body: Form(
-            key: _formKey,
-              child: ListView(padding: EdgeInsets.all(24.0), children: <Widget>[
-                  TextFormField(
-                    keyboardType: TextInputType.number,
-                    validator: (val) {
-                      if (val.isEmpty) {
-                        return 'Enter First Number';
-                      }
-                    },
-                    onSaved: (value) {
-                      setState(() {
-                        num1 = int.parse(value);
-                      });
-                    },
-                    decoration: InputDecoration(
-                      labelText: 'First Number',
-                      labelStyle: boldView
-                    ),
-                  ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.airplanemode_active),
+        onPressed: (){
+          setState(() {
+            if(controller.isCompleted == true){
+              controller.reverse();
+            }
+            else{
+            controller.forward(); 
 
-                  SizedBox(
-                    height: 30,
-                  ),
+            }
 
-                  TextFormField(
-                    validator: (value){
-                      if (value.isEmpty) {
-                        return 'Enter Second Number';
-                      }
-                    },
-                    onSaved: (value) {
-                      setState(() {
-                        num2 = int.parse(value);
-                      });
-                    },
-                    keyboardType: TextInputType.number,
-                    decoration: InputDecoration(
-                      hintText: 'Second Number',
-                      hintStyle: boldView
-                    ),
-                  ),
-                  SizedBox(
-                    height: 30,
-                  ),
-                  Container(
-                    child: Text(sum != null ? sum.toString() : "0"),
-                  ),
-                  FloatingActionButton(
-                    child: Text('save'),
-                    onPressed: () {
-                      final form = _formKey.currentState;
-                      if (form.validate()){
-                        form.save();
-                        setState(() {
-                           sum = num1 + num2;
+          });
+        },
+      ),
+      backgroundColor: Colors.black,
+      body: 
+      // AnimatedBuilder(
+      //   animation: controller,
+      //   builder:(context,widget){
+      //     return Transform(
+      //       child: widget,
+      //       transform: Matrix4.translationValues(animation.value * width,0.0,0.0),
 
-                        });
-                        
-                      }
-                     
-                    },
-                  )
-                ]),
-              ),
+      //     );
+      //   },
+      // child:
+      Container(
+        width: 500,
+        height: 500,
+        margin: EdgeInsets.all(40),
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/images/systems/mainlogo.png')
+          )
+        ),
+      ),
+      
+     
     );
   }
 }

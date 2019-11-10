@@ -1,7 +1,10 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:organizer/models/slideRight.dart';
 import 'package:organizer/models/validate_createEvent.dart';
+import 'package:organizer/screen/Addons/new/oNewAddon.dart';
+import 'package:organizer/screen/Addons/view/oAddons.dart';
 import 'package:organizer/style.dart';
 
 class PrtCreateEvent extends StatefulWidget {
@@ -199,6 +202,8 @@ class _PrtCreateEventState extends State<PrtCreateEvent> {
                         });
                       },
                       decoration: InputDecoration(
+                        filled: true,
+                        fillColor: Colors.white,
                           contentPadding: EdgeInsets.all(8.0),
                           border: OutlineInputBorder(),
                           enabledBorder: OutlineInputBorder(
@@ -215,7 +220,8 @@ class _PrtCreateEventState extends State<PrtCreateEvent> {
                       height: 70,
                       padding: EdgeInsets.symmetric(vertical: 8.0),
                       decoration: BoxDecoration(
-                        border: Border.all(color:Colors.grey[300])
+                        border: Border.all(color:Colors.grey[300]),
+                        color: Colors.white
                         
                       ),
                       child:Row(
@@ -273,29 +279,50 @@ class _PrtCreateEventState extends State<PrtCreateEvent> {
 
                     SizedBox(height: 10.0),
 
-                    DropdownButtonFormField(
-                      validator:(value){
-                        if (value ==null){
-                          return 'Please Select Event Admission';
-                        }
-                      },
-                      hint: Text('Event Admission',style: TextStyle(fontSize: SmallFontSize)),
-                      value: _selectedAdmission,
-                      items: admission.map( (val)=> DropdownMenuItem<String>(
-                        value: val,child: Text(val),
-                      )).toList(),
-                      onChanged: (val){
-                        setState(() {
-                         _selectedAdmission = val; 
-                        });
-                      },
-                      decoration: InputDecoration(
-                          contentPadding: EdgeInsets.all(8.0),
-                          border: OutlineInputBorder(),
-                          enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.grey[300]))),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: <Widget>[
+                        Expanded(
+                          child: DropdownButtonFormField(
+                              validator:(value){
+                                if (value ==null){
+                                  return 'Please Select Event Admission';
+                                }
+                              },
+                              hint: Text('Event Admission',style: TextStyle(fontSize: SmallFontSize)),
+                              value: _selectedAdmission,
+                              items: admission.map( (val)=> DropdownMenuItem<String>(
+                                value: val,child: Text(val),
+                              )).toList(),
+                              onChanged: (val){
+                                setState(() {
+                                _selectedAdmission = val; 
+                                });
+                              },
+                              decoration: InputDecoration(
+                                fillColor: Colors.white,
+                                filled: true,
+                                  contentPadding: EdgeInsets.all(8.0),
+                                  border: OutlineInputBorder(),
+                                  enabledBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(color: Colors.grey[300]))),
+                            ),
+                                             
+                        ),
+                        SizedBox(width: 10),
+                        RaisedButton(                        
+                          child: Text('Addons +',style: TextStyle(fontWeight: FontWeight.bold),),
+                          color: AppSecondaryColor,                         
+                          onPressed: (){
+                            Route route = SlideRight(
+                              widget: NewAddon(),time: 800
+                            );
+                            Navigator.push(context, route);
+                          },
+                        )
+                      ],
                     ),
-                    
+
                     SizedBox(height: 10.0),
 
                     Row(
@@ -376,6 +403,8 @@ class _PrtCreateEventState extends State<PrtCreateEvent> {
 
                     
 
+                    
+
 
                    
                   ]),
@@ -430,7 +459,9 @@ class _PrtCreateEventState extends State<PrtCreateEvent> {
          _event.eventName = label; 
         });
       },
-      decoration: InputDecoration(                
+      decoration: InputDecoration(  
+        filled: true,
+        fillColor: Colors.white,
         suffixIcon: Icon(icon,color: Colors.grey[400],),                
         contentPadding: EdgeInsets.all(10.0),
         labelText: label,

@@ -16,24 +16,7 @@ class _AddonsState extends State<Addons> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(        
-        backgroundColor: Colors.white,
-        title: Text('Event Addons',style: TextStyle(
-            color: Colors.black
-          ),
-        
-        ),  
-        actions: <Widget>[
-           
-            
-            IconButton(
-              icon:Icon(Icons.more_vert),
-              color:Colors.black,
-              onPressed: (){},
-            ),
-        ],     
-      ),
- 
+      
       body:LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
           if (constraints.maxWidth <= WidthDimension) {

@@ -15,34 +15,11 @@ class TicketsState extends State<Tickets> with SingleTickerProviderStateMixin{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[100],
-      appBar: AppBar(        
-        backgroundColor: Colors.white,
-        title: Text('Tickets',style: TextStyle(
-            color: Colors.black
-          ),
-        
-        ),  
-        actions: <Widget>[
-           IconButton(
-              icon:Icon(Icons.add),
-              color:Colors.black,
-              onPressed: (){
-                Route route = SlideLeft(
-                widget: CreateEvent(),
-                time:800
-              );
-            Navigator.push(context, route);
-              },
-            ),
-            
-            IconButton(
-              icon:Icon(Icons.more_vert),
-              color:Colors.black,
-              onPressed: (){},
-            ),
-        ],     
-      ),
+      backgroundColor: Colors.grey[200],
+      floatingActionButton: FloatingActionButton(
+        child:Icon(Icons.add,color:Colors.black),
+      ),        
+      
  
       body:LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {

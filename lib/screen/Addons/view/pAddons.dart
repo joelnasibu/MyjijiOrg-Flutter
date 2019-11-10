@@ -230,9 +230,9 @@ class _PrtAddonsState extends State<PrtAddons> with SingleTickerProviderStateMix
             Container(
               margin: EdgeInsets.symmetric(horizontal: 24.0),
               child:RaisedButton(
-                color: AppPrimaryColor,                
+                color: AppSecondaryColor,                
                 child: Text('Save',style: TextStyle(
-                  color: Colors.white,
+                  color: Colors.black,
                   fontWeight: FontWeight.w700,
 
                 )),
@@ -273,6 +273,7 @@ class _PrtAddonsState extends State<PrtAddons> with SingleTickerProviderStateMix
     final section_5 = Container(
       padding: EdgeInsets.only(top:10),
       child: Card(
+        elevation: 4.0,
         child: Padding(
           padding:EdgeInsets.all(16.0),
           child:Column(
@@ -329,9 +330,9 @@ class _PrtAddonsState extends State<PrtAddons> with SingleTickerProviderStateMix
                       Container(
                         margin: EdgeInsets.symmetric(horizontal: 24.0),
                         child:RaisedButton(
-                          color: AppPrimaryColor,                
+                          color: AppSecondaryColor,                
                           child: Text('Save',style: TextStyle(
-                            color: Colors.white,
+                            color: Colors.black,
                             fontWeight: FontWeight.w700,
 
                           )),
@@ -458,9 +459,9 @@ class _PrtAddonsState extends State<PrtAddons> with SingleTickerProviderStateMix
                   ),
                 Container(                  
                   child: RaisedButton(
-                    color: AppPrimaryColor,
+                    color: AppSecondaryColor,
                     child: Text("Save Addon",style:TextStyle(
-                      color:Colors.white
+                      color:Colors.black,fontWeight: FontWeight.bold
                     )),
                     onPressed: (){
                       setState(() {
@@ -491,9 +492,9 @@ class _PrtAddonsState extends State<PrtAddons> with SingleTickerProviderStateMix
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 20,vertical: 20),
         child: RaisedButton(
-          color: AppPrimaryColor,
+          color: AppSecondaryColor,
           child:Text('New Addons',style: TextStyle(
-            color: Colors.white
+            color: Colors.black,fontWeight: FontWeight.bold
           ),),
           onPressed: (){
             setState(() {
@@ -507,15 +508,16 @@ class _PrtAddonsState extends State<PrtAddons> with SingleTickerProviderStateMix
     );
 
     final section_7 = Container(
-      width: MediaQuery.of(context).size.width,
+      width: MediaQuery.of(context).size.width,      
+      margin: EdgeInsets.only(bottom: 50),
       decoration: BoxDecoration(
-        border: Border.all(color:AppPrimaryColor)
+        border: Border.all(color:AppSecondaryColor)
       ),
       child:RaisedButton(
-        color: Colors.white,        
+        color: AppPrimaryColor,        
         child: Padding(          
           padding: const EdgeInsets.all(18.0),
-          child: Text('Save',style: boldViewDown.copyWith(color:AppPrimaryColor),),
+          child: Text('Save',style: boldViewDown.copyWith(color:AppSecondaryColor),),
         ),
         onPressed: (){
           final form = formKey.currentState;

@@ -28,24 +28,27 @@ class SetCategoriesState extends State<SetCategories> with SingleTickerProviderS
       appBar: AppBar(
         title: Text("More ... "),
         bottom: TabBar(
+          isScrollable:true,
           controller: _controller,
+          indicatorColor: AppSecondaryColor,
+          labelColor: AppSecondaryColor,
+          unselectedLabelColor: Colors.grey,
           tabs: <Widget>[
-            Container(
-              decoration: BoxDecoration(
-                color: Colors.white
-              ),
-              child: Text('Tickets'),
-            ),
-            Container(
-              child: Text('Packages'),
+            Tab(
+              text: 'Bookings',
 
             ),
-            Container(
-              child: Text('Bookings'),
+           
+            Tab(
+              text: 'Packages',
 
             ),
-            Container(
-              child: Text('Addons'),
+             Tab(
+              text: 'Tickets',
+            ),
+           
+            Tab(
+              text: 'Addons',
 
             ),
 
@@ -58,9 +61,9 @@ class SetCategoriesState extends State<SetCategories> with SingleTickerProviderS
       body: TabBarView(
         controller: _controller,
         children: <Widget>[
-          Tickets(),
-          Packages(),
           Bookings(),
+          Packages(),
+          Tickets(),
           Addons()
 
         ],

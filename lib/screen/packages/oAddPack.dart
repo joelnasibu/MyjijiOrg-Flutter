@@ -10,15 +10,14 @@ class AddPackages extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(        
-        backgroundColor: Colors.white,
+        backgroundColor: AppPrimaryColor,
         title: Text('New Package',style: TextStyle(
-            color: Colors.black,fontSize: NormalFonteSize
+            fontSize: NormalFonteSize
           ),
         
         ),  
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
-          color: Colors.black,
           onPressed: (){
             Navigator.pop(context);
           },

@@ -10,16 +10,10 @@ class CreateEvent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey[100],
       appBar: AppBar(
-        title: Text('Create Event',style:TextStyle(color:Colors.black)),
-        backgroundColor: Colors.white,
-        iconTheme: IconThemeData(
-          color: Colors.black
-        ),
-        actionsIconTheme: IconThemeData(
-          color: AppPrimaryColor
-        ),
-       
+        title: Text('Create Event'),
+         
       ),
       body: LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {

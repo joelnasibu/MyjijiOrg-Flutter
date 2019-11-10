@@ -38,7 +38,11 @@ class SPage extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal:4.0,vertical: 4.0),
       child: Card(
           color: Colors.white,
-          child: ListTile(
+          child: Container(
+            decoration: BoxDecoration(
+              border: Border(left: BorderSide(color:AppSecondaryColor,width: 5))
+            ),
+            child:ListTile(
             onTap: (){
               Fluttertoast.showToast(
                 msg: '$title clicked\nComing Soom',
@@ -62,7 +66,7 @@ class SPage extends StatelessWidget {
             trailing:Text('$likes likes',style: TextStyle(fontSize: TinyFontSize,color: Colors.blue)),
 
             
-
+            )
           )
         ),
     );

@@ -58,7 +58,7 @@ class _PrtPackagesState extends State<PrtPackages> {
         ListTile(
           title: Text(packages[index]['package'],style: TextStyle(fontWeight: FontWeight.w700),),
           subtitle: Text(packages[index]['Admission']),
-          trailing: Text("KES ${packages[index]['Rate']}",style: TextStyle(fontWeight: FontWeight.w700),),
+          trailing: Text("KES ${packages[index]['Rate']}",style: TextStyle(fontWeight: FontWeight.w700,color:Colors.red[900])),
           dense: true,
           onTap: (){},
         ),

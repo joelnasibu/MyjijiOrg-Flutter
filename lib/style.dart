@@ -15,10 +15,10 @@ const AppAccentColor      = Color(0XFFF9480A);
 const MainFontFamily    = 'Roboto';
 const ExtraLargeSize    = 28.0;
 const LargeFontSize     = 22.0;
-const NormalFonteSize   = 18.0;
-const BodyFontSize      = 16.0;
-const SmallFontSize     = 14.0;
-const TinyFontSize      = 12.0;
+const NormalFonteSize   = 16.0;
+const BodyFontSize      = 14.0;
+const SmallFontSize     = 12.0;
+const TinyFontSize      = 10.0;
 
 //Maximum Width Size Dimension
 const WidthDimension    = 530.0;

@@ -88,7 +88,7 @@ class _PrtAddPackagesState extends State<PrtAddPackages> {
     );
 
     final section_3 = FlatButton(
-        color: AppPrimaryColor,        
+        color: AppSecondaryColor,        
         child: Padding(          
           padding: const EdgeInsets.all(18.0),
           child: Text('Save',style: boldViewDown.copyWith(color:Colors.white),),
@@ -121,6 +121,7 @@ class _PrtAddPackagesState extends State<PrtAddPackages> {
   
   Widget _textFormTemplate(String label,{IconData icon, int lines, TextEditingController controller}){
     return TextFormField(   
+      
       controller: controller,
       maxLines: lines!=null? 5: 1, 
       keyboardType: lines!=null?TextInputType.multiline:TextInputType.text ,
@@ -135,7 +136,8 @@ class _PrtAddPackagesState extends State<PrtAddPackages> {
         // _event.eventName = label; 
         });
       },
-      decoration: InputDecoration(                
+      
+      decoration: InputDecoration(          
         suffixIcon: Icon(icon,color: Colors.grey[400],),                
         contentPadding: EdgeInsets.all(10.0),
         labelText: label,

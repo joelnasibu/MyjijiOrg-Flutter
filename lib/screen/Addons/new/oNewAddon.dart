@@ -14,21 +14,11 @@ class _NewAddonState extends State<NewAddon> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(        
-        backgroundColor: Colors.white,
-        title: Text('New Addon',style: TextStyle(
-            color: Colors.black
+        title: Text('Select Addon',style: TextStyle(
           ),
         
         ),  
-        actions: <Widget>[
-           
-            
-            IconButton(
-              icon:Icon(Icons.more_vert),
-              color:Colors.black,
-              onPressed: (){},
-            ),
-        ],     
+        
       ),
  
       body:LayoutBuilder(

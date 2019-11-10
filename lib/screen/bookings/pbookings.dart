@@ -45,9 +45,9 @@ TabController _tabController;
             
             controller: _tabController,
             tabs: <Widget>[
-              Text('Events'),
-              Text("Bookings"),
-              Text('Overview')
+              Tab(text:'Events'),
+              Tab(text:"Bookings"),
+              Tab(text:'Overview')
             ],
             onTap: (index){
 

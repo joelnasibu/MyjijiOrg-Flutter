@@ -9,33 +9,16 @@ class Packages extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(        
-        backgroundColor: Colors.white,
-        title: Text('Packages & Admissions',style: TextStyle(
-            color: Colors.black,fontSize: NormalFonteSize
-          ),
-        
-        ),  
-        
-        actions: <Widget>[
-           IconButton(
-              icon:Icon(Icons.add),
-              color:Colors.black,
-              onPressed: (){
+      backgroundColor: Colors.grey[200],
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add,color: Colors.black),
+        onPressed: (){
                 Route route = SlideLeft(
                   widget: AddPackages(),
                   time: 500
                 );
                 Navigator.push(context, route);
               },
-            ),
-            
-            IconButton(
-              icon:Icon(Icons.more_vert),
-              color:Colors.black,
-              onPressed: (){},
-            ),
-        ],     
       ),
 
     body:LayoutBuilder(

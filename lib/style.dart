@@ -7,7 +7,7 @@ const AppPrimaryLight     = Color(0XFF383966);
 const AppPrimaryDark      = Color(0XFF000017);
 const AppSecondaryColor   = Color(0XFFffc107);
 const AppSecondaryLight   = Color(0XFFff5281);
-const AppSecondaryDark    = Color(0XFF97002d);
+const AppSecondaryDark    = Color(0XFFe3aa00);
 const AppAccentColor      = Color(0XFFF9480A);
 
 //App Theme Font

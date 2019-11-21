@@ -1,4 +1,6 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:organizer/models/db.dart';
 import 'package:organizer/style.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 
@@ -9,341 +11,402 @@ class TabDashBoard extends StatefulWidget {
 
 class TabDashBoardState extends State<TabDashBoard>{
   
-  // List<HomeJson> data = []; 
-  // HomeJson online = HomeJson();
-
-   List<String> products = [
-    'http://www.kustomclubs.com/wp-content/uploads/2019/07/IMG_2851-1024x575.jpg',
-    'https://www.feelgoodevents.com.au/wp-content/uploads/2017/02/10933957_908820615818063_6504247213800313682_n-960x600.jpg',
-    'https://image.cnbcfm.com/api/v1/image/105462444-1537465508117echo-dot-new.jpeg?v=1537465880&w=678&h=381',
-    'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80',
-    'https://dominicanexpert.com/wp-content/uploads/2016/06/fondo-2.jpg',
-    'https://images.unsplash.com/photo-1524368535928-5b5e00ddc76b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80',
-    'https://imgcld.yatra.com/ytimages/image/upload/t_seo_Holidays_w_640_h_480_c_fill_g_auto_q_auto:good_f_jpg/v1449657155/Kenya108.jpg',
-    'https://www.vividfeatures.com/wp-content/uploads/2017/01/kenya-at-50-640x313.jpg'
-
-  ];
+  
   String selected = null;
-  String eventName = "Event Name";
   String selectCat = null;
 
-  List <String> _dropevent = [
-    'Event 1',
-    'Event 2',
-    'Event 3',
-    'Event 4',
-    'Event 5'
+  DB db = DB();
+
+  List<String> _dropCategory = List<String>();
+  double price = 0.0;
+  int attendance = 0;
+
+  int imageEventSelected = 0;
+  int previousEvent = 0;
+
+  List <charts.Color> barcolors = [
+    charts.MaterialPalette.gray.shade400,    //dark Gray
+    charts.Color(r:12,g:20,b:59),             //App BLue
+    charts.Color(r:255,g:193,b:7),           // Orange
+    charts.MaterialPalette.gray.shade400,
+    charts.Color(r:12,g:20,b:59),
+    charts.Color(r:12,g:20,b:59),
+    charts.Color(r:255,g:193,b:7),
+    charts.Color(r:12,g:20,b:59),
+    charts.Color(r:255,g:193,b:7),
+    charts.Color(r:12,g:20,b:59),
   ];
 
-  List <String> _dropCategory = [
-    'Category 1',
-    'Category 2',
-    'Category 3',
-    'Category 4',
-    'Category 5',
-  ];
+
+  double totalIncome;
 
 
-
-
-
-  
-  static List< charts.Series<EventPop,String>> createSeries(){
-    final mydata = [
-        EventPop(1,200,charts.MaterialPalette.black),
-        EventPop(2,130,charts.MaterialPalette.deepOrange.shadeDefault),
-        EventPop(3,310,charts.MaterialPalette.deepOrange.shadeDefault),
-        EventPop(4,300,charts.MaterialPalette.black),
-        EventPop(5,200,charts.MaterialPalette.black),
-        EventPop(6,320,charts.MaterialPalette.green.shadeDefault),
-        EventPop(7,350,charts.MaterialPalette.deepOrange.shadeDefault),
-        EventPop(8,150,charts.MaterialPalette.green.shadeDefault),
-        EventPop(9,50,charts.MaterialPalette.deepOrange.shadeDefault),
-        EventPop(10,250,charts.MaterialPalette.green.shadeDefault),
-      ];
+  List<Widget> _builder = List<Widget>();
+  static List<EventPop> mydata = [];
+  static List<charts.Series<EventPop, String>> createSeries() {
 
     return [
-      charts.Series<EventPop,String>(
+      charts.Series<EventPop, String>(
         data: mydata,
         id: "Tickets",
-        domainFn: (EventPop event, _)=> event.attendants.toString(),
-        measureFn: (EventPop event, _)=> event.tickets,
-      colorFn: (EventPop event,__)=> event.color,
+        domainFn: (EventPop event, _) => event.attendants.toString(),
+        measureFn: (EventPop event, _) => event.tickets,
+        colorFn: (EventPop event, __) => event.color,
       )
     ];
+  }
 
-  } 
+@override
+  void initState() {
+    super.initState();
+      price = db.events[0]['price'];
+      attendance = db.events[0]['attendance'];
+    _dropCategory = db.events[0]['categories'];
+    for(var i =0; i<10;i++){
+      mydata.add(
+        EventPop((i+1), db.events[0]['charts'][i],barcolors[i])
+      );
+    }
+    
+  }
 
-
- 
- 
+  
 
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
+   
 
-    final section_1 =  Container(
-            padding: EdgeInsets.symmetric(horizontal: 28.0,vertical: 10),
-            height: 50,                 
-            decoration: BoxDecoration(
-              color: Colors.grey[200],
-            ),
-            child: Container(
-              width: 200,
-              height: 20,
-              child: DropdownButton( 
-                items: _dropevent.map((value)=> DropdownMenuItem<String>(
-                  child: Text(value),
-                  value: value,
-                )).toList(),
-                underline: DropdownButtonHideUnderline(
-                  child: Text(''),
-                ),
-                hint: Text('Select Event'),
-                value: selected,
-                onChanged: (value){
-                  setState(() {
-                   selected = value; 
-                   eventName = value;
-                  });
-                },
-                
-              )
-            ),
-          );
+    _builder.clear();
+    for (var i = 0; i < db.events.keys.length; i++) {
+      _builder
+          .add(_buildCarosel(i, db.events[i]['title'], db.events[i]['rates'], db.events[i]['banner']));
+    }
 
-    final section_2 = Container(
-      height: screenHeight * .45,
-      margin: EdgeInsets.symmetric(horizontal:24.0),
-      decoration: BoxDecoration(  
-        color: Colors.red,
-        image: DecorationImage(
-          image:AssetImage(SystemImagePath + 'event.jpg'),
-          fit: BoxFit.cover
-        )
-      ),
-      child: Align(
-        alignment: AlignmentDirectional.bottomStart,
-        child: Container(
-          height: 50,
-          color: Colors.black.withOpacity(.6),
-          padding: EdgeInsets.symmetric(horizontal: 16.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              Text(eventName,style:TextStyle(
-                color: Colors.white,
-                fontSize: NormalFonteSize
-              )),
-              Container(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: <Widget>[
-                    Icon(Icons.star, color:Colors.yellow,),
-                    Icon(Icons.star, color:Colors.yellow,),
-                    Icon(Icons.star, color:Colors.yellow,),
-                    Icon(Icons.star_half, color:Colors.yellow,),
-                    Icon(Icons.star_border, color:Colors.yellow,),
-                  ],
-                ),
-              )
-            ],
+    final section_1 = Container(
+
+      margin: EdgeInsets.fromLTRB(0, 0, 0, 4),
+     
+      width: screenWidth,
+      height: screenHeight * .32,
+      child: CarouselSlider(
+          enlargeCenterPage: true, 
+         // viewportFraction: 0.8,         
+          onPageChanged: (curr){
+            setState(() {
+              imageEventSelected = curr;
+               price = db.events[imageEventSelected]['price'];
+               attendance = db.events[imageEventSelected]['attendance'];
+              _dropCategory = db.events[imageEventSelected]['categories'];
+              
+              for(var i =0; i<10;i++){
+                mydata.add(
+                  EventPop((i+1), db.events[imageEventSelected]['charts'][i],barcolors[i])
+                );
+              }
+     
+
+
+              selectCat = null;
+            
+            });
+            
+          },
+          autoPlay: false,
+          autoPlayAnimationDuration: Duration(seconds: 10),
+          items: _builder
           ),
-        ),
-
-      ),
     );
 
-    final section_3 = Container(
-      height: 80,
-      padding: EdgeInsets.symmetric(horizontal: 24.0,vertical: 5),
-      child: Row(
+    final section_2 = Container(
+      height: 120,
+      padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 5),
+
+      child:Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          Container(
-            width: (screenWidth-48) /3,
-            decoration: BoxDecoration(
-              border: Border(right: BorderSide(width: 1,color: Colors.grey[300]))
-            ),
-            child: Column(              
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                DropdownButton(
-                  underline: DropdownButtonHideUnderline(
-                    child: Text(""),
+          Card(
+            elevation: 2,
+            child: Container(
+              width: (screenWidth - 48)/3 ,
+              padding: EdgeInsets.symmetric(horizontal: 8.0,vertical: 0.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  Expanded(
+                    child:  DropdownButtonFormField(
+                      decoration: InputDecoration(
+                        hintText: 'Category',
+                        hintStyle: TextStyle(fontSize: NormalFonteSize,),
+                        border: InputBorder.none,
+                        contentPadding: EdgeInsets.zero,
+                      ),
+
+                      value: selectCat,
+                      items: _dropCategory
+                          .map((val) => DropdownMenuItem(
+                              child: Text(
+                                val,
+                                style: boldView,
+                              ),
+                              value: val))
+                          .toList(),
+                      onChanged: (val) {
+                        setState(() {
+                          selectCat = val;
+                        });
+                      },
+
+
+                    ),
                   ),
-                  value: selectCat,
-                  hint: Text("Category"),
-                  items: _dropCategory.map((val)=>DropdownMenuItem(
-                    child: Text(val,style: boldView,),
-                    value: val)).toList(),
-                  onChanged: (val){
-                    setState(() {
-                     selectCat = val; 
-                    });
-                  },
-                ),
-                Text("VIP001W",style: boldViewDown,)
-              ],
+                  Container(
+                    padding: EdgeInsets.only(bottom: 10),
+                    child: Text(
+                      selectCat!=null?selectCat:'-',
+                      style: boldViewDown.copyWith(fontSize: NormalFonteSize),
+                    ),
+                  )
+                  ]))
+            
+                  ),
+               
+          Card(
+            elevation: 2.0,
+            child: Container(
+              width: (screenWidth - 48) / 3,            
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  Text(
+                    "Attendance",
+                    style: boldView.copyWith(fontSize: NormalFonteSize),
+                  ),
+                  Text(
+                    "$attendance",
+                    style: boldViewDown,
+                  )
+                ],
+              ),
             ),
           ),
-          Container(            
-            width: (screenWidth-48)/3 ,
-             decoration: BoxDecoration(
-              border: Border(right: BorderSide(width: 1,color: Colors.grey[300]))
+          
+          Card(
+            elevation: 2.0,
+            child: Container(
+              width: (screenWidth - 48) / 3,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  Text(
+                    "Ticket Rate",
+                    style: boldView.copyWith(fontSize: NormalFonteSize)
+                  ),
+                  Text(
+                    "\$ $price",
+                    style: boldViewDown,
+                  )
+                ],
+              ),
             ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                Text("ATTENDANCE",style: boldView,),
-                Text("3489",style: boldViewDown,)
-              ],
-            ),
-
-          ),
-          Container(            
-            width:  (screenWidth-48) /3,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                Text("Ticket Rate",style: boldView,),
-                Text("\$ 20",style: boldViewDown,)
-              ],
-            ),
-
           )
-
         ],
       ),
     );
 
-    final section_4 = Container(
-      height: 320,
-      padding: EdgeInsets.symmetric(horizontal:24.0,vertical: 10.0),
+    final section_3 = Card(
+      elevation: 4.0,
+      margin: EdgeInsets.all(8.0),
+      child:Container(
+      height: 300,
+      padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 10.0),
+      child: charts.BarChart(
+        createSeries(),
+        animate: true,
+      ),
+    ));
 
-     child: 
-       charts.BarChart(
-         createSeries(),
-         animate: true,
-        
-       ),
-      
-    );
-   
-   
-    final section_5 = Container(
-      color: Colors.grey[100],
-      padding: EdgeInsets.symmetric(vertical:10.0,horizontal: 24.0),
+    final section_4 = Container(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text('Statistics',style: boldView.merge(boldViewDown)),
-          Container(
-            padding: EdgeInsets.symmetric(vertical: 50),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                Column(
-                  children: <Widget>[
-                    Container(
-                      decoration:BoxDecoration(
-                        borderRadius: BorderRadius.circular(50),
-                        border: Border.all(width: 3,color: Colors.black)),
-                      width: 90,
-                      height: 90,
-                      child: Center(child:Text("46%",style: boldViewDown,)),
-                    ),
-                    Text("Platinum",style: boldViewDown,)
-                  ],
-                ),
-                Column(
-                  children: <Widget>[
-                    Container(
-                      decoration:BoxDecoration(
-                        borderRadius: BorderRadius.circular(50),
-                        border: Border.all(width: 3,color: Colors.orange)),
-                      width: 90,
-                      height: 90,
-                      child: Center(child:Text("54%",style: boldViewDown,)),
-                    ),
-                    Text("Gold",style: boldViewDown.apply(color: Colors.orange),)
-                  ],
-                ),
-                Column(
-                  children: <Widget>[
-                    Container(
-                      decoration:BoxDecoration(
-                        borderRadius: BorderRadius.circular(50),
-                        border: Border.all(width: 3,color: Colors.grey[400])),
-                      width: 90,
-                      height: 90,
-                      child: Center(child:Text("100%",style: boldViewDown,)),
-                    ),
-                    Text("Total",style: boldViewDown.apply(color: Colors.grey[400]),)
-                  ],
-                ),
-              ],
+          Container(            
+            padding: EdgeInsets.symmetric(vertical: 4.0, horizontal: 24.0),
+            child: Text('Statistics', style: boldView.merge(boldViewDown))),
+          Card(
+            elevation: 14,
+            margin: EdgeInsets.all(8.0),
+            child: Container(
+              padding: EdgeInsets.symmetric(vertical: 20),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  Column(
+                    children: <Widget>[
+                      Container(
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(50),
+                            border: Border.all(width: 3, color: AppPrimaryColor)),
+                        width: 90,
+                        height: 90,
+                        child: Center(
+                            child: Text(
+                          "46%",
+                          style: boldViewDown.copyWith(color: AppPrimaryColor),
+                        )),
+                      ),
+                      Text(
+                        "Platinum",
+                        style: boldViewDown.copyWith(color: AppPrimaryColor),
+                      )
+                    ],
+                  ),
+                  Column(
+                    children: <Widget>[
+                      Container(
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(50),
+                            border: Border.all(width: 3, color: AppSecondaryColor)),
+                        width: 90,
+                        height: 90,
+                        child: Center(
+                            child: Text(
+                          "54%",
+                          style: boldViewDown.copyWith(color: AppSecondaryColor),
+                        )),
+                      ),
+                      Text(
+                        "Gold",
+                        style: boldViewDown.apply(color: AppSecondaryColor),
+                      )
+                    ],
+                  ),
+                  Column(
+                    children: <Widget>[
+                      Container(
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(50),
+                            border:
+                                Border.all(width: 3, color: Colors.grey[500])),
+                        width: 90,
+                        height: 90,
+                        child: Center(
+                            child: Text(
+                          "100%",
+                          style: boldViewDown.copyWith(color: Colors.grey[500]),
+                        )),
+                      ),
+                      Text(
+                        "Total",
+                        style: boldViewDown.apply(color: Colors.grey[500]),
+                      )
+                    ],
+                  ),
+                ],
+              ),
             ),
-
           )
         ],
       ),
-   );
-    
-    
-    final section_6 = Container(
+    );
+
+    final section_5 = Container(
       decoration: BoxDecoration(
-        color: AppPrimaryColor,
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(35),topRight: Radius.circular(35.0))
-      ),
-      padding: EdgeInsets.symmetric(horizontal:10.0,vertical: 24),
-     // margin: EdgeInsets.symmetric(horizontal: 24.0),
+          color: AppPrimaryColor,
+          borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(35), topRight: Radius.circular(35.0))),
+      padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 24),
+      // margin: EdgeInsets.symmetric(horizontal: 24.0),
       child: ListTile(
         leading: CircleAvatar(
-          backgroundColor: Colors.white,
-          radius: 30,
-          child: Icon(Icons.attach_money,size:40,color:AppPrimaryColor)
-          ),
-        title: Text('Total Income',style: boldViewDown.copyWith(color:Colors.white)),
-        trailing: Text("\$ 69,489",style: boldViewDown.copyWith(
-          fontSize: ExtraLargeSize,
-          color: Colors.yellow)),
+            backgroundColor: Colors.white,
+            radius: 30,
+            child: Icon(Icons.attach_money, size: 40, color: AppPrimaryColor)),
+        title: Text('Total Income',
+            style: boldViewDown.copyWith(color: Colors.white)),
+        trailing: Text("\$ 69,489",
+            style: boldViewDown.copyWith(
+                fontSize: ExtraLargeSize, color: AppSecondaryColor)),
       ),
     );
 
-
-
-
-
     return ListView(
-        children:[
+        children: [
           section_1,
-          section_2,
-          section_3,
-          section_4,
-          section_5,
-          section_6
-         
-        ]);   
+          section_2, 
+          section_3, 
+          section_4, 
+          section_5
+        ]);
   }
 
+  Widget _buildCarosel(
+      int position, String title, double rate, String imagepath) {
+    int less = rate.floor();
+    double actual = rate - less;
+
+    List<Widget> stars = List<Widget>();
+    stars.clear();
+    for (var k = 0; k < 5; k++) {
+      if (less <= 5 && less > 0) {
+        stars.add(Icon(Icons.star, color: Colors.yellow));
+      } else if (less == 0 && actual > 0) {
+        stars.add(Icon(Icons.star_half, color: Colors.yellow));
+      } else {
+        stars.add(Icon(Icons.star_border, color: Colors.yellow));
+      }
+      less--;
+    }
+
+    return Container(
+      margin: EdgeInsets.all(4.0),
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(8.0),
+          color: AppPrimaryColor,
+          image: DecorationImage(
+              image: AssetImage(imagepath), fit: BoxFit.cover)),
+      child: Stack(
+        children:[
+          Align(
+            alignment: AlignmentDirectional.bottomStart,
+            child: Container(
+              height: 50,
+              decoration: BoxDecoration(
+                color: Colors.black.withOpacity(.6),
+                borderRadius: BorderRadius.only(
+                  bottomRight: Radius.circular(8),
+                  bottomLeft: Radius.circular(8)
+                )
+              ),
+              padding: EdgeInsets.symmetric(horizontal: 16.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Text(title,
+                      style: TextStyle(
+                          color: Colors.white, fontSize: NormalFonteSize)),
+                  Container(
+                    child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end, children: stars),
+                  )
+                ],
+              ),
+            ),
+          ),
+        ])
+    );
+  }
 }
-
-
-
-
 
 class EventPop {
   int tickets;
   int attendants;
   charts.Color color;
 
-  EventPop(this.attendants,this.tickets,this.color);
+  EventPop(this.attendants, this.tickets, this.color);
 }

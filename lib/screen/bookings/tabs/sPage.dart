@@ -1,39 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:organizer/screen/home/oHomepage.dart';
+import 'package:organizer/models/db.dart';
 import 'package:organizer/style.dart';
 
 class SPage extends StatelessWidget {
+  DB db = DB();
+  int position;
+
+  SPage({Key key,@required this.position}):super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return position!=null?Container(
       padding: EdgeInsets.fromLTRB(16,10,16,70),
       color: Colors.grey[100],
-      child: CustomScrollView(
-      slivers:[
-        SliverList(
-             delegate: SliverChildListDelegate([
-
-               _bookingLayout('Nairobi Event',545,456,"assets/images/display_pictures/Barbara.jpg"),
-
-               _bookingLayout('Miss World Kenya',145,124,"assets/images/display_pictures/bert.jpg"),
-
-               _bookingLayout('Nairobi Live Concert',450,123,"assets/images/display_pictures/james.jpg"),
-
-               _bookingLayout('Ortega Festival',245,197,"assets/images/display_pictures/Hellen.jpg"),
-
-               _bookingLayout('Nairobi Event',245,197,"assets/images/display_pictures/Naomi.jpg"),
-
-               _bookingLayout('Nairobi Event',245,197,"assets/images/display_pictures/john.jpg"),
-             ]))
-
-
-     ])
+      child: ListView.builder(
+        itemCount: db.events[position]['bookings'].length,
+        itemBuilder: (context,index)=> _bookingLayout(index)
+     )
+    ):
+    Center(
+      child: Text('No Event selected',style: boldViewDown.copyWith(fontSize: ExtraLargeSize),),
     );
   }
 
 
-  _bookingLayout(String title, int number, int likes,String image ){
+  _bookingLayout(int i){
+    final names = db.events[position]['bookings'][i];
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal:4.0,vertical: 4.0),
       child: Card(
@@ -45,25 +38,25 @@ class SPage extends StatelessWidget {
             child:ListTile(
             onTap: (){
               Fluttertoast.showToast(
-                msg: '$title clicked\nComing Soom',
+                msg: '${names['names']} clicked\nComing Soom',
                 toastLength: Toast.LENGTH_SHORT
 
               );
             },
             leading: CircleAvatar(
               radius:25,
-              backgroundImage: AssetImage(image)),
-            title: Text(title,style: boldView.copyWith(fontSize: SmallFontSize,color: Colors.black),),
+              backgroundImage: NetworkImage(names['picture'])),
+            title: Text(names['names'],style: boldView.copyWith(fontSize: SmallFontSize,color: Colors.black),),
             subtitle: Row(
               children:[
                 Icon(Icons.bookmark_border,size:15,color: AppPrimaryColor),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Text('$number bookings',style: TextStyle(fontSize: TinyFontSize,color: AppPrimaryColor)),
+                  child: Text('Payment Mode : ${names['payment']}',style: TextStyle(fontSize: TinyFontSize,color: AppPrimaryColor)),
                 ),
               ]
             ),
-            trailing:Text('$likes likes',style: TextStyle(fontSize: TinyFontSize,color: Colors.blue)),
+            trailing:Text('Pax ${names['pax']}',style: TextStyle(fontSize: TinyFontSize,color: Colors.blue)),
 
             
             )

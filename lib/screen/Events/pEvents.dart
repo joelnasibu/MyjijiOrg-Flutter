@@ -12,14 +12,14 @@ class PrtEventsState extends State<PrtEvents>{
   // HomeJson online = HomeJson();
 
    List<String> products = [
-    'http://www.kustomclubs.com/wp-content/uploads/2019/07/IMG_2851-1024x575.jpg',
+    'https://jandevents.com/wp-content/uploads/jand-party-1600x900.jpg',
     'https://www.feelgoodevents.com.au/wp-content/uploads/2017/02/10933957_908820615818063_6504247213800313682_n-960x600.jpg',
-    'https://image.cnbcfm.com/api/v1/image/105462444-1537465508117echo-dot-new.jpeg?v=1537465880&w=678&h=381',
+    'https://www.residentadvisor.net/images/events/flyer/2019/9/uk-0919-1303708-front.jpg',
     'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80',
     'https://dominicanexpert.com/wp-content/uploads/2016/06/fondo-2.jpg',
     'https://images.unsplash.com/photo-1524368535928-5b5e00ddc76b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80',
     'https://imgcld.yatra.com/ytimages/image/upload/t_seo_Holidays_w_640_h_480_c_fill_g_auto_q_auto:good_f_jpg/v1449657155/Kenya108.jpg',
-    'https://www.vividfeatures.com/wp-content/uploads/2017/01/kenya-at-50-640x313.jpg'
+    'https://i2.wp.com/www.eventskenyah.co.ke/wp-content/uploads/2019/01/48405950_2229809403959234_3207888099602333696_n.jpg?fit=960%2C960'
 
   ];
 

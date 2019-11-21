@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:organizer/models/db.dart';
 import 'package:organizer/style.dart';
 
 class PrtAddons extends StatefulWidget {
@@ -16,67 +17,7 @@ class _PrtAddonsState extends State<PrtAddons> with SingleTickerProviderStateMix
   AnimationController _cnt;
   Animation<double> animation;
 
-   Map<String,dynamic> products = { 
-    'Soft-Drink':{
-      'soda':{
-          'price':100,
-          'picture':'http://www.pngmart.com/files/7/Soda-Transparent-Background.png'
-      },
-      'Juice':{
-          'price':120,
-          'picture':'http://www.pngall.com/wp-content/uploads/2016/04/Juice-Download-PNG.png'
-      },
-      'Water':{
-          'price':50,
-          'picture':'http://pngimg.com/uploads/water_bottle/water_bottle_PNG10157.png'
-      }
-    },
-
-    'Accessories':{
-      'T-shirt':{
-          'price':350,
-          'picture':'http://pngimg.com/uploads/tshirt/tshirt_PNG5448.png'
-      },
-      'Cap':{
-          'price':500,
-          'picture':'http://pngimg.com/uploads/cap/cap_PNG5686.png'
-      },
-      'Wrist Band':{
-          'price':50,
-          'picture':'https://reminderbandblog.files.wordpress.com/2017/07/classic-3-stack.png?w=550'
-        }
-    },
-   
-    'Snack':{
-      'Pop-Corn':{
-          'price':100,
-          'picture':'https://www.pngarts.com/files/4/Popcorn-PNG-Pic.png'
-      },
-      'Candy':{
-          'price':30,
-          'picture':'http://www.pngall.com/wp-content/uploads/2/Candy-Transparent.png'
-      },
-      'Crisps':{
-          'price':80,
-          'picture':'https://img.fireden.net/v/image/1465/61/1465618724298.png'
-      }
-    },
-    
-    'Alcohol':{
-      'Wine':{
-          'price':800,
-          'picture':'http://pngimg.com/uploads/wine/wine_PNG9456.png'
-      },
-      'Spirits':{
-          'price':500,
-          'picture':'https://horizonlives3.s3.amazonaws.com/PR1517/d557a044a23f4eaaa367e7f387d206cc.png'
-      },
-      'Beer':{
-          'price':150,
-          'picture':'http://pngimg.com/uploads/beer/beer_PNG2374.png'
-      }
-    }
-  };
+   DB db = DB();
   
   List<String> populate = List<String>();
 
@@ -133,19 +74,15 @@ class _PrtAddonsState extends State<PrtAddons> with SingleTickerProviderStateMix
                 onChanged: (val){
                   setState(() {
                     _productSelected = val; 
-                    Fluttertoast.showToast(
-                      msg: _productSelected,
-                      toastLength: Toast.LENGTH_SHORT                      
-                    );                    
                    
                     _subSelected = null;
                     imageLink = null;
                     price = 0;
-                    populate = products[_productSelected].keys.toList();
+                    populate = db.products[_productSelected].keys.toList();
                     
                   });
                 },
-                items: products.keys.map((val)=>                  
+                items: db.products.keys.map((val)=>                  
                   DropdownMenuItem<String>(                    
                     child: Text(val),
                     value: val
@@ -176,8 +113,8 @@ class _PrtAddonsState extends State<PrtAddons> with SingleTickerProviderStateMix
                   setState(() {
                     _subSelected = value;
 
-                    price = products[_productSelected][_subSelected]['price'];
-                    imageLink = products[_productSelected][_subSelected]['picture'];
+                    price = db.products[_productSelected][_subSelected]['price'];
+                    imageLink = db.products[_productSelected][_subSelected]['picture'];
                     
                   });
                 }, 
@@ -310,7 +247,7 @@ class _PrtAddonsState extends State<PrtAddons> with SingleTickerProviderStateMix
                               borderSide: BorderSide(color: Colors.grey[300]))),
                               
                         value: _newProductSlt,
-                        items: products.keys.map((val)=>
+                        items: db.products.keys.map((val)=>
                           DropdownMenuItem(
                             child:Text(val),
                             value:val)
@@ -339,7 +276,7 @@ class _PrtAddonsState extends State<PrtAddons> with SingleTickerProviderStateMix
                           onPressed: (){
                             setState(() {
                               if(_addedCat!=null){
-                                products.addAll({
+                                db.products.addAll({
                                   _addedCat:""
                                   });
                                   _newProductSlt = _addedCat;

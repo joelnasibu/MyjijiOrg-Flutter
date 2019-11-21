@@ -1,16 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:organizer/models/db.dart';
+import 'package:organizer/screen/bookings/obookings.dart';
+import 'package:organizer/screen/bookings/pbookings.dart';
+import 'package:organizer/screen/bookings/tabs/sPage.dart';
 import 'package:organizer/style.dart';
 
 class FPage extends StatelessWidget {
   DB db = DB();
+  SPage sp = SPage();
+  final goTo;
+
+  FPage({this.goTo});
+  
 
   @override
   Widget build(BuildContext context) {
     return Container(
-        padding: EdgeInsets.fromLTRB(8.0, 8.0, 16, 70),
-        color: Colors.grey[100],
+        padding: EdgeInsets.fromLTRB(8.0, 8.0, 16, 0),
+        decoration: BoxDecoration(
+          color: Colors.grey[100],
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(30),
+            topRight: Radius.circular(30),
+          ),
+        ),
         child: CustomScrollView(slivers: [
           SliverGrid(
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -30,13 +44,17 @@ class FPage extends StatelessWidget {
       padding: const EdgeInsets.all(4.0),
       child: InkWell(
         onTap: () {
-          Fluttertoast.showToast(
-            msg: '${db.events[i]['title']}\n Coming Soon',
-            toastLength: Toast.LENGTH_SHORT,
-          );
+          goTo;
+         // sp.position = i;
+          
+          // Fluttertoast.showToast(
+          //   msg: '${db.events[i]['title']}\n Coming Soon',
+          //   toastLength: Toast.LENGTH_SHORT,
+          // );
         },
         child: Card(
           color: Colors.white,
+          elevation: 2,
           child: Column(
             children: <Widget>[
               Expanded(
@@ -52,29 +70,29 @@ class FPage extends StatelessWidget {
               ),
               Container(
                 padding: EdgeInsets.all(8.0),
-                child: Text(db.events[i]['title']),
+                child: Text(db.events[i]['title'],style: boldViewDown,),
               ),
               Padding(
-                padding: const EdgeInsets.only(left: 10.0, bottom: 5),
+                padding: const EdgeInsets.only(left: 10.0, right:30.0,bottom: 5),
                 child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,                  
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    Icon(Icons.bookmark, color: AppPrimaryColor, size: 20),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 8.0),
+                    Icon(Icons.bookmark, color: AppSecondaryDark, size: 20),
+                    Container(
                       child: Text('${db.events[i]['bookings'].length} Bookings',
                           style: TextStyle(
-                              color: AppPrimaryColor, fontSize: TinyFontSize)),
+                              color: AppSecondaryDark, fontSize: TinyFontSize)),
                     ),
                   ],
                 ),
               ),
+              
               Padding(
                 padding:
-                    const EdgeInsets.only(left: 10.0, right: 10.0, bottom: 8.0),
+                    const EdgeInsets.only(left: 10.0, right: 30.0, bottom: 8.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
                     Icon(
                       Icons.favorite,
@@ -82,8 +100,7 @@ class FPage extends StatelessWidget {
                       size: 20,
                     ),
                     Container(
-                        width: 100,
-                        child: Text('${db.events[i]['likes']} Following',
+                        child: Text('${db.events[i]['likes']} Likes',
                             style: TextStyle(
                                 fontSize: TinyFontSize,
                                 color: Colors.blue[800]))),

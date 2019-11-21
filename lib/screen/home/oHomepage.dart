@@ -30,7 +30,7 @@ class HomepageState extends State <Homepage>{
         break;
       case 4:return SetCategories();
         break;
-      case 5:return DashBoard();
+      case 5:return Events();
         break;
       case 6:return DashBoard();
         break;
@@ -74,8 +74,9 @@ class HomepageState extends State <Homepage>{
                   )), 
               
                                
-                Divider(),
+               
 
+                _listTileFormat(context, Icons.trending_up,"Latest Event", 0, 5),
                 _listTileFormat(context, Icons.settings,"Settings", 0, 4),
                 _listTileFormat(context, Icons.info_outline,"About", 0, 5),
                 _listTileFormat(context, Icons.help_outline,"Help", 0, 6),
@@ -93,8 +94,8 @@ class HomepageState extends State <Homepage>{
         backgroundColor: AppPrimaryColor,
         type: BottomNavigationBarType.fixed,
         currentIndex: _selectedIndex,
-        selectedItemColor: AppSecondaryColor,
-        unselectedItemColor: Colors.grey,
+        selectedItemColor: Colors.white,
+        unselectedItemColor: Colors.grey[700],
         showUnselectedLabels: false,
        // shape: CircularNotchedRectangle(), 
 
@@ -131,7 +132,7 @@ class HomepageState extends State <Homepage>{
 
   Widget _listTileFormat(BuildContext context,IconData icon, String title, int trailer, int page){
    return  ListTile(
-              leading: Icon(icon,color: AppPrimaryColor ,),
+              leading: Icon(icon,color: AppSecondaryColor ,),
               title: Text(title),
               trailing:  trailer != 0 ? Container(
                     padding: const EdgeInsets.all(5.0), 

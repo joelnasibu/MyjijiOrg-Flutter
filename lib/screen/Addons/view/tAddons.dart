@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:organizer/models/db.dart';
 import 'package:organizer/style.dart';
 
 class TabAddons extends StatefulWidget {
@@ -11,70 +12,12 @@ class TabAddons extends StatefulWidget {
 }
 
 class _TabAddonsState extends State<TabAddons> with SingleTickerProviderStateMixin{
- AnimationController _cnt;
+ 
+  
+  AnimationController _cnt;
   Animation<double> animation;
 
-   Map<String,dynamic> products = { 
-    'Soft-Drink':{
-      'soda':{
-          'price':100,
-          'picture':'http://www.pngmart.com/files/7/Soda-Transparent-Background.png'
-      },
-      'Juice':{
-          'price':120,
-          'picture':'http://www.pngall.com/wp-content/uploads/2016/04/Juice-Download-PNG.png'
-      },
-      'Water':{
-          'price':50,
-          'picture':'http://pngimg.com/uploads/water_bottle/water_bottle_PNG10157.png'
-      }
-    },
-
-    'Accessories':{
-      'T-shirt':{
-          'price':350,
-          'picture':'http://pngimg.com/uploads/tshirt/tshirt_PNG5448.png'
-      },
-      'Cap':{
-          'price':500,
-          'picture':'http://pngimg.com/uploads/cap/cap_PNG5686.png'
-      },
-      'Wrist Band':{
-          'price':50,
-          'picture':'https://reminderbandblog.files.wordpress.com/2017/07/classic-3-stack.png?w=550'
-        }
-    },
-   
-    'Snack':{
-      'Pop-Corn':{
-          'price':100,
-          'picture':'https://www.pngarts.com/files/4/Popcorn-PNG-Pic.png'
-      },
-      'Candy':{
-          'price':30,
-          'picture':'http://www.pngall.com/wp-content/uploads/2/Candy-Transparent.png'
-      },
-      'Crisps':{
-          'price':80,
-          'picture':'https://img.fireden.net/v/image/1465/61/1465618724298.png'
-      }
-    },
-    
-    'Alcohol':{
-      'Wine':{
-          'price':800,
-          'picture':'http://pngimg.com/uploads/wine/wine_PNG9456.png'
-      },
-      'Spirits':{
-          'price':500,
-          'picture':'https://horizonlives3.s3.amazonaws.com/PR1517/d557a044a23f4eaaa367e7f387d206cc.png'
-      },
-      'Beer':{
-          'price':150,
-          'picture':'http://pngimg.com/uploads/beer/beer_PNG2374.png'
-      }
-    }
-  };
+   DB db = DB();
   
   List<String> populate = List<String>();
 
@@ -131,19 +74,15 @@ class _TabAddonsState extends State<TabAddons> with SingleTickerProviderStateMix
                 onChanged: (val){
                   setState(() {
                     _productSelected = val; 
-                    Fluttertoast.showToast(
-                      msg: _productSelected,
-                      toastLength: Toast.LENGTH_SHORT                      
-                    );                    
                    
                     _subSelected = null;
                     imageLink = null;
                     price = 0;
-                    populate = products[_productSelected].keys.toList();
+                    populate = db.products[_productSelected].keys.toList();
                     
                   });
                 },
-                items: products.keys.map((val)=>                  
+                items: db.products.keys.map((val)=>                  
                   DropdownMenuItem<String>(                    
                     child: Text(val),
                     value: val
@@ -174,8 +113,8 @@ class _TabAddonsState extends State<TabAddons> with SingleTickerProviderStateMix
                   setState(() {
                     _subSelected = value;
 
-                    price = products[_productSelected][_subSelected]['price'];
-                    imageLink = products[_productSelected][_subSelected]['picture'];
+                    price = db.products[_productSelected][_subSelected]['price'];
+                    imageLink = db.products[_productSelected][_subSelected]['picture'];
                     
                   });
                 }, 
@@ -228,9 +167,9 @@ class _TabAddonsState extends State<TabAddons> with SingleTickerProviderStateMix
             Container(
               margin: EdgeInsets.symmetric(horizontal: 24.0),
               child:RaisedButton(
-                color: AppPrimaryColor,                
+                color: AppSecondaryColor,                
                 child: Text('Save',style: TextStyle(
-                  color: Colors.white,
+                  color: Colors.black,
                   fontWeight: FontWeight.w700,
 
                 )),
@@ -271,6 +210,7 @@ class _TabAddonsState extends State<TabAddons> with SingleTickerProviderStateMix
     final section_5 = Container(
       padding: EdgeInsets.only(top:10),
       child: Card(
+        elevation: 4.0,
         child: Padding(
           padding:EdgeInsets.all(16.0),
           child:Column(
@@ -307,7 +247,7 @@ class _TabAddonsState extends State<TabAddons> with SingleTickerProviderStateMix
                               borderSide: BorderSide(color: Colors.grey[300]))),
                               
                         value: _newProductSlt,
-                        items: products.keys.map((val)=>
+                        items: db.products.keys.map((val)=>
                           DropdownMenuItem(
                             child:Text(val),
                             value:val)
@@ -327,16 +267,16 @@ class _TabAddonsState extends State<TabAddons> with SingleTickerProviderStateMix
                       Container(
                         margin: EdgeInsets.symmetric(horizontal: 24.0),
                         child:RaisedButton(
-                          color: AppPrimaryColor,                
+                          color: AppSecondaryColor,                
                           child: Text('Save',style: TextStyle(
-                            color: Colors.white,
+                            color: Colors.black,
                             fontWeight: FontWeight.w700,
 
                           )),
                           onPressed: (){
                             setState(() {
                               if(_addedCat!=null){
-                                products.addAll({
+                                db.products.addAll({
                                   _addedCat:""
                                   });
                                   _newProductSlt = _addedCat;
@@ -456,9 +396,9 @@ class _TabAddonsState extends State<TabAddons> with SingleTickerProviderStateMix
                   ),
                 Container(                  
                   child: RaisedButton(
-                    color: AppPrimaryColor,
+                    color: AppSecondaryColor,
                     child: Text("Save Addon",style:TextStyle(
-                      color:Colors.white
+                      color:Colors.black,fontWeight: FontWeight.bold
                     )),
                     onPressed: (){
                       setState(() {
@@ -489,9 +429,9 @@ class _TabAddonsState extends State<TabAddons> with SingleTickerProviderStateMix
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 20,vertical: 20),
         child: RaisedButton(
-          color: AppPrimaryColor,
+          color: AppSecondaryColor,
           child:Text('New Addons',style: TextStyle(
-            color: Colors.white
+            color: Colors.black,fontWeight: FontWeight.bold
           ),),
           onPressed: (){
             setState(() {
@@ -505,12 +445,16 @@ class _TabAddonsState extends State<TabAddons> with SingleTickerProviderStateMix
     );
 
     final section_7 = Container(
-      width: MediaQuery.of(context).size.width,
+      width: MediaQuery.of(context).size.width,      
+      margin: EdgeInsets.only(bottom: 50),
+      decoration: BoxDecoration(
+        border: Border.all(color:AppSecondaryColor)
+      ),
       child:RaisedButton(
-        color: Colors.white,        
+        color: AppPrimaryColor,        
         child: Padding(          
           padding: const EdgeInsets.all(18.0),
-          child: Text('Save',style: boldViewDown.copyWith(color:AppPrimaryColor),),
+          child: Text('Save',style: boldViewDown.copyWith(color:AppSecondaryColor),),
         ),
         onPressed: (){
           final form = formKey.currentState;

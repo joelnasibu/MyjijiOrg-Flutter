@@ -40,29 +40,31 @@ class _PrtPackagesState extends State<PrtPackages> {
 
   @override
   Widget build(BuildContext context){
-    return Card(
-      margin: EdgeInsets.fromLTRB(15,15,15,70),
-      elevation: 10.0,
-      child:ListView.builder(
+    return ListView.builder(
         itemCount: packages.length,
         itemBuilder: (context,index)=>_buildPackage(index),
-      )
+      
     );
 
 
   }
 
-  _buildPackage(int index){
-     return Column(
-      children:[
-        ListTile(
-          title: Text(packages[index]['package'],style: TextStyle(fontWeight: FontWeight.w700),),
-          subtitle: Text(packages[index]['Admission']),
-          trailing: Text("KES ${packages[index]['Rate']}",style: TextStyle(fontWeight: FontWeight.w700,color:Colors.red[900])),
-          dense: true,
-          onTap: (){},
-        ),
-        Divider(color: Colors.grey,indent: 15,endIndent: 15,),
-      ]);
+    _buildPackage(int index){
+    return Card(
+      margin: EdgeInsets.fromLTRB(10,10,10,5),
+      elevation: 2.0,
+          child: Column(
+            children:[
+              ListTile(
+                onTap: (){
+
+                },              
+                title: Text(packages[index]['package'],style: TextStyle(fontWeight: FontWeight.w700),),
+                subtitle: Text(packages[index]['Admission']),
+                trailing: Text("KES ${packages[index]['Rate']}",style: TextStyle(fontWeight: FontWeight.w700,color: Colors.red[800]),),
+
+              ),
+            ]),
+    );
   }
 }

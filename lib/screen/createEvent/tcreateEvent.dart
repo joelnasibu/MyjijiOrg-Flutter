@@ -2,6 +2,9 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:organizer/models/slideRight.dart';
+import 'package:organizer/models/validate_createEvent.dart';
+import 'package:organizer/screen/Addons/new/oNewAddon.dart';
 import 'package:organizer/style.dart';
 
 class TabCreateEvent extends StatefulWidget {
@@ -11,8 +14,10 @@ class TabCreateEvent extends StatefulWidget {
 
 class _TabCreateEventState extends State<TabCreateEvent> {
   Future <File> _banner; 
+  int radioCharge = 0;
+  bool radioRestrict = false;
   
-  String _selectedCategory, _selectedAdmission = null;
+  String _selectedCategory, _selectedAdmission;
   List<String> category = ['Platnum','Gold','Ordinary'];
   List<String> admission = [
     'General',
@@ -31,6 +36,10 @@ class _TabCreateEventState extends State<TabCreateEvent> {
     TextEditingController _cDate = TextEditingController();
     TextEditingController _cStart = TextEditingController();
     TextEditingController _cEnd = TextEditingController();
+
+    final globalkey = GlobalKey<FormState>();
+    final _event = ValidateCreateEvent();
+   
     
 
 
@@ -83,6 +92,8 @@ class _TabCreateEventState extends State<TabCreateEvent> {
     });
 
   }
+ 
+ 
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
@@ -93,7 +104,7 @@ class _TabCreateEventState extends State<TabCreateEvent> {
       children: <Widget>[
         Container(
           margin:EdgeInsets.all(16.0),
-          height: screenHeight *.5,
+          height: screenHeight *.3,
           decoration: BoxDecoration(
             image: DecorationImage(
               image: AssetImage(SystemImagePath + 'imageplaceholder.jpg'),
@@ -124,7 +135,7 @@ class _TabCreateEventState extends State<TabCreateEvent> {
                   children: <Widget>[
                     Container(
                       margin:EdgeInsets.all(16.0),
-                      height: screenHeight *.5,
+                      height: screenHeight *.3,
                       decoration: BoxDecoration(
                         color: Colors.lightBlue,
                         image: DecorationImage(
@@ -163,10 +174,8 @@ class _TabCreateEventState extends State<TabCreateEvent> {
     );
 
     final section_2 = Container(
-             // height: MediaQuery.of(context).size.height,
-             // width: MediaQuery.of(context).size.width * .90,
-              padding: EdgeInsets.symmetric(horizontal: 16.0),
-              child: Column(
+                padding: EdgeInsets.symmetric(horizontal: 16.0),
+                child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
@@ -176,6 +185,11 @@ class _TabCreateEventState extends State<TabCreateEvent> {
                     SizedBox(height: 10.0),
 
                     DropdownButtonFormField(
+                      validator: (val){
+                        if(val == null){
+                          return 'Please Select Category';
+                        }
+                      },
                       hint: Text('Category',style: TextStyle(fontSize: SmallFontSize)),
                       value: _selectedCategory,
                       items: category.map( (val)=> DropdownMenuItem<String>(
@@ -187,6 +201,8 @@ class _TabCreateEventState extends State<TabCreateEvent> {
                         });
                       },
                       decoration: InputDecoration(
+                        filled: true,
+                        fillColor: Colors.white,
                           contentPadding: EdgeInsets.all(8.0),
                           border: OutlineInputBorder(),
                           enabledBorder: OutlineInputBorder(
@@ -194,30 +210,118 @@ class _TabCreateEventState extends State<TabCreateEvent> {
                     ),
 
                     SizedBox(height: 10.0),
-
 
                     _textFormTemplate("Description",lines: 5),
                     
                     SizedBox(height: 10.0),
 
-                    DropdownButtonFormField(
-                      hint: Text('Event Admission',style: TextStyle(fontSize: SmallFontSize)),
-                      value: _selectedAdmission,
-                      items: admission.map( (val)=> DropdownMenuItem<String>(
-                        value: val,child: Text(val),
-                      )).toList(),
-                      onChanged: (val){
-                        setState(() {
-                         _selectedAdmission = val; 
-                        });
-                      },
-                      decoration: InputDecoration(
-                          contentPadding: EdgeInsets.all(8.0),
-                          border: OutlineInputBorder(),
-                          enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.grey[300]))),
+                    Container(
+                      height: 70,
+                      padding: EdgeInsets.symmetric(vertical: 8.0),
+                      decoration: BoxDecoration(
+                        border: Border.all(color:Colors.grey[300]),
+                        color: Colors.white
+                        
+                      ),
+                      child:Row(
+                        children: <Widget>[
+                          Expanded(
+                            child: RadioListTile(                          
+                              value: 1,                          
+                                groupValue: radioCharge,
+                                title: Text('Free',style: TextStyle(fontSize: TinyFontSize),),
+                                activeColor: Colors.blue,
+                                onChanged: (val){
+                                  setState((){
+                                    radioCharge = val;
+                                  });
+                                },
+                              ),
+                          ),
+                          Expanded(
+                              child: RadioListTile(
+                                value: 2,
+                                groupValue: radioCharge,
+                                activeColor: Colors.green,
+                                
+                                title: Text('Paid',style: TextStyle(fontSize: TinyFontSize)),                                
+                                onChanged: (val){
+                                  setState((){
+                                    radioCharge = val;
+                                  });
+                              },
+                            ),
+                          ),
+
+                          Expanded(
+                            child: Column(
+                              children: <Widget>[
+                                Text("Restriction",style: TextStyle(fontSize: TinyFontSize)),
+                                Expanded(
+                                  child: Switch(
+                                    value: radioRestrict,
+                                    activeColor: Colors.red,
+                                    onChanged: (val){
+                                      setState((){
+                                        radioRestrict = val;                                      
+                                      });
+                                  },
+
+                                ),
+                              ),
+
+                              ],
+                            ),
+                          )
+                        ]),
                     ),
-                    
+
+                    SizedBox(height: 10.0),
+
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: <Widget>[
+                        Expanded(
+                          child: DropdownButtonFormField(
+                              validator:(value){
+                                if (value ==null){
+                                  return 'Please Select Event Admission';
+                                }
+                              },
+                              hint: Text('Event Admission',style: TextStyle(fontSize: SmallFontSize)),
+                              value: _selectedAdmission,
+                              items: admission.map( (val)=> DropdownMenuItem<String>(
+                                value: val,child: Text(val),
+                              )).toList(),
+                              onChanged: (val){
+                                setState(() {
+                                _selectedAdmission = val; 
+                                });
+                              },
+                              decoration: InputDecoration(
+                                fillColor: Colors.white,
+                                filled: true,
+                                  contentPadding: EdgeInsets.all(8.0),
+                                  border: OutlineInputBorder(),
+                                  enabledBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(color: Colors.grey[300]))),
+                            ),
+                                             
+                        ),
+                        SizedBox(width: 10),
+                        RaisedButton(                        
+                          child: Text('Addons +',style: TextStyle(fontWeight: FontWeight.bold),),
+                          color: AppSecondaryColor,                         
+                          onPressed: (){
+                            Route route = SlideRight(
+                              widget: NewAddon(),time: 800
+                            );
+                            Navigator.push(context, route);
+                          },
+                        )
+                      ],
+                    ),
+
                     SizedBox(height: 10.0),
 
                     Row(
@@ -243,7 +347,7 @@ class _TabCreateEventState extends State<TabCreateEvent> {
 
                     SizedBox(height: 10.0),
 
-                       Row(
+                    Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: <Widget>[
                         Expanded(
@@ -265,7 +369,7 @@ class _TabCreateEventState extends State<TabCreateEvent> {
 
                     SizedBox(height: 10.0),
 
-                     Row(
+                    Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: <Widget>[
                         Expanded(
@@ -286,7 +390,7 @@ class _TabCreateEventState extends State<TabCreateEvent> {
 
                     ]),
 
-                   SizedBox(height:10.0),
+                    SizedBox(height:10.0),
 
                     _textFormTemplate('Address',icon: Icons.search),
 
@@ -294,20 +398,48 @@ class _TabCreateEventState extends State<TabCreateEvent> {
 
                     _textFormTemplate('Other details',lines: 5),
                     
-                    SizedBox(height: 10.0),
-                  
+                    SizedBox(height: 30.0),
+
+                    
+
+                    
+
+
+                   
                   ]),
+              
     );
 
-   
-    return ListView(
-      children: <Widget>[
-        section_1,
-        section_2,
-      
-      ],
-      
+    final section_3 = FlatButton(
+        color: AppPrimaryColor,        
+        child: Padding(          
+          padding: const EdgeInsets.all(18.0),
+          child: Text('Save',style: boldViewDown.copyWith(color:Colors.white),),
+        ),
+        onPressed: (){
+          final form = globalkey.currentState;
+          if(form.validate()){
+            form.save();
+          }
+        },
+     
+
     );
+
+    return Form(
+      key: globalkey,
+      child:ListView(
+      children: <Widget>[
+         section_1,
+         section_2,
+         section_3,
+
+
+
+
+
+   
+      ]));
   }
 
   Widget _textFormTemplate(String label,{IconData icon, int lines, TextEditingController controller}){
@@ -315,7 +447,20 @@ class _TabCreateEventState extends State<TabCreateEvent> {
       controller: controller,
       maxLines: lines!=null? 5: 1, 
       keyboardType: lines!=null?TextInputType.multiline:TextInputType.text ,
-      decoration: InputDecoration(                
+      validator: (value){
+        if(value.isEmpty){
+          return "Please enter $label";
+        }
+      },
+
+      onSaved: (value){
+        setState(() {
+         _event.eventName = label; 
+        });
+      },
+      decoration: InputDecoration(  
+        filled: true,
+        fillColor: Colors.white,
         suffixIcon: Icon(icon,color: Colors.grey[400],),                
         contentPadding: EdgeInsets.all(10.0),
         labelText: label,
@@ -328,4 +473,6 @@ class _TabCreateEventState extends State<TabCreateEvent> {
   }
 
   
+
+ 
 }

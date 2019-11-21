@@ -7,6 +7,7 @@ import 'package:organizer/style.dart';
 
 
 class PrtBookings extends StatefulWidget {
+  
   @override
   _PrtBookingsState createState() => _PrtBookingsState();
 }
@@ -14,6 +15,8 @@ class PrtBookings extends StatefulWidget {
 class _PrtBookingsState extends State<PrtBookings> with TickerProviderStateMixin {
 
 TabController _tabController;
+int position;
+int _tabIndex = 0;
 
 
 
@@ -24,58 +27,72 @@ TabController _tabController;
 
     _tabController = TabController(vsync: this,length: 3);
   }
+   
+  goTo(){
+    _tabIndex = _tabController.index + 1;
+    _tabController.animateTo(_tabIndex);
+
+    print("index $_tabIndex");
+
+  }
+
 
 
   @override
   Widget build(BuildContext context) {
-    return CustomScrollView(
-        slivers:<Widget>[
-          SliverAppBar(
-            expandedHeight: 180.0,
-            floating: false,
-            pinned: true,
-            backgroundColor: Colors.black12,
-            flexibleSpace: FlexibleSpaceBar(
-              background: Image.network('https://www.vividfeatures.com/wp-content/uploads/2017/01/kenya-at-50-640x313.jpg',fit: BoxFit.cover),
-              
-            ),
-          title: Text("Bookings"),
-          bottom: TabBar(
-            indicatorColor: AppAccentColor,
+    return Scaffold(
+          backgroundColor: Colors.grey[300],
+          appBar: PreferredSize(
+            preferredSize:Size.fromHeight(70),
             
-            controller: _tabController,
+            child:Container(
+              child:TabBar(
+               // labelColor: Colors.black,
+               // labelStyle: boldViewDown,
+                indicatorColor: Colors.red[900],  
+                labelPadding: EdgeInsets.zero,         
+                controller: _tabController,
+                unselectedLabelColor: Colors.red,
             tabs: <Widget>[
-              Tab(text:'Events'),
-              Tab(text:"Bookings"),
-              Tab(text:'Overview')
+              _tabContainer('Events'),
+              _tabContainer('Bookings'),
+              _tabContainer('Overview'),
             ],
             onTap: (index){
 
-            },            
-            ),
-          ),
+            }, 
+          ))),
 
-          SliverToBoxAdapter(
-          
-           child: Container( 
-             height: MediaQuery.of(context).size.height -200,
+         body: Container( 
+             height: MediaQuery.of(context).size.height,
              child: TabBarView(
-          
+              
              controller: _tabController,
              children: <Widget>[
-               FPage(),
-               SPage(),
-               TPage()
+               FPage(goTo:goTo()),
+               SPage(position:null),
+               TPage(),
              ],
            ),
            )
-          ),
+          );   
 
-         
+  }
+ 
+ 
 
-         
-         
-        ]);     
-
+  _tabContainer(String title){
+    return Card(
+      margin: EdgeInsets.symmetric(horizontal: 5.0,vertical: 8.0),
+      elevation: 1.0,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20) ),
+      
+      child:Container(
+        padding: EdgeInsets.symmetric(horizontal: 20),
+        child: Tab(
+          text:title
+        )
+      ));
+   
   }
 }

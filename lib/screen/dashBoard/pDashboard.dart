@@ -1,6 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:organizer/models/db.dart';
 import 'package:organizer/style.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
@@ -89,7 +88,7 @@ class PrtDashBoardState extends State<PrtDashBoard>
 
     final section_1 = Container(
 
-      margin: EdgeInsets.fromLTRB(2, 2, 2, 4),
+      margin: EdgeInsets.fromLTRB(0, 0, 0, 4),
      
       width: screenWidth,
       height: screenHeight * .32,
@@ -367,9 +366,9 @@ class PrtDashBoardState extends State<PrtDashBoard>
     }
 
     return Container(
-      margin: EdgeInsets.all(8.0),
+      margin: EdgeInsets.all(4.0),
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(8.0),
           color: AppPrimaryColor,
           image: DecorationImage(
               image: AssetImage(imagepath), fit: BoxFit.cover)),
@@ -382,8 +381,8 @@ class PrtDashBoardState extends State<PrtDashBoard>
               decoration: BoxDecoration(
                 color: Colors.black.withOpacity(.6),
                 borderRadius: BorderRadius.only(
-                  bottomRight: Radius.circular(10),
-                  bottomLeft: Radius.circular(10)
+                  bottomRight: Radius.circular(8),
+                  bottomLeft: Radius.circular(8)
                 )
               ),
               padding: EdgeInsets.symmetric(horizontal: 16.0),

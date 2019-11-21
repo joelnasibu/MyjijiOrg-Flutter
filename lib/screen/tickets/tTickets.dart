@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:organizer/models/db.dart';
 import 'package:organizer/style.dart';
 
 class TabTickets extends StatefulWidget {
@@ -11,115 +12,111 @@ class _TabTicketsState extends State<TabTickets> {
     'Platnum Members', 'Gold Members', 'Regular Members'
   ];
   String selected = null;
+  DB db = DB();
+
   @override
   Widget build(BuildContext context) {
 
     final section_1 = Container(
       padding: const EdgeInsets.all(16.0),
-      child: Text('Tickets Sales',style: boldViewDown),
+      child: Text('Tickets Sales',style: boldViewDown,),
     );
    
-    final section_2 = Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0,vertical: 4.0),
-      margin: const EdgeInsets.symmetric(horizontal: 24.0,vertical: 10.0),
-      height: 140,
-      decoration: BoxDecoration(        
-        borderRadius: BorderRadius.circular(10.0),
-        border: Border.all(color: Colors.grey[300])
-      ),
-
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 10),
-                child: DropdownButton(                
-                  underline: DropdownButtonHideUnderline(child: Text("")),
-                  hint: Text('Select Category'),
-                  value: selected,
-                  onChanged: (value){
-                    setState(() {
-                     selected = value; 
-                    });
-                  },
-                  items: ticketsCategory.map( (val) => DropdownMenuItem(
-                    value: val, child: Text(val,style:boldViewDown.copyWith(fontSize: SmallFontSize))
-                  )).toList(),
+    final section_2 = Card(       
+      elevation: 2.0,
+      margin: const EdgeInsets.symmetric(horizontal: 18.0,vertical: 5.0),
+      child:Container(        
+        padding: const EdgeInsets.symmetric(horizontal: 10.0,vertical: 4.0),   
+        height: 140,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Container(
+                  padding: EdgeInsets.only(left: 2),
+                  child: DropdownButton(                
+                    underline: DropdownButtonHideUnderline(child: Text("")),
+                    hint: Text('Select Category'),
+                    value: selected,
+                    onChanged: (value){
+                      setState(() {
+                      selected = value; 
+                      });
+                    },
+                    items: ticketsCategory.map( (val) => DropdownMenuItem(
+                      value: val, child: Text(val,style:boldViewDown.copyWith(fontSize: SmallFontSize))
+                    )).toList(),
 
 
+                  ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left:12.0),
-                child: Text('Sales of now',style: boldView.copyWith(fontSize: 16.0),),
-              ),
-            ],
-          ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                Padding(
+                  padding: const EdgeInsets.only(left:4.0),
+                  child: Text('Sales of now',style: boldView.copyWith(fontSize: 16.0),),
+                ),
+              ],
+            ),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
 
-            children: <Widget>[
-              Container(
-                padding: EdgeInsets.symmetric(horizontal:12, vertical:16.0),
-                child: Text('Advantage Code',style: boldViewDown.copyWith(color: AppPrimaryColor,fontSize: 14.0))
-              ),
-              Text('GOLDDHA345'),
-            ],
-          ),
-        ],
-      ),
+              children: <Widget>[
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal:4, vertical:16.0),
+                  child: Text('Advantage Code',style: boldViewDown.copyWith(color: Colors.red[900],fontSize: 14.0))
+                ),
+                Text('GOLDDHA345'),
+              ],
+            ),
+          ],
+        ),
 
-    );
-    
-    
-    final section_3 = Container(
-      padding: const EdgeInsets.symmetric(horizontal: 24.0,vertical: 16.0),
-      margin: const EdgeInsets.symmetric(horizontal: 24.0,vertical: 10.0),
-      decoration: BoxDecoration(
-         borderRadius: BorderRadius.circular(10.0),
-        border: Border.all(color: Colors.grey[300])
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Container(
-            child: Text('Events',style: boldViewDown.copyWith(color: AppPrimaryColor),),
-          ),
-          ListView.builder(
-            shrinkWrap: true,
-            itemCount: 4,
-            itemBuilder: (context,index)=> _eventBuilder(context, index),
-          )
-        ],
-
-      ),
-    );
-
-    final section_4 =  Container(
-      decoration: BoxDecoration(
-        color: Colors.grey[200],
-        // borderRadius: BorderRadius.only(
-        //   topLeft: Radius.circular(35),topRight: Radius.circular(35.0))
-      ),
-      padding: EdgeInsets.symmetric(horizontal:10.0,vertical: 16),
+    ));
       
-     // margin: EdgeInsets.symmetric(horizontal: 24.0),
-      child: ListTile(
-        leading: CircleAvatar(
-          backgroundColor: AppPrimaryColor,
-          radius: 30,
-          child: Icon(Icons.attach_money,size:30,color:Colors.white)
-          ),
-        title: Text('Revenue',style: boldViewDown),
-        trailing: Text("\$ 9,489",style: boldViewDown.copyWith(
-          fontSize: ExtraLargeSize,
-          color: Colors.green)),
+    final section_3 = Card(
+        elevation: 2.0,
+        margin: const EdgeInsets.symmetric(horizontal: 18.0,vertical: 10.0),
+        child:Container(
+        padding: const EdgeInsets.symmetric(horizontal: 24.0,vertical: 16.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Container(
+              color: Colors.grey[200],
+              width: MediaQuery.of(context).size.width,
+              padding: EdgeInsets.symmetric(vertical: 10.0,horizontal: 5.0),
+              child: Text('Events',style: boldViewDown.copyWith(color: AppPrimaryColor),),
+            ),
+            ListView.builder(
+              shrinkWrap: true,
+              itemCount: 4,
+              itemBuilder: (context,index)=> _eventBuilder(context, index),
+            )
+          ],
+
+        ),
+    ));
+
+    final section_4 =  Card(     
+      color: AppPrimaryColor,
+      margin: EdgeInsets.symmetric(horizontal: 18.0,vertical: 10.0),
+      child: Container(        
+      padding: EdgeInsets.symmetric(horizontal:10.0,vertical: 16),
+        child: ListTile(
+          leading: CircleAvatar(
+            backgroundColor: Colors.white,
+            radius: 30,
+            child: Icon(Icons.attach_money,size:30,color:AppPrimaryColor)
+            ),
+          title: Text('Revenue',style: boldViewDown.copyWith(color: Colors.white)),
+          trailing: Text("\$ 9,489",style: boldViewDown.copyWith(
+            fontSize: ExtraLargeSize,
+            color: AppSecondaryColor)),
+        ),
       ),
     );
 
@@ -131,7 +128,8 @@ class _TabTicketsState extends State<TabTickets> {
         section_1,
         section_2,
         section_3,
-        section_4
+        section_4,
+        SizedBox(height: 50),
       ],
     );
   }
@@ -173,7 +171,7 @@ class _TabTicketsState extends State<TabTickets> {
               crossAxisAlignment: CrossAxisAlignment.end,
               children: <Widget>[
                 Text("Safari Park",style:boldViewDown.copyWith(
-                  color:AppPrimaryColor,fontSize: 16.0)),
+                  color:Colors.red[900],fontSize: 16.0)),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical:8.0),
                   child: Text("23-06-2019"),
@@ -192,4 +190,3 @@ class _TabTicketsState extends State<TabTickets> {
   
 
 }
-

@@ -77,8 +77,7 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    double width = MediaQuery.of(context).size.width;
-
+    
     return Scaffold(
         backgroundColor: AppPrimaryColor,
         body: Center(

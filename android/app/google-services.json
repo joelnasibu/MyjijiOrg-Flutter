@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "789836388505",
+    "firebase_url": "https://myjijiorgpro.firebaseio.com",
+    "project_id": "myjijiorgpro",
+    "storage_bucket": "myjijiorgpro.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:789836388505:android:a5b11757fdad35d7300008",
+        "android_client_info": {
+          "package_name": "com.example.organizer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "789836388505-grv6djokqce3v3ta0nec16cvr497tfnf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBT0geod2tF5BcdSBi-XVMfDKjlUdmhJS4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "789836388505-grv6djokqce3v3ta0nec16cvr497tfnf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

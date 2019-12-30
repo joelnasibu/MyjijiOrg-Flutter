@@ -87,7 +87,7 @@ class DB {
         ],
         'likes': 456,
       },
-      2:{
+      2: {
         'title': "Miss Kenya World",
         'description':'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. ',
         'date': '2019-06-07',
@@ -125,7 +125,7 @@ class DB {
         ],
         'likes': 456,
       },
-      3:{
+      3: {
         'title': "Super League",
         'description':'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. ',
         'date': '2019-09-18',
@@ -167,7 +167,7 @@ class DB {
         'title': "Beach Boy",
         'description':'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. ',
         'date': '2019-12-20',
-        'banner': "assets/images/banners/yoga event.jpg",
+        'banner': "assets/images/banners/yogaevent.jpg",
         'categories': ["category 1"],
         'rates': 4.0,
         'charts': [250, 390, 110, 240, 500, 120, 450, 350, 250, 45],

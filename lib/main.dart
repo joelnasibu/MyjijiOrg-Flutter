@@ -1,16 +1,10 @@
 import 'dart:async';
 import 'dart:math';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:organizer/models/slideleft.dart';
-import 'package:organizer/screen/createProfile/oCreateProfile.dart';
 import 'package:organizer/screen/home/oHomepage.dart';
 import 'package:organizer/screen/splashScreen/oSplash.dart';
 import 'package:organizer/style.dart';
-import 'package:appcenter/appcenter.dart';
-import 'package:appcenter_analytics/appcenter_analytics.dart';
-import 'package:appcenter_crashes/appcenter_crashes.dart';
-import 'package:organizer/testing.dart';
 
 void main() => runApp(MyOrganizer());
 

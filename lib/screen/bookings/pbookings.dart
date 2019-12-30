@@ -32,8 +32,6 @@ int _tabIndex = 0;
     _tabIndex = _tabController.index + 1;
     _tabController.animateTo(_tabIndex);
 
-    print("index $_tabIndex");
-
   }
 
 
@@ -45,23 +43,34 @@ int _tabIndex = 0;
           appBar: PreferredSize(
             preferredSize:Size.fromHeight(70),
             
-            child:Container(
+            child:Card(
+              margin: EdgeInsets.symmetric(vertical: 12.0),   
+              elevation: 1.0,               
+              child:Container(
+                padding: EdgeInsets.symmetric(horizontal: 16,vertical: 2.0),
+
               child:TabBar(
-               // labelColor: Colors.black,
-               // labelStyle: boldViewDown,
-                indicatorColor: Colors.red[900],  
-                labelPadding: EdgeInsets.zero,         
+                                
+                indicator: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  color: Colors.red[900],
+
+                ),
+
+                labelColor: Colors.white,
+               // labelStyle: boldViewDown,  
                 controller: _tabController,
-                unselectedLabelColor: Colors.red,
+                unselectedLabelColor: Colors.red[900],
             tabs: <Widget>[
               _tabContainer('Events'),
               _tabContainer('Bookings'),
               _tabContainer('Overview'),
+             
             ],
             onTap: (index){
 
             }, 
-          ))),
+          )))),
 
          body: Container( 
              height: MediaQuery.of(context).size.height,
@@ -69,8 +78,8 @@ int _tabIndex = 0;
               
              controller: _tabController,
              children: <Widget>[
-               FPage(goTo:goTo()),
-               SPage(position:null),
+               FPage(),
+               SPage(),
                TPage(),
              ],
            ),
@@ -82,17 +91,10 @@ int _tabIndex = 0;
  
 
   _tabContainer(String title){
-    return Card(
-      margin: EdgeInsets.symmetric(horizontal: 5.0,vertical: 8.0),
-      elevation: 1.0,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20) ),
-      
-      child:Container(
-        padding: EdgeInsets.symmetric(horizontal: 20),
-        child: Tab(
-          text:title
-        )
-      ));
+    return Tab(
+          text:title,
+          
+      );
    
   }
 }

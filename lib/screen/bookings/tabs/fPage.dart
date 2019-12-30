@@ -9,9 +9,9 @@ import 'package:organizer/style.dart';
 class FPage extends StatelessWidget {
   DB db = DB();
   SPage sp = SPage();
-  final goTo;
+  
 
-  FPage({this.goTo});
+  FPage();
   
 
   @override
@@ -44,7 +44,7 @@ class FPage extends StatelessWidget {
       padding: const EdgeInsets.all(4.0),
       child: InkWell(
         onTap: () {
-          goTo;
+          
          // sp.position = i;
           
           // Fluttertoast.showToast(

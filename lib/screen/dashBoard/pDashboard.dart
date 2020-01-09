@@ -77,7 +77,6 @@ class PrtDashBoardState extends State<PrtDashBoard>
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
    
 
     _builder.clear();
@@ -91,7 +90,7 @@ class PrtDashBoardState extends State<PrtDashBoard>
       margin: EdgeInsets.fromLTRB(0, 0, 0, 4),
      
       width: screenWidth,
-      height: screenHeight * .32,
+      height: 300,//screenHeight * .32,
       child: CarouselSlider(
           enlargeCenterPage: true, 
          // viewportFraction: 0.8,         
@@ -116,112 +115,27 @@ class PrtDashBoardState extends State<PrtDashBoard>
             
           },
           autoPlay: false,
-          autoPlayAnimationDuration: Duration(seconds: 10),
+          autoPlayAnimationDuration: Duration(seconds: 4),
+          
           items: _builder
           ),
     );
 
     final section_2 = Container(
-      height: 80,
-      padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 5),
+      height: 100,
+      padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 2.0),
 
       child:Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
-          Card(
-            elevation: 2,
-            child: Container(
-              width: (screenWidth - 48)/3 ,
-              padding: EdgeInsets.symmetric(horizontal: 8.0,vertical: 0.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  Expanded(
-                    child:  DropdownButtonFormField(
-                      decoration: InputDecoration(
-                        hintText: 'Category',
-                        hintStyle: TextStyle(fontSize: TinyFontSize,),
-                        border: InputBorder.none,
-                        contentPadding: EdgeInsets.zero,
-                      ),
-
-                      value: selectCat,
-                      items: _dropCategory
-                          .map((val) => DropdownMenuItem(
-                              child: Text(
-                                val,
-                                style: boldView,
-                              ),
-                              value: val))
-                          .toList(),
-                      onChanged: (val) {
-                        setState(() {
-                          selectCat = val;
-                        });
-                      },
-
-
-                    ),
-                  ),
-                  Container(
-                    padding: EdgeInsets.only(bottom: 10),
-                    child: Text(
-                      selectCat!=null?selectCat:'-',
-                      style: boldViewDown.copyWith(fontSize: SmallFontSize),
-                    ),
-                  )
-                  ]))
-            
-                  ),
+          _card('Attendance', attendance.toString(),screenWidth),
+          _card('Ticket Rate','\$ $price',screenWidth),
                
-          Card(
-            elevation: 2.0,
-            child: Container(
-              width: (screenWidth - 48) / 3,            
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  Text(
-                    "Attendance",
-                    style: boldView,
-                  ),
-                  Text(
-                    "$attendance",
-                    style: boldViewDown,
-                  )
-                ],
-              ),
-            ),
-          ),
-          
-          Card(
-            elevation: 2.0,
-            child: Container(
-              width: (screenWidth - 48) / 3,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  Text(
-                    "Ticket Rate",
-                    style: boldView,
-                  ),
-                  Text(
-                    "\$ $price",
-                    style: boldViewDown,
-                  )
-                ],
-              ),
-            ),
-          )
-        ],
+          ],
       ),
     );
 
     final section_3 = Card(
-      elevation: 4.0,
       margin: EdgeInsets.all(8.0),
       child:Container(
       height: 250,
@@ -241,7 +155,7 @@ class PrtDashBoardState extends State<PrtDashBoard>
             padding: EdgeInsets.symmetric(vertical: 4.0, horizontal: 24.0),
             child: Text('Statistics', style: boldView.merge(boldViewDown))),
           Card(
-            elevation: 14,
+            
             margin: EdgeInsets.all(8.0),
             child: Container(
               padding: EdgeInsets.symmetric(vertical: 20),
@@ -333,7 +247,7 @@ class PrtDashBoardState extends State<PrtDashBoard>
             style: boldViewDown.copyWith(color: Colors.white)),
         trailing: Text("\$ 69,489",
             style: boldViewDown.copyWith(
-                fontSize: ExtraLargeSize, color: AppSecondaryColor)),
+                fontSize: ExtraLargeSize+4 , color: AppSecondaryColor)),
       ),
     );
 
@@ -345,6 +259,31 @@ class PrtDashBoardState extends State<PrtDashBoard>
           section_4, 
           section_5
         ]);
+  }
+
+  Widget _card(String title, String value, double screenWidth ){
+    return  Card(
+            child: Container(
+              width: (screenWidth - 48) / 2,            
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  Text(
+                    title.toUpperCase(),
+                    style: boldView.copyWith(fontSize: SmallFontSize),
+                  ),
+                  Text(
+                    value,
+                    style: boldViewDown,
+                  )
+                ],
+              ),
+            ),
+          );
+          
+          
+       
   }
 
   Widget _buildCarosel(

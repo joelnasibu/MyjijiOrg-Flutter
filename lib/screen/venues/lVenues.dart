@@ -53,47 +53,53 @@ class _LVenueState extends State<LVenue> {
   Widget listBuilder(BuildContext context, int index) {
      final details = db.venues[title]['details'][index];
 
-    return Card(
-        elevation: 4.0,
-        color: Colors.grey[600].withOpacity(.4),
-        margin: const EdgeInsets.fromLTRB(10, 10, 10, 10),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
-        child: Container(
-            height: 200,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8.0),
-                color: AppPrimaryColor,
-                image: DecorationImage(
-                    image: NetworkImage(details["picture"]), fit: BoxFit.cover)),
-            child: Stack(children: [
-              Align(
-                alignment: AlignmentDirectional.bottomStart,
-                child: Container(
-                  height: 50,
-                  decoration: BoxDecoration(
-                      color: Colors.black.withOpacity(.6),
-                      borderRadius: BorderRadius.only(
-                          bottomRight: Radius.circular(5),
-                          bottomLeft: Radius.circular(5))),
-                  padding: EdgeInsets.symmetric(horizontal: 16.0),
-                  child: ListTile(
-                  title: Text(details['name'],
-                      style: boldViewDown.copyWith(
-                        fontSize: ExtraLargeSize,
-                        color: Colors.white)),
-                  trailing: IconButton(
-                    icon: Icon(Icons.arrow_forward_ios),
-                    color: AppSecondaryColor,
-                    onPressed: () {
-                     // widget.category = category;
-                    },
-                  ),
-                ),
-                  
+    return InkWell(
+      onTap: (){
+          SnackBar snackbar = SnackBar(            
+            content: Text("Coming Soon"),
+            backgroundColor: Colors.green[900],
+          );
+          Scaffold.of(context).showSnackBar(snackbar);
+        },
+      child: Card(
+          elevation: 4.0,
+          color: Colors.grey[600].withOpacity(.4),
+          margin: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+          child: Container(
+              height: 200,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8.0),
+                  color: AppPrimaryColor,
+                  image: DecorationImage(
+                      image: NetworkImage(details["picture"]), fit: BoxFit.cover)),
+              child: Stack(children: [
+                Align(
+                  alignment: AlignmentDirectional.bottomStart,
+                  child: Container(
+                    height: 50,
+                    decoration: BoxDecoration(
+                        color: Colors.black.withOpacity(.6),
+                        borderRadius: BorderRadius.only(
+                            bottomRight: Radius.circular(5),
+                            bottomLeft: Radius.circular(5))),
+                    padding: EdgeInsets.symmetric(horizontal: 16.0),
+                    child: ListTile(
                       
+                      title: Text(details['name'],
+                        style: boldViewDown.copyWith(
+                          fontSize: NormalFonteSize,
+                          color: Colors.white)),
+                    
                   ),
-                ),
-            ]),
-    ));
+
+                  
+                    
+                        
+                    ),
+                  ),
+              ]),
+      )),
+    );
   }
 }

@@ -11,23 +11,10 @@ class DashBoard extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.grey[200],
       appBar: AppBar(
-        title: Text('Hot Event'),
-        leading: IconButton(
-          icon: Icon(Icons.menu),
-          onPressed: (){
-            Scaffold.of(context).openDrawer();
-          }),
+        title: Text('DashBoard'),
+       
         actions: <Widget>[
-          IconButton(
-            icon:Icon(Icons.add_circle,size: 30,),
-            onPressed: (){
-              Route route = SlideRight(
-                widget: CreateEvent(),
-                time: 800
-              );
-              Navigator.push(context, route);
-            },
-          ),
+          
            IconButton(
             icon:Icon(Icons.more_vert),
             onPressed: (){},

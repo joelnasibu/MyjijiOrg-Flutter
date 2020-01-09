@@ -99,7 +99,11 @@ class _PrtCreateEventState extends State<PrtCreateEvent> {
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
     
-    final placeHolderContainer = Stack(
+    final placeHolderContainer = InkWell(
+      onTap: () {
+        fetchImage(ImageSource.gallery);
+      },
+      child: Stack(
       fit: StackFit.passthrough,
       alignment: AlignmentDirectional.bottomCenter,      
       children: <Widget>[
@@ -117,14 +121,10 @@ class _PrtCreateEventState extends State<PrtCreateEvent> {
             padding: EdgeInsets.symmetric(vertical: 8.0),
             margin: EdgeInsets.all(16.0),
             color: Colors.black.withOpacity(.3),
-            child: InkWell(
-              onTap: () {
-                fetchImage(ImageSource.gallery);
-              },
-              child: Icon(Icons.camera_alt,size: 30,color: Colors.white),
-            )
+            child: Icon(Icons.camera_alt,size: 30,color: Colors.white),
+            
           )
-    ]);
+    ]));
 
     final section_1 = FutureBuilder<File>(
             future: _banner,

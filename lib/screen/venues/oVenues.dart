@@ -30,7 +30,11 @@ class _VenueState extends State<Venue> {
       ),
       body: GridView.builder(
           gridDelegate:
-              SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+              SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                mainAxisSpacing: 3,
+                crossAxisSpacing: 3
+                ),
           itemCount: db.venues.length,
           itemBuilder: (context, index) => listBuilder(context, index)),
     );
@@ -46,14 +50,14 @@ class _VenueState extends State<Venue> {
         Navigator.push(context, route);
       },
       child: Card(
-          elevation: 4.0,
-          color: Colors.grey[600].withOpacity(.4),
-          margin: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+          elevation: 2.0,
+          color: Colors.white,//grey[600].withOpacity(.4),
+         // margin: const EdgeInsets.fromLTRB(10, 10, 10, 10),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
           child: Container(
             height: 150,
             decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8.0),
+                borderRadius: BorderRadius.circular(5.0),
                 color: AppPrimaryColor,
                 image: DecorationImage(
                     image: NetworkImage(db.venues[category]["banner"]),

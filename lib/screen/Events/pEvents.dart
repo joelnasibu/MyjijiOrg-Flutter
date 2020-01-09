@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:organizer/models/db.dart';
 import 'package:organizer/style.dart';
 
 class PrtEvents extends StatefulWidget {
@@ -11,18 +12,7 @@ class PrtEventsState extends State<PrtEvents>{
   // List<HomeJson> data = []; 
   // HomeJson online = HomeJson();
 
-   List<String> products = [
-    'https://jandevents.com/wp-content/uploads/jand-party-1600x900.jpg',
-    'https://www.feelgoodevents.com.au/wp-content/uploads/2017/02/10933957_908820615818063_6504247213800313682_n-960x600.jpg',
-    'https://www.residentadvisor.net/images/events/flyer/2019/9/uk-0919-1303708-front.jpg',
-    'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80',
-    'https://dominicanexpert.com/wp-content/uploads/2016/06/fondo-2.jpg',
-    'https://images.unsplash.com/photo-1524368535928-5b5e00ddc76b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80',
-    'https://imgcld.yatra.com/ytimages/image/upload/t_seo_Holidays_w_640_h_480_c_fill_g_auto_q_auto:good_f_jpg/v1449657155/Kenya108.jpg',
-    'https://i2.wp.com/www.eventskenyah.co.ke/wp-content/uploads/2019/01/48405950_2229809403959234_3207888099602333696_n.jpg?fit=960%2C960'
-
-  ];
-
+  DB db = DB();
 
  
 
@@ -42,7 +32,7 @@ class PrtEventsState extends State<PrtEvents>{
               decoration: BoxDecoration(color: Colors.black.withOpacity(.7)),
           ),
           ListView.builder(
-              itemCount: products.length,
+              itemCount: db.events.length,
               itemBuilder: (context,index)=> listBuilder(context, index)
               
             ),
@@ -107,6 +97,7 @@ class PrtEventsState extends State<PrtEvents>{
 // }
 
   Widget listBuilder(BuildContext context, int index){//, AsyncSnapshot snapshot){
+    final org = db.events[index]['organizer'];
   return Card(
     color: Colors.grey[600].withOpacity(.4),
     margin: const EdgeInsets.fromLTRB(10,10,10,10),
@@ -123,7 +114,7 @@ class PrtEventsState extends State<PrtEvents>{
                 decoration: BoxDecoration(  
                   borderRadius: BorderRadius.only(topLeft: Radius.circular(10),topRight: Radius.circular(10)), 
                   image: DecorationImage(
-                    image:NetworkImage(products[index]),
+                    image:AssetImage(db.events[index]["banner"]),
                  //   (snapshot.data.documents[index]['banner']),
                     fit: BoxFit.cover
                   )             
@@ -135,17 +126,17 @@ class PrtEventsState extends State<PrtEvents>{
   
         ListTile(
           leading: CircleAvatar(
-            backgroundImage: NetworkImage(products[index]),
+            backgroundImage: AssetImage(db.organizers[org]["profile"]),
+            radius: 30,
             
           ),
-          title: Text("snapshot.data.documents[index]['name']",style:TextStyle(color: Colors.white)),
-          subtitle: Text("",style:TextStyle(color: Colors.grey[500])),  //Text('Date'),
-          trailing:  IconButton(
-              color: Colors.orange[400],
-              icon: Icon(Icons.arrow_forward_ios),
-                // child: Text("Sign up"),
-                  onPressed: (){},
-              ),
+          title: Text(
+            db.events[index]['title'],
+            style:boldViewDown.copyWith(
+              color: Colors.white,fontSize: LargeFontSize)),
+          subtitle: Text(db.events[index]['start_date'],
+          style:TextStyle(color: AppSecondaryColor)),  //Text('Date'),
+         
           
           onTap: () {                
             Navigator.pop(context);
@@ -155,8 +146,8 @@ class PrtEventsState extends State<PrtEvents>{
         
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: Text("snapshot.data.documents[index]['description']",
-          style: TextStyle(color:Colors.white),
+          child: Text(db.events[index]['description'],
+          style: TextStyle(color:Colors.grey[400]),
           overflow: TextOverflow.ellipsis,
           maxLines: 3,),
         )

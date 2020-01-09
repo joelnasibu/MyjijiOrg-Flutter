@@ -1,56 +1,40 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:organizer/models/db.dart';
-import 'package:organizer/screen/bookings/obookings.dart';
-import 'package:organizer/screen/bookings/pbookings.dart';
-import 'package:organizer/screen/bookings/tabs/sPage.dart';
+import 'package:organizer/screen/profile/tabs/sPage.dart';
 import 'package:organizer/style.dart';
 
 class FPage extends StatelessWidget {
   DB db = DB();
-  SPage sp = SPage();
-  
-
-  FPage();
-  
 
   @override
   Widget build(BuildContext context) {
+    var orientation = MediaQuery.of(context).orientation;
     return Container(
-        padding: EdgeInsets.fromLTRB(8.0, 8.0, 16, 0),
         decoration: BoxDecoration(
           color: Colors.grey[100],
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(30),
-            topRight: Radius.circular(30),
-          ),
+         
         ),
-        child: CustomScrollView(slivers: [
-          SliverGrid(
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-              ),
-              delegate: SliverChildBuilderDelegate(
-                (context, index) {
-                  return _bookingLayout(context, index);
-                },
-                childCount: db.events.length,
-              ))
-        ]));
-  }
+        child:GridView.builder(
+          
+          itemBuilder: (context,index)=> _eventLayout(context, index),
+          itemCount: db.events.length,
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: orientation==Orientation.portrait?2:3,
+          ),
+        
+        )
+    );
+  
+}
 
-  _bookingLayout(BuildContext context, int i) {
+  _eventLayout(BuildContext context, int i) {
     return Padding(
       padding: const EdgeInsets.all(4.0),
       child: InkWell(
         onTap: () {
           
-         // sp.position = i;
-          
-          // Fluttertoast.showToast(
-          //   msg: '${db.events[i]['title']}\n Coming Soon',
-          //   toastLength: Toast.LENGTH_SHORT,
-          // );
+        
         },
         child: Card(
           color: Colors.white,

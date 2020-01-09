@@ -1,9 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:organizer/models/db.dart';
+import 'package:organizer/models/slideUp.dart';
+import 'package:organizer/models/user.dart';
 import 'package:organizer/screen/Alert/oAlert.dart';
 import 'package:organizer/screen/Events/oEvents.dart';
 import 'package:organizer/screen/SetCategories/setCategories.dart';
+import 'package:organizer/screen/chats/oChats.dart';
+import 'package:organizer/screen/createEvent/oCreateEvent.dart';
 import 'package:organizer/screen/dashBoard/oDashboard.dart';
-import 'package:organizer/screen/tickets/oTickets.dart';
+import 'package:organizer/screen/home/pHomepage.dart';
+import 'package:organizer/screen/home/tHomepage.dart';
+import 'package:organizer/screen/profile/oProfile.dart';
 import 'package:organizer/screen/venues/oVenues.dart';
 import 'package:organizer/style.dart';
 
@@ -16,21 +24,23 @@ class Homepage extends StatefulWidget {
 
 class HomepageState extends State <Homepage>{
  int _selectedIndex = 0;
+ int id  = User().getUser();
+ DB db =  DB();
 
  
   Widget selectedPage(int option){
     switch(option){
-      case 0: return DashBoard();
+      case 0: return Home();
         break;
-      case 1: return Venue();
+      case 1: return Chats();
         break;
       case 2: return Alert();
         break;
-      case 3: return SetCategories();
+      case 3: return Profile();
         break;
       case 4:return SetCategories();
         break;
-      case 5:return Events();
+      case 5:return Venue();
         break;
       case 6:return DashBoard();
         break;
@@ -54,7 +64,22 @@ class HomepageState extends State <Homepage>{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton.extended(
 
+        icon:Icon(Icons.add,color: Colors.black),
+        label:Text("Create Event",style: boldViewDown.copyWith(color: Colors.black)),
+
+        onPressed: (){
+          Route route = SlideUp(
+            widget: CreateEvent(),
+            time: 400,
+          );
+          Navigator.push(context, route);
+
+        },
+      
+        
+      ),
       body: selectedPage(_selectedIndex),
       drawer: Drawer(
           child: ListView(            
@@ -63,10 +88,9 @@ class HomepageState extends State <Homepage>{
                   height: 200.0,
                   child: UserAccountsDrawerHeader(
                     currentAccountPicture: CircleAvatar(
-                      backgroundImage: AssetImage('assets/images/display_pictures/sheril.jpg')),
-                      //NetworkImage('https://randomuser.me/api/portraits/men/4.jpg')),
-                    accountName: Text("Profile Name"),
-                    accountEmail: Text("Email",style:TextStyle(color: Colors.white)),
+                      backgroundImage: AssetImage(db.organizers[id]['profile'])),
+                    accountName: Text(db.organizers[id]['name']),
+                    accountEmail: Text(db.organizers[id]['email'],style:TextStyle(color: Colors.white)),
                   decoration: BoxDecoration(   
                     color: AppPrimaryColor,             
                   ),
@@ -76,7 +100,7 @@ class HomepageState extends State <Homepage>{
                                
                
 
-                _listTileFormat(context, Icons.trending_up,"Latest Event", 0, 5),
+                _listTileFormat(context, Icons.pin_drop,"Venues", 0, 5),
                 _listTileFormat(context, Icons.settings,"Settings", 0, 4),
                 _listTileFormat(context, Icons.info_outline,"About", 0, 5),
                 _listTileFormat(context, Icons.help_outline,"Help", 0, 6),
@@ -90,7 +114,7 @@ class HomepageState extends State <Homepage>{
         ),      
     
       
- bottomNavigationBar: BottomNavigationBar(
+      bottomNavigationBar: BottomNavigationBar(
         backgroundColor: AppPrimaryColor,
         type: BottomNavigationBarType.fixed,
         currentIndex: _selectedIndex,
@@ -108,10 +132,10 @@ class HomepageState extends State <Homepage>{
 
         items :[
 
-            _listBottomFormat(Icons.dashboard, "Dashboard"),            
-            _listBottomFormat(Icons.pin_drop, "Venue"),           
+            _listBottomFormat(Icons.home, "Dashboard"),            
+            _listBottomFormat(Icons.question_answer, "Feedback"),      
             _listBottomFormat(Icons.notifications, "Alert"),          
-            _listBottomFormat(Icons.person, "Account"),               
+            _listBottomFormat(Icons.person, "Profile"),               
             _listBottomFormat(Icons.more_vert, "More"),               
 
         ]
@@ -125,13 +149,16 @@ class HomepageState extends State <Homepage>{
 
    _listBottomFormat(IconData icon, String title){      
       return BottomNavigationBarItem(        
-        title:Text(title,style:TextStyle(fontSize:TinyFontSize)),
+        title:Text(title,style:TextStyle(fontSize:SmallFontSize)),
         icon: Icon(icon,size: 20,),
       );
   }
 
   Widget _listTileFormat(BuildContext context,IconData icon, String title, int trailer, int page){
-   return  ListTile(
+   return  Column(
+     children:[
+       ListTile(
+     
               leading: Icon(icon,color: AppSecondaryColor ,),
               title: Text(title),
               trailing:  trailer != 0 ? Container(
@@ -146,7 +173,9 @@ class HomepageState extends State <Homepage>{
               onTap: () {
                 clicked(page);
               }
-            );
+       ),
+       Divider()
+     ]);
   }
 }
 

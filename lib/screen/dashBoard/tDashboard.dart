@@ -11,7 +11,6 @@ class TabDashBoard extends StatefulWidget {
 
 class TabDashBoardState extends State<TabDashBoard>{
   
-  
   String selected = null;
   String selectCat = null;
 
@@ -89,7 +88,7 @@ class TabDashBoardState extends State<TabDashBoard>{
       margin: EdgeInsets.fromLTRB(0, 0, 0, 4),
      
       width: screenWidth,
-      height: screenHeight * .32,
+      height: 300,//screenHeight * .32,
       child: CarouselSlider(
           enlargeCenterPage: true, 
          // viewportFraction: 0.8,         
@@ -114,107 +113,23 @@ class TabDashBoardState extends State<TabDashBoard>{
             
           },
           autoPlay: false,
-          autoPlayAnimationDuration: Duration(seconds: 10),
+          autoPlayAnimationDuration: Duration(seconds: 4),
+          
           items: _builder
           ),
     );
 
     final section_2 = Container(
-      height: 120,
-      padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 5),
+      height: 100,
+      padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 2.0),
 
       child:Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
-          Card(
-            elevation: 2,
-            child: Container(
-              width: (screenWidth - 48)/3 ,
-              padding: EdgeInsets.symmetric(horizontal: 8.0,vertical: 0.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  Expanded(
-                    child:  DropdownButtonFormField(
-                      decoration: InputDecoration(
-                        hintText: 'Category',
-                        hintStyle: TextStyle(fontSize: NormalFonteSize,),
-                        border: InputBorder.none,
-                        contentPadding: EdgeInsets.zero,
-                      ),
-
-                      value: selectCat,
-                      items: _dropCategory
-                          .map((val) => DropdownMenuItem(
-                              child: Text(
-                                val,
-                                style: boldView,
-                              ),
-                              value: val))
-                          .toList(),
-                      onChanged: (val) {
-                        setState(() {
-                          selectCat = val;
-                        });
-                      },
-
-
-                    ),
-                  ),
-                  Container(
-                    padding: EdgeInsets.only(bottom: 10),
-                    child: Text(
-                      selectCat!=null?selectCat:'-',
-                      style: boldViewDown.copyWith(fontSize: NormalFonteSize),
-                    ),
-                  )
-                  ]))
-            
-                  ),
+          _card('Attendance', attendance.toString(),screenWidth),
+          _card('Ticket Rate','\$ $price',screenWidth),
                
-          Card(
-            elevation: 2.0,
-            child: Container(
-              width: (screenWidth - 48) / 3,            
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  Text(
-                    "Attendance",
-                    style: boldView.copyWith(fontSize: NormalFonteSize),
-                  ),
-                  Text(
-                    "$attendance",
-                    style: boldViewDown,
-                  )
-                ],
-              ),
-            ),
-          ),
-          
-          Card(
-            elevation: 2.0,
-            child: Container(
-              width: (screenWidth - 48) / 3,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  Text(
-                    "Ticket Rate",
-                    style: boldView.copyWith(fontSize: NormalFonteSize)
-                  ),
-                  Text(
-                    "\$ $price",
-                    style: boldViewDown,
-                  )
-                ],
-              ),
-            ),
-          )
-        ],
+          ],
       ),
     );
 
@@ -222,7 +137,7 @@ class TabDashBoardState extends State<TabDashBoard>{
       elevation: 4.0,
       margin: EdgeInsets.all(8.0),
       child:Container(
-      height: 300,
+      height: 400,
       padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 10.0),
       child: charts.BarChart(
         createSeries(),
@@ -331,7 +246,7 @@ class TabDashBoardState extends State<TabDashBoard>{
             style: boldViewDown.copyWith(color: Colors.white)),
         trailing: Text("\$ 69,489",
             style: boldViewDown.copyWith(
-                fontSize: ExtraLargeSize, color: AppSecondaryColor)),
+                fontSize: ExtraLargeSize+20 , color: AppSecondaryColor)),
       ),
     );
 
@@ -343,6 +258,32 @@ class TabDashBoardState extends State<TabDashBoard>{
           section_4, 
           section_5
         ]);
+  }
+
+  Widget _card(String title, String value, double screenWidth ){
+    return  Card(
+            elevation: 4.0,
+            child: Container(
+              width: (screenWidth - 48) / 2,            
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  Text(
+                    title.toUpperCase(),
+                    style: boldView.copyWith(fontSize: SmallFontSize),
+                  ),
+                  Text(
+                    value,
+                    style: boldViewDown,
+                  )
+                ],
+              ),
+            ),
+          );
+          
+          
+       
   }
 
   Widget _buildCarosel(

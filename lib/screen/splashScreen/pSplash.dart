@@ -18,10 +18,11 @@ class _PrtSplashState extends State<PrtSplash> {
       body: Stack(
         children: <Widget>[
           Container(
+
             height: MediaQuery.of(context).size.height,
             decoration: BoxDecoration(
                 image: DecorationImage(
-              image: AssetImage(SystemImagePath + 'resort.jpg'),
+              image: AssetImage("assets/images/systems/resort.jpg"),
               fit: BoxFit.cover,
             )),
           ),

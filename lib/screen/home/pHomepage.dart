@@ -1,167 +1,190 @@
+import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:organizer/models/db.dart';
+import 'package:organizer/models/user.dart';
+import 'package:organizer/screen/Events/oEvents.dart';
+import 'package:organizer/screen/card/oCard.dart';
+import 'package:organizer/screen/dashBoard/oDashboard.dart';
+import 'package:organizer/screen/profile/oProfile.dart';
+import 'package:organizer/screen/venues/oVenues.dart';
+import 'package:organizer/screen/wall/oWall.dart';
 import 'package:organizer/style.dart';
 
-class PrtHomepage extends StatefulWidget {
-  PrtHomepageState createState() => PrtHomepageState();
+class Home extends StatelessWidget {
+  DB db = DB();
+  int id = User().getUser();
 
-}
-
-class PrtHomepageState extends State<PrtHomepage>{
-  
-  // List<HomeJson> data = []; 
-  // HomeJson online = HomeJson();
-
-   List<String> products = [
-    'http://www.kustomclubs.com/wp-content/uploads/2019/07/IMG_2851-1024x575.jpg',
-    'https://www.feelgoodevents.com.au/wp-content/uploads/2017/02/10933957_908820615818063_6504247213800313682_n-960x600.jpg',
-    'https://image.cnbcfm.com/api/v1/image/105462444-1537465508117echo-dot-new.jpeg?v=1537465880&w=678&h=381',
-    'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80',
-    'https://dominicanexpert.com/wp-content/uploads/2016/06/fondo-2.jpg',
-    'https://images.unsplash.com/photo-1524368535928-5b5e00ddc76b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80',
-    'https://imgcld.yatra.com/ytimages/image/upload/t_seo_Holidays_w_640_h_480_c_fill_g_auto_q_auto:good_f_jpg/v1449657155/Kenya108.jpg',
-    'https://www.vividfeatures.com/wp-content/uploads/2017/01/kenya-at-50-640x313.jpg'
-
-  ];
-
-
- 
+  Map<int, dynamic> optionCard = {
+    0: {"title": "My Events", "icon": FontAwesomeIcons.fire, "widget": Wall()},
+    1: {"title": "Trends", "icon": Icons.trending_up, "widget": Events()},
+    2: {
+      "title": "Analytics",
+      "icon": FontAwesomeIcons.chartBar,
+      "widget": DashBoard()
+    },
+    3: {
+      "title": "Payment Mode",
+      "icon": Icons.credit_card,
+      "widget": Cards()
+    },
+    4: {"title": "Locate", "icon": Icons.pin_drop, "widget": Venue()},
+    5: {
+      "title": "QR Clock",
+      "icon": FontAwesomeIcons.qrcode,
+      "widget": Container(child: Center(child: Text('Coming Soon')))
+    },
+  };
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-        children:[
-          Container(
-            decoration: BoxDecoration(
-              color: Colors.black,
-              image: DecorationImage(
-                  image: NetworkImage(ThirdBackgroundImage), fit: BoxFit.cover),
+    final Orientation orientation = MediaQuery.of(context).orientation;
+    return Scaffold(
+        backgroundColor: Colors.grey[200],
+        body: CustomScrollView(
+          slivers: <Widget>[
+            SliverAppBar(
+              leading: Container(
+                padding: EdgeInsets.only(left: 16),
+                height: 50,
+                child: InkWell(
+                  child: Image.asset(AppLogo),
+                  onTap: () {
+                    Scaffold.of(context).openDrawer();
+                  },
+                ),
+              ),
+              actions: <Widget>[
+                IconButton(
+                  icon: Icon(Icons.more_vert),
+                  onPressed: () {
+                    Scaffold.of(context).openDrawer();
+                  },
+                ),
+              ],
+              expandedHeight: 320.0,
+              floating: false,
+              pinned: true,
+              flexibleSpace: FlexibleSpaceBar(
+                background: Stack(
+                  fit: StackFit.expand,
+                  children: <Widget>[
+                    Container(
+                      decoration: BoxDecoration(
+                        color: AppSecondaryColor,
+                        image: DecorationImage(
+                          image: AssetImage(db.organizers[id]['profile']),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                      child: BackdropFilter(
+                        filter: ImageFilter.blur(sigmaX: 6, sigmaY: 6),
+                        child: Container(
+                          color: Colors.black.withOpacity(.5),
+                        ),
+                      ),
+                    ),
+                    Center(
+                      child: CircleAvatar(
+                        radius: 60,
+                        backgroundImage:
+                            AssetImage(db.organizers[id]['profile']),
+                      ),
+                    ),
+                    Container(
+                      padding: EdgeInsets.only(left: 10, bottom: 16),
+                      alignment: Alignment.bottomLeft,
+                      child: Text(
+                        db.organizers[id]['name'],
+                        style: boldViewDown.copyWith(
+                            color: Colors.white, fontSize: ExtraLargeSize),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+              centerTitle: true,
+              title: Text(
+                "Myjiji Organizer",
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
             ),
-          ),
-          Container(
-              padding: EdgeInsets.all(10),
-              decoration: BoxDecoration(color: Colors.black.withOpacity(.7)),
-          ),
-          ListView.builder(
-              itemCount: products.length,
-              itemBuilder: (context,index)=> listBuilder(context, index)
-              
+            SliverToBoxAdapter(
+                child: Container(
+                 decoration: BoxDecoration(
+                   gradient: LinearGradient(
+                     begin: Alignment.topRight,
+                     end: Alignment.bottomLeft,
+                     colors: [Colors.black,Colors.grey,Colors.black]
+                   ),
+
+                 ),
+              padding: EdgeInsets.symmetric(vertical: 20),
+              margin: EdgeInsets.only(bottom: 20),
+
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Text(
+                    'DASHBOARD',
+                    style: boldViewDown.copyWith(color:Colors.white,fontSize: LargeFontSize),
+                  ),
+                  Divider(
+                    thickness: 5,
+                    height: 20,
+                    color: Colors.grey[600],
+                    indent: orientation == Orientation.portrait ? 150 : 250,
+                    endIndent: orientation == Orientation.portrait ? 150 : 250,
+                  )
+                ],
+              ),
+            )),
+            SliverGrid(
+              delegate: SliverChildBuilderDelegate(
+                  (context, index) => _cardOption(context, index),
+                  childCount: optionCard.length),
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: orientation == Orientation.portrait ? 3 : 4,
+                  crossAxisSpacing: 3,
+                  mainAxisSpacing: 3),
             ),
-
-        ]);
-    
- 
-   
-    //  StreamBuilder(
-    //   stream: Firestore.instance.collection('events').snapshots(),//fetchdata(),
-    //   builder: (context,snapshot){
-    //     if (!snapshot.hasData){
-    //        return Center(
-    //          // margin: EdgeInsets.symmetric(vertical:130, horizontal: 170),
-    //           child:CircularProgressIndicator(),
-    //         );
-    //     }
-    //     else{
-    //       if(snapshot.data.documents.length==0){
-    //         return PlaceHolder();
-
-    //       }else{
-    //         return ListView.builder(
-    //           itemCount: snapshot.data.documents.length,
-    //           itemBuilder: (context,index)=> listBuilder(context, index, snapshot)
-              
-    //         );
-    //       }
-    //     }
-
-    //   });
-        
+          ],
+        ));
   }
 
-
-// Future <List<HomeJson>> fetchdata() async{
-//   var response = await http.get(online.url);
-//   if (response.statusCode ==200){
-//     var jsonData = json.decode(response.body);
-//     for (var i in jsonData){
-//       online = new HomeJson(
-//         banner : i['banner'],
-//         description : i['description'],
-//         name : i['name'],
-//         datePosted :i['date'],
-//         displayPicture :i['picture'],
-//         email: i['email']
-//       );
-    
-      
-//       data.add(online);
-//     }
-
-//   }
-//   else{
-//     throw Exception('Failed to Load');
-//   }
-  
-    
-//     return data;
-  
-// }
-
-  Widget listBuilder(BuildContext context, int index){//, AsyncSnapshot snapshot){
-  return Card(
-    color: Colors.grey[600].withOpacity(.4),
-    margin: const EdgeInsets.fromLTRB(10,10,10,10),
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(10)
-    ),
-    child: Container(
-      padding: const EdgeInsets.only(bottom:40),
-      child:Column(
-      children: <Widget> [            
-        Container(
-          height: 250,
+  _cardOption(BuildContext context, int i) {
+    return InkWell(
+        onTap: () {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => optionCard[i]['widget']));
+        },
+        child: Material(
+          elevation: 0.5,
+          color: Colors.white,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8)
+          ),
           child: Container(
-                decoration: BoxDecoration(  
-                  borderRadius: BorderRadius.only(topLeft: Radius.circular(10),topRight: Radius.circular(10)), 
-                  image: DecorationImage(
-                    image:NetworkImage(products[index]),
-                 //   (snapshot.data.documents[index]['banner']),
-                    fit: BoxFit.cover
-                  )             
-                  
-                ),
+            padding: EdgeInsets.symmetric(vertical: 24.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                CircleAvatar(
+                    radius: 25,
+                    backgroundColor:
+                        i % 2 == 0 ? AppPrimaryColor : AppSecondaryColor,
+                    child: Icon(
+                      optionCard[i]['icon'],
+                      size: 30,
+                      color: Colors.white
+                    )),
+                Text(
+                  optionCard[i]['title'],
                 )
+              ],
+            ),
           ),
-                
-  
-        ListTile(
-          leading: CircleAvatar(
-            backgroundImage: NetworkImage(products[index]),
-            
-          ),
-          title: Text("snapshot.data.documents[index]['name']",style:TextStyle(color: Colors.white)),
-          subtitle: Text("",style:TextStyle(color: Colors.grey[500])),  //Text('Date'),
-          trailing:  IconButton(
-              color: Colors.orange[400],
-              icon: Icon(Icons.arrow_forward_ios),
-                // child: Text("Sign up"),
-                  onPressed: (){},
-              ),
-          
-          onTap: () {                
-            Navigator.pop(context);
-          },
-        ),
-      
-        
-        Container(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: Text("snapshot.data.documents[index]['description']",
-          style: TextStyle(color:Colors.white),
-          overflow: TextOverflow.ellipsis,
-          maxLines: 3,),
-        )
-    ]))
-
-  );
-}
+        ));
+  }
 }

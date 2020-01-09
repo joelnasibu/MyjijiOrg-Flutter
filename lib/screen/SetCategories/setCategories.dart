@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:organizer/screen/Addons/view/oAddons.dart';
-import 'package:organizer/screen/bookings/obookings.dart';
 import 'package:organizer/screen/packages/oPackages.dart';
 import 'package:organizer/screen/tickets/oTickets.dart';
 import 'package:organizer/style.dart';
@@ -17,7 +16,7 @@ class SetCategoriesState extends State<SetCategories> with SingleTickerProviderS
   @override
   void initState() { 
     super.initState();
-    _controller = TabController(vsync:this,length: 4);
+    _controller = TabController(vsync:this,length: 3);
   }
 
 
@@ -34,11 +33,6 @@ class SetCategoriesState extends State<SetCategories> with SingleTickerProviderS
           labelColor: AppSecondaryColor,
           unselectedLabelColor: Colors.grey,
           tabs: <Widget>[
-            Tab(
-              text: 'Bookings',
-
-            ),
-           
             Tab(
               text: 'Packages',
 
@@ -60,8 +54,7 @@ class SetCategoriesState extends State<SetCategories> with SingleTickerProviderS
       
       body: TabBarView(
         controller: _controller,
-        children: <Widget>[
-          Bookings(),
+        children: <Widget>[         
           Packages(),
           Tickets(),
           Addons()

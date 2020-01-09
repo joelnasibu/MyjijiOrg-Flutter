@@ -28,7 +28,7 @@ class _AlertState extends State<Alert> {
   }
 
   Widget _buildAlert(int position){
-    final eventdate = DateTime.parse(db.events[position]['date']);
+    final eventdate = DateTime.parse(db.events[position]['start_date']);
     final today = DateTime.now();
     final difference = today.difference(eventdate).inDays;
     String days;

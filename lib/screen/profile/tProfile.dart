@@ -1,20 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:organizer/screen/bookings/tabs/fPage.dart';
-import 'package:organizer/screen/bookings/tabs/sPage.dart';
-import 'package:organizer/screen/bookings/tabs/tPage.dart';
-import 'package:organizer/style.dart';
+import 'package:organizer/screen/profile/tabs/fPage.dart';
+import 'package:organizer/screen/profile/tabs/sPage.dart';
+import 'package:organizer/screen/profile/tabs/tPage.dart';
 
-
-
-class PrtBookings extends StatefulWidget {
-  
+class TabProfile extends StatefulWidget {
   @override
-  _PrtBookingsState createState() => _PrtBookingsState();
+  _TabProfileState createState() => _TabProfileState();
 }
 
-class _PrtBookingsState extends State<PrtBookings> with TickerProviderStateMixin {
-
-TabController _tabController;
+class _TabProfileState extends State<TabProfile>
+    with TickerProviderStateMixin {
+  TabController _tabController;
 int position;
 int _tabIndex = 0;
 
@@ -27,13 +23,13 @@ int _tabIndex = 0;
 
     _tabController = TabController(vsync: this,length: 3);
   }
+
    
   goTo(){
     _tabIndex = _tabController.index + 1;
     _tabController.animateTo(_tabIndex);
-
+    print("executed: ${_tabController.index}");
   }
-
 
 
   @override
@@ -43,34 +39,23 @@ int _tabIndex = 0;
           appBar: PreferredSize(
             preferredSize:Size.fromHeight(70),
             
-            child:Card(
-              margin: EdgeInsets.symmetric(vertical: 12.0),   
-              elevation: 1.0,               
-              child:Container(
-                padding: EdgeInsets.symmetric(horizontal: 16,vertical: 2.0),
-
+            child:Container(
               child:TabBar(
-                                
-                indicator: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  color: Colors.red[900],
-
-                ),
-
-                labelColor: Colors.white,
-               // labelStyle: boldViewDown,  
+               // labelColor: Colors.black,
+               // labelStyle: boldViewDown,
+                indicatorColor: Colors.red[900],  
+                labelPadding: EdgeInsets.zero,         
                 controller: _tabController,
-                unselectedLabelColor: Colors.red[900],
+                unselectedLabelColor: Colors.red,
             tabs: <Widget>[
               _tabContainer('Events'),
               _tabContainer('Bookings'),
               _tabContainer('Overview'),
-             
             ],
             onTap: (index){
 
             }, 
-          )))),
+          ))),
 
          body: Container( 
              height: MediaQuery.of(context).size.height,
@@ -88,13 +73,19 @@ int _tabIndex = 0;
 
   }
  
- 
 
   _tabContainer(String title){
-    return Tab(
-          text:title,
-          
-      );
+    return Card(
+      margin: EdgeInsets.symmetric(horizontal: 5.0,vertical: 8.0),
+      elevation: 1.0,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20) ),
+      
+      child:Container(
+        padding: EdgeInsets.symmetric(horizontal: 20),
+        child: Tab(
+          text:title
+        )
+      ));
    
   }
 }

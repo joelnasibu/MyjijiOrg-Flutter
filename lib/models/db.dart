@@ -393,10 +393,10 @@ class DB {
 
     this.organizers =  {
       0: {
-        'name': "JAMES NDOTO OLIVIER",
+        'name': "Malika Amnah",
         'id':'0000894934',
         'dob': '1988-08-12',
-        'profile': "assets/images/display_pictures/leslie.jpg",
+        'profile': "assets/images/display_pictures/malika.jpeg",
         'email': 'jndoto@globandtelecom.com',
         'phone': '+211926774446',
         'country': 'South Sudan',

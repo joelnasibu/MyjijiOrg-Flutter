@@ -61,7 +61,7 @@ class _TabSplashState extends State<TabSplash> {
                           "Sign In ",
                           style: TextStyle(
                             fontWeight: FontWeight.w700,
-                            fontSize: NormalFonteSize,
+                            fontSize: NormalFontSize,
                           ),
                         ),
                       ),
@@ -84,7 +84,7 @@ class _TabSplashState extends State<TabSplash> {
                           "Create Account",
                           style: TextStyle(
                             fontWeight: FontWeight.w700,
-                            fontSize: NormalFonteSize,
+                            fontSize: NormalFontSize,
                           ),
                         ),
                       ),

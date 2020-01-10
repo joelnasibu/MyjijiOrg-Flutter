@@ -79,7 +79,7 @@ class _PrtSplashState extends State<PrtSplash> {
                             "Sign In ",
                             style: TextStyle(
                               fontWeight: FontWeight.w700,
-                              fontSize: NormalFonteSize,
+                              fontSize: NormalFontSize,
                             ),
                           ),
                         ),
@@ -102,7 +102,7 @@ class _PrtSplashState extends State<PrtSplash> {
                             "Create Account",
                             style: TextStyle(
                               fontWeight: FontWeight.w700,
-                              fontSize: NormalFonteSize,
+                              fontSize: NormalFontSize,
                             ),
                           ),
                         ),

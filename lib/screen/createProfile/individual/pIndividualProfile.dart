@@ -240,7 +240,7 @@ class _PrtIndividualProfileState extends State<PrtIndividualProfile> {
               padding: EdgeInsets.only(top: 16.0, right: 10.0),
               child: Text(
                 'Upload cover photo',
-                style: TextStyle(color: Colors.grey, fontSize: NormalFonteSize),
+                style: TextStyle(color: Colors.grey, fontSize: NormalFontSize),
                 textAlign: TextAlign.end,
               ),
             ),

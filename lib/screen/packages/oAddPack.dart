@@ -12,7 +12,7 @@ class AddPackages extends StatelessWidget {
       appBar: AppBar(        
         backgroundColor: AppPrimaryColor,
         title: Text('New Package',style: TextStyle(
-            fontSize: NormalFonteSize
+            fontSize: NormalFontSize
           ),
         
         ),  

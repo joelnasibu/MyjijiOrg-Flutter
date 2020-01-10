@@ -66,7 +66,7 @@ class HomepageState extends State <Homepage>{
     return Scaffold(
       floatingActionButton: FloatingActionButton.extended(
 
-        icon:Icon(Icons.add,color: Colors.black),
+        icon:Icon(Icons.add_circle,color: Colors.black),
         label:Text("Create Event",style: boldViewDown.copyWith(color: Colors.black)),
 
         onPressed: (){

@@ -8,30 +8,7 @@ class Profile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      
-      backgroundColor: Colors.transparent,
-      extendBody: true,
-      // appBar: AppBar(        
-      //  // backgroundColor: Colors.transparent,
-      //   elevation: 0,
-      //   title:Text('Profle'),
-      //   leading: IconButton(
-      //     icon: Icon(Icons.menu),
-      //     onPressed: (){
-      //       Scaffold.of(context).openDrawer();
-      //     },
-      //   ),
-      //   actions: <Widget>[
-      //     IconButton(
-      //       icon: Icon(Icons.more_vert),
-      //       onPressed: (){
-      //         //pop up Menu to Edit Profile
-      //       },
-      //     ),
-      //   ],
-      
-      // ),
-         
+      backgroundColor: AppPrimaryDark,
       body: LayoutBuilder(
               builder: (BuildContext context, BoxConstraints constraints) {
                 if (constraints.maxWidth <= WidthDimension) {

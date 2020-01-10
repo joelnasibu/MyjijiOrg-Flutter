@@ -231,7 +231,7 @@ class _TabCompanyProfileState extends State<TabCompanyProfile> {
                               child: Text(
                                 'Upload cover photo',
                                 style: TextStyle(
-                                    color: Colors.grey, fontSize: NormalFonteSize),
+                                    color: Colors.grey, fontSize: NormalFontSize),
                                 textAlign: TextAlign.end,
                               ),
                             ),

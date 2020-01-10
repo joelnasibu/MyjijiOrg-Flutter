@@ -85,7 +85,7 @@ class _VenueState extends State<Venue> {
                     ),
                     title: Text(category,
                         style:
-                            boldViewDown.copyWith(fontSize: NormalFonteSize)),
+                            boldViewDown.copyWith(fontSize: NormalFontSize)),
                   ),
                 ),
               ),

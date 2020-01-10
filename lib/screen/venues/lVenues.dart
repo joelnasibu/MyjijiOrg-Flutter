@@ -88,7 +88,7 @@ class _LVenueState extends State<LVenue> {
                       
                       title: Text(details['name'],
                         style: boldViewDown.copyWith(
-                          fontSize: NormalFonteSize,
+                          fontSize: NormalFontSize,
                           color: Colors.white)),
                     
                   ),

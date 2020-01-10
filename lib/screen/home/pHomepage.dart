@@ -28,9 +28,9 @@ class Home extends StatelessWidget {
       "icon": Icons.credit_card,
       "widget": Cards()
     },
-    4: {"title": "Locate", "icon": Icons.pin_drop, "widget": Venue()},
+    4: {"title": "Partner Up", "icon": FontAwesomeIcons.handshake,"widget": Venue()},
     5: {
-      "title": "QR Clock",
+      "title": "Ticketing",
       "icon": FontAwesomeIcons.qrcode,
       "widget": Container(child: Center(child: Text('Coming Soon')))
     },
@@ -165,20 +165,20 @@ class Home extends StatelessWidget {
             borderRadius: BorderRadius.circular(8)
           ),
           child: Container(
-            padding: EdgeInsets.symmetric(vertical: 24.0),
+            padding: EdgeInsets.symmetric(vertical: 20.0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 CircleAvatar(
-                    radius: 25,
+                    radius: 28,
                     backgroundColor:
                         i % 2 == 0 ? AppPrimaryColor : AppSecondaryColor,
-                    child: Icon(
+                    child: Center(child:Icon(
                       optionCard[i]['icon'],
-                      size: 30,
+                      size: 25,
                       color: Colors.white
-                    )),
+                    ))),
                 Text(
                   optionCard[i]['title'],
                 )

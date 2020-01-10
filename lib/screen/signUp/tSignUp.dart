@@ -50,7 +50,7 @@ class _TabSignUpState extends State<TabSignUp> {
               child: Text('Hello,\nWelcome to Myjiji !',
                   style: Theme.of(context).textTheme.display1.copyWith(
                       color: Colors.black,
-                      fontSize: NormalFonteSize,
+                      fontSize: NormalFontSize,
                       fontWeight: FontWeight.bold)),
             ),
             Container(
@@ -156,7 +156,7 @@ class _TabSignUpState extends State<TabSignUp> {
                               "Sign Up",
                               style: TextStyle(
                                 fontWeight: FontWeight.w500,
-                                fontSize: NormalFonteSize,
+                                fontSize: NormalFontSize,
                               ),
                             ),
                           ),

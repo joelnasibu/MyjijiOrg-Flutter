@@ -156,7 +156,7 @@ class _PrtAddonsState extends State<PrtAddons> with SingleTickerProviderStateMix
               border: Border.all(color:Colors.grey[300])
             ),
             child:Text('KES $price',style: TextStyle(
-                    fontSize: NormalFonteSize,
+                    fontSize: NormalFontSize,
                     color: AppPrimaryColor,
                     fontWeight: FontWeight.w700
             ))

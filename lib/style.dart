@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 
 // App Theme Colors
 
-const AppPrimaryColor     = Color(0XFF0C143B);
-const AppPrimaryLight     = Color(0XFF383966);
-const AppPrimaryDark      = Color(0XFF000017);
+const AppPrimaryColor     = Color(0XFF051C2C);
+const AppPrimaryLight     = Color(0XFF0268D6);
+const AppPrimaryDark      = Color(0XFF091B27);
 const AppSecondaryColor   = Color(0XFFffc107);
 const AppSecondaryLight   = Color(0XFFff5281);
 const AppSecondaryDark    = Color(0XFFe3aa00);
@@ -15,7 +15,7 @@ const AppAccentColor      = Color(0XFFF9480A);
 const MainFontFamily    = 'Roboto';
 const ExtraLargeSize    = 28.0;
 const LargeFontSize     = 22.0;
-const NormalFonteSize   = 16.0;
+const NormalFontSize   = 16.0;
 const BodyFontSize      = 14.0;
 const SmallFontSize     = 12.0;
 const TinyFontSize      = 10.0;
@@ -39,6 +39,6 @@ const ThirdBackgroundImage  = 'https://c.pxhere.com/photos/f2/d6/adult_black_and
   );
 
   var boldViewDown = TextStyle(
-    fontSize: NormalFonteSize,
+    fontSize: NormalFontSize,
     fontWeight: FontWeight.w700,    
   );

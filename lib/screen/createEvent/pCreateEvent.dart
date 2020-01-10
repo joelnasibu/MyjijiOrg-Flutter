@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:organizer/models/slideRight.dart';
 import 'package:organizer/models/validate_createEvent.dart';
@@ -415,7 +416,7 @@ class _PrtCreateEventState extends State<PrtCreateEvent> {
         color: AppPrimaryColor,        
         child: Padding(          
           padding: const EdgeInsets.all(18.0),
-          child: Text('Save',style: boldViewDown.copyWith(color:Colors.white),),
+          child: Text('PUBLISH',style: boldViewDown.copyWith(color:Colors.white),),
         ),
         onPressed: (){
           final form = globalkey.currentState;

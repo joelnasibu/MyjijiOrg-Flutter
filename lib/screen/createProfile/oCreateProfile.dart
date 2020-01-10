@@ -57,12 +57,12 @@ class _CreateProfileScreenState extends State<CreateProfileScreen>{
           BottomNavigationBarItem(
             icon: Container(),
             title:
-              Text('Company', style: TextStyle(fontSize: NormalFonteSize)),
+              Text('Company', style: TextStyle(fontSize: NormalFontSize)),
           ),
           BottomNavigationBarItem(
             icon: Container(),
             title: Text('Individual',
-              style: TextStyle(fontSize: NormalFonteSize))),
+              style: TextStyle(fontSize: NormalFontSize))),
           ],
       ),
       body: selectedProfile(_selected),

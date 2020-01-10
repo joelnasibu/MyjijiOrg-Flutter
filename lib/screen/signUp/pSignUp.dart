@@ -50,7 +50,7 @@ class _PrtSignUpState extends State<PrtSignUp> {
               child: Text('Hello,\nWelcome to Myjiji !',
                   style: Theme.of(context).textTheme.display1.copyWith(
                       color: Colors.black,
-                      fontSize: NormalFonteSize,
+                      fontSize: NormalFontSize,
                       fontWeight: FontWeight.bold)),
             ),
             Container(
@@ -158,7 +158,7 @@ class _PrtSignUpState extends State<PrtSignUp> {
                               "Sign Up",
                               style: TextStyle(
                                 fontWeight: FontWeight.w500,
-                                fontSize: NormalFonteSize,
+                                fontSize: NormalFontSize,
                               ),
                             ),
                           ),

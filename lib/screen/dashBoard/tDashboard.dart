@@ -330,7 +330,7 @@ class TabDashBoardState extends State<TabDashBoard>{
                 children: <Widget>[
                   Text(title,
                       style: TextStyle(
-                          color: Colors.white, fontSize: NormalFonteSize)),
+                          color: Colors.white, fontSize: NormalFontSize)),
                   Container(
                     child: Row(
                         mainAxisAlignment: MainAxisAlignment.end, children: stars),

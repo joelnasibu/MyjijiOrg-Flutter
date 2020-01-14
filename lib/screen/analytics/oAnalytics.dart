@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:organizer/models/slideRight.dart';
+import 'package:organizer/screen/analytics/pAnalytics.dart';
+import 'package:organizer/screen/analytics/tAnalytics.dart';
 import 'package:organizer/screen/createEvent/oCreateEvent.dart';
-import 'package:organizer/screen/dashBoard/pDashboard.dart';
-import 'package:organizer/screen/dashBoard/tDashboard.dart';
 import 'package:organizer/style.dart';
 
-class DashBoard extends StatelessWidget {
+class Analytics extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[200],
       appBar: AppBar(
-        title: Text('DashBoard'),
+        title: Text('Analytics'),
        
         actions: <Widget>[
           
@@ -24,12 +24,12 @@ class DashBoard extends StatelessWidget {
       body:LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
           if (constraints.maxWidth <= WidthDimension) {
-            return PrtDashBoard();
+            return PrtAnalytics();
           } else if (constraints.maxWidth >TabwidthDimension){
-            return PrtDashBoard();
+            return PrtAnalytics();
           } 
           else {
-            return TabDashBoard();
+            return TabAnalytics();
           }
         },
       )

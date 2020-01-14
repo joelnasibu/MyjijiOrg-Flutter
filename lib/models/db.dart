@@ -1,4 +1,7 @@
 
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:flutter/material.dart';
+
 class DB {
   Map<int, dynamic> events;
   Map<int,dynamic> clients;
@@ -7,6 +10,9 @@ class DB {
   Map<int,dynamic> organizers;
   Map<int,dynamic> packages;
   Map<String,dynamic> products;
+  Map<int,dynamic> socialMedia;
+  List<String> eventStatus;
+
 
 
   DB(){
@@ -91,7 +97,7 @@ class DB {
           }
         ],
         'likes': 456,
-        'status': 0
+        'status': 1
       },
       2: {
         'title': "Miss Kenya World",
@@ -173,7 +179,7 @@ class DB {
           }
         ],
         'likes': 456,
-        'status': 0
+        'status': 2
       },
       4: {
         'title': "Beach Boy",
@@ -214,7 +220,7 @@ class DB {
           }
         ],
         'likes': 456,
-        'status': 0
+        'status': 2
       },
     };
 
@@ -397,8 +403,8 @@ class DB {
         'id':'0000894934',
         'dob': '1988-08-12',
         'profile': "assets/images/display_pictures/malika.jpeg",
-        'email': 'jndoto@globandtelecom.com',
-        'phone': '+211926774446',
+        'email': 'malika.amna@gmail.com',
+        'phone': '+254726772446',
         'country': 'South Sudan',
         'town': "Juba",
         'address': '20th Street, Tonping Residential Area, Juba',
@@ -411,6 +417,11 @@ class DB {
             'loyalty points':20345
           },        
         'password':'1234',
+        'social media':{
+            0:"facebook.com/accountid",
+            1:"twitter.com/twitterid",
+            2:"istagram.com/accid"
+        }
         
       },
 
@@ -433,6 +444,11 @@ class DB {
             'loyalty points':10169
           },        
         'password':'5678',
+        'social media':{
+            0:"facebook.com/accountid",
+            1:"twitter.com/twitterid",
+            3:"youtube.com/accid"
+        }
        
       },
 
@@ -455,6 +471,12 @@ class DB {
             'loyalty points':9035
           },        
         'password':'0000',        
+        'social media':{
+            0:"facebook.com/accountid",
+            1:"twitter.com/twitterid",
+            2:"istagram.com/accid",
+            4:"linkedin.com/accid"
+        }
       },
 
       3: {
@@ -463,9 +485,9 @@ class DB {
         'dob': '1988-08-12',
         'profile': "assets/images/display_pictures/carol.jpg",
         'email': 'caroline.mutuku@gmail.com',
-        'phone': '+211926774446',
-        'country': 'South Sudan',
-        'town': "Juba",
+        'phone': '+254726774446',
+        'country': 'Kenya',
+        'town': "Nairobi",
         'address': '20th Street, Tonping Residential Area, Juba',
         'card':{
             'type':'Elite',
@@ -476,6 +498,11 @@ class DB {
             'loyalty points':20345
           },
         'password':'9090',
+        'social media':{
+            0:"facebook.com/accountid",
+            1:"twitter.com/twitterid",
+            2:"istagram.com/accid"
+        }
         
       },
       4: {
@@ -497,11 +524,51 @@ class DB {
             'loyalty points':20345
           },        
         'password':'1234',
+        'social media':{
+            0:"facebook.com/accountid",
+            1:"twitter.com/twitterid",
+            2:"istagram.com/accid"
+        }
         
       },
      
  };
-  
+    
+    this.socialMedia = {
+      0:{
+        "name":"Facebook",
+        "icon": FontAwesomeIcons.facebook,
+         "color": Colors.blue[900],
+      },
+      1:{
+        "name":"Twitter",
+        "icon": FontAwesomeIcons.twitter,
+         "color": Colors.blue
+      },
+      2:{
+        "name":"Instagram",
+        "icon": FontAwesomeIcons.instagram,
+        "color": Colors.red[700]
+      },
+      3:{
+        "name":"Youtube",
+        "icon": FontAwesomeIcons.youtube,
+         "color": Colors.red
+      },
+      4:{
+        "name":"LinkedIn",
+        "icon": FontAwesomeIcons.linkedin,
+         "color": Colors.lightBlue[900]
+      },
+      5:{
+        "name":"Google+",
+        "icon": FontAwesomeIcons.googlePlus,
+         "color": Colors.red,
+      },
+    };
+
+    this.eventStatus =["pending","upcoming","completed"];
+
   }
 
 

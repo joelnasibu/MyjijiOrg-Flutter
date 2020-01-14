@@ -4,12 +4,12 @@ import 'package:organizer/models/db.dart';
 import 'package:organizer/style.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 
-class TabDashBoard extends StatefulWidget {
-  TabDashBoardState createState() => TabDashBoardState();
+class TabAnalytics extends StatefulWidget {
+  TabAnalyticsState createState() => TabAnalyticsState();
 
 }
 
-class TabDashBoardState extends State<TabDashBoard>{
+class TabAnalyticsState extends State<TabAnalytics>{
   
   String selected = null;
   String selectCat = null;

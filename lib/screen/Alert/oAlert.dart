@@ -15,8 +15,29 @@ class _AlertState extends State<Alert> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[200],
-      appBar: AppBar(
-        title: Text('Alerts'),
+      appBar:AppBar(
+        elevation: 0,
+
+        centerTitle: true,
+        title:Text("Alert"),
+        leading: Container(
+          padding: EdgeInsets.only(left: 16),
+          height: 50,
+          child: InkWell(
+            child: Image.asset(AppLogo,color:AppSecondaryColor),
+            onTap: () {
+              Scaffold.of(context).openDrawer();
+            },
+          ),
+        ),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.more_vert),
+            onPressed: () {
+              // Scaffold.of(context).openDrawer();
+            },
+          ),
+        ],
       ),
       body: ListView.builder(
         itemCount: db.events.length,

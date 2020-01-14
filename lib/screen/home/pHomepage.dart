@@ -2,11 +2,12 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:organizer/models/db.dart';
+import 'package:organizer/models/slideUp.dart';
 import 'package:organizer/models/user.dart';
 import 'package:organizer/screen/Events/oEvents.dart';
+import 'package:organizer/screen/analytics/oAnalytics.dart';
 import 'package:organizer/screen/card/oCard.dart';
-import 'package:organizer/screen/dashBoard/oDashboard.dart';
-import 'package:organizer/screen/profile/oProfile.dart';
+import 'package:organizer/screen/createEvent/oCreateEvent.dart';
 import 'package:organizer/screen/venues/oVenues.dart';
 import 'package:organizer/screen/wall/oWall.dart';
 import 'package:organizer/style.dart';
@@ -16,12 +17,12 @@ class Home extends StatelessWidget {
   int id = User().getUser();
 
   Map<int, dynamic> optionCard = {
-    0: {"title": "My Events", "icon": FontAwesomeIcons.fire, "widget": Wall()},
-    1: {"title": "Trends", "icon": Icons.trending_up, "widget": Events()},
-    2: {
+    0: {"title": "My Wall", "icon": Icons.dashboard, "widget": Wall()},
+    2: {"title": "Trends", "icon": FontAwesomeIcons.fire, "widget": Events()},
+    1: {
       "title": "Analytics",
       "icon": FontAwesomeIcons.chartBar,
-      "widget": DashBoard()
+      "widget": Analytics()
     },
     3: {
       "title": "Payment Mode",
@@ -32,7 +33,7 @@ class Home extends StatelessWidget {
     5: {
       "title": "Ticketing",
       "icon": FontAwesomeIcons.qrcode,
-      "widget": Container(child: Center(child: Text('Coming Soon')))
+      "widget": Scaffold(body:Container(child: Center(child: Text('Coming Soon'))))
     },
   };
 
@@ -40,7 +41,21 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     final Orientation orientation = MediaQuery.of(context).orientation;
     return Scaffold(
-        backgroundColor: Colors.grey[200],
+        backgroundColor: Colors.grey[100],
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+        floatingActionButton: FloatingActionButton.extended(
+          icon:Icon(Icons.add_circle,color: Colors.black),
+          label:Text("Create Event",style: boldViewDown.copyWith(color: Colors.black)),
+
+          onPressed: (){
+            Route route = SlideUp(
+              widget: CreateEvent(),
+              time: 400,
+            );
+            Navigator.push(context, route);
+
+          },
+      ),
         body: CustomScrollView(
           slivers: <Widget>[
             SliverAppBar(
@@ -48,7 +63,7 @@ class Home extends StatelessWidget {
                 padding: EdgeInsets.only(left: 16),
                 height: 50,
                 child: InkWell(
-                  child: Image.asset(AppLogo),
+                  child: Image.asset(AppLogo,color: AppSecondaryColor),
                   onTap: () {
                     Scaffold.of(context).openDrawer();
                   },
@@ -58,7 +73,7 @@ class Home extends StatelessWidget {
                 IconButton(
                   icon: Icon(Icons.more_vert),
                   onPressed: () {
-                    Scaffold.of(context).openDrawer();
+                   // Scaffold.of(context).openDrawer();
                   },
                 ),
               ],
@@ -96,8 +111,8 @@ class Home extends StatelessWidget {
                       alignment: Alignment.bottomLeft,
                       child: Text(
                         db.organizers[id]['name'],
-                        style: boldViewDown.copyWith(
-                            color: Colors.white, fontSize: ExtraLargeSize),
+                        style: boldViewDown.copyWith( color: Colors.white,
+                            fontSize: LargeFontSize),
                       ),
                     )
                   ],
@@ -111,7 +126,7 @@ class Home extends StatelessWidget {
             ),
             SliverToBoxAdapter(
                 child: Container(
-                 decoration: BoxDecoration(
+                decoration: BoxDecoration(
                    gradient: LinearGradient(
                      begin: Alignment.topRight,
                      end: Alignment.bottomLeft,
@@ -119,15 +134,15 @@ class Home extends StatelessWidget {
                    ),
 
                  ),
-              padding: EdgeInsets.symmetric(vertical: 20),
+              padding: EdgeInsets.symmetric(vertical: 16),
               margin: EdgeInsets.only(bottom: 20),
 
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
                   Text(
                     'DASHBOARD',
-                    style: boldViewDown.copyWith(color:Colors.white,fontSize: LargeFontSize),
+                    style: boldViewDown.copyWith(color:Colors.grey[300],fontSize: NormalFontSize),
                   ),
                   Divider(
                     thickness: 5,
@@ -162,7 +177,7 @@ class Home extends StatelessWidget {
           elevation: 0.5,
           color: Colors.white,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8)
+            borderRadius: BorderRadius.circular(2)
           ),
           child: Container(
             padding: EdgeInsets.symmetric(vertical: 20.0),
@@ -181,6 +196,7 @@ class Home extends StatelessWidget {
                     ))),
                 Text(
                   optionCard[i]['title'],
+                  style: TextStyle(fontSize:SmallFontSize)
                 )
               ],
             ),

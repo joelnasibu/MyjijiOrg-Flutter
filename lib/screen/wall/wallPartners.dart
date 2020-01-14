@@ -9,13 +9,13 @@ import 'package:organizer/style.dart';
 
 
 
-class TabWall extends StatefulWidget {
+class WallPartners extends StatefulWidget {
   
   @override
-  _TabWallState createState() => _TabWallState();
+  _WallPartnersState createState() => _WallPartnersState();
 }
 
-class _TabWallState extends State<TabWall> with TickerProviderStateMixin {
+class _WallPartnersState extends State<WallPartners> with TickerProviderStateMixin {
 
 TabController _tabController;
 int position;

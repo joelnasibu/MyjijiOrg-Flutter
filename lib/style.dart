@@ -15,8 +15,8 @@ const AppAccentColor      = Color(0XFFF9480A);
 const MainFontFamily    = 'Roboto';
 const ExtraLargeSize    = 28.0;
 const LargeFontSize     = 22.0;
-const NormalFontSize   = 16.0;
-const BodyFontSize      = 14.0;
+const NormalFontSize    = 15.0;
+const BodyFontSize      = 13.0;
 const SmallFontSize     = 12.0;
 const TinyFontSize      = 10.0;
 

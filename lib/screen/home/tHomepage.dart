@@ -1,29 +1,38 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:organizer/models/db.dart';
+import 'package:organizer/models/user.dart';
 import 'package:organizer/screen/Events/oEvents.dart';
-import 'package:organizer/screen/dashBoard/oDashboard.dart';
+import 'package:organizer/screen/analytics/oAnalytics.dart';
+import 'package:organizer/screen/card/oCard.dart';
 import 'package:organizer/screen/profile/oProfile.dart';
 import 'package:organizer/screen/venues/oVenues.dart';
+import 'package:organizer/screen/wall/oWall.dart';
 import 'package:organizer/style.dart';
 
 class Home2 extends StatelessWidget {
   DB db = DB();
+  int id = User().getUser();
 
   Map<int, dynamic> optionCard = {
-    0: {"title": "My Wall", "icon": Icons.timeline, "widget": Profile()},
-    1: {"title": "Trends", "icon": Icons.trending_up, "widget": Events()},
-    2: {"title": "Analytics", "icon": Icons.attach_money, "widget": DashBoard()},
-    3: {
-      "title": "Social Media",
-      "icon": Icons.share,
-      "widget": Container(child: Center(child: Text('Coming Soon')))
+    0: {"title": "My Events", "icon": FontAwesomeIcons.fire, "widget": Wall()},
+    2: {"title": "Trends", "icon": Icons.trending_up, "widget": Events()},
+    1: {
+      "title": "Analytics",
+      "icon": FontAwesomeIcons.chartBar,
+      "widget": Analytics()
     },
-    4: {"title": "VPMC", "icon": Icons.pin_drop, "widget": Venue()},
+    3: {
+      "title": "Payment Mode",
+      "icon": Icons.credit_card,
+      "widget": Cards()
+    },
+    4: {"title": "Partner Up", "icon": FontAwesomeIcons.handshake,"widget": Venue()},
     5: {
-      "title": "Exhibitions",
-      "icon": Icons.view_carousel,
-      "widget": Container(child: Center(child: Text('Coming Soon')))
+      "title": "Ticketing",
+      "icon": FontAwesomeIcons.qrcode,
+      "widget": Scaffold(body:Container(child: Center(child: Text('Coming Soon'))))
     },
   };
 
@@ -31,96 +40,113 @@ class Home2 extends StatelessWidget {
   Widget build(BuildContext context) {
     final Orientation orientation = MediaQuery.of(context).orientation;
     return Scaffold(
-        backgroundColor: AppPrimaryColor,
-        
+        backgroundColor: Colors.grey[200],
         body: CustomScrollView(
           slivers: <Widget>[
             SliverAppBar(
-                expandedHeight: 280.0,
-                floating: false,
-                pinned: true,
-                flexibleSpace: FlexibleSpaceBar(
-                  background: Stack(
-                    fit: StackFit.expand,
-                    children: <Widget>[
-                      Container(
-                        decoration: BoxDecoration(
-                          color: AppSecondaryColor,
-                          image: DecorationImage(
-                              image: NetworkImage(
-                                  "https://images.pexels.com/photos/531880/pexels-photo-531880.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"),
-                              fit: BoxFit.cover,
-                              colorFilter: ColorFilter.mode(
-                                  Colors.black, BlendMode.colorDodge)),
-                        ),
-                        child: BackdropFilter(
-                          filter: ImageFilter.blur(sigmaX: 6, sigmaY: 6),
-                          child: Container(
-                            color: Colors.black.withOpacity(.5),
-                          ),
-                        ),
-                      ),
-                      Center(
-                        child: CircleAvatar(
-                          radius: 60,
-                          backgroundImage: AssetImage(
-                              "assets/images/display_pictures/sheril.jpg"),
-                        ),
-                      ),
-                    ],
-                  ),
+              leading: Container(
+                padding: EdgeInsets.only(left: 16),
+                height: 50,
+                child: InkWell(
+                  child: Image.asset(AppLogo),
+                  onTap: () {
+                    Scaffold.of(context).openDrawer();
+                  },
                 ),
-                centerTitle: true,
-                title: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      IconButton(
-                        icon: Icon(Icons.menu),
-                        onPressed: () {
-                          Scaffold.of(context).openDrawer();
-                        },
-                      ),
-                      Text("Profile"),
-                      IconButton(
-                        icon: Icon(Icons.more_vert),
-                        onPressed: () {
-                          Scaffold.of(context).openDrawer();
-                        },
-                      ),
-                    ])),
-            SliverToBoxAdapter(
-              child: Container(
-                padding: EdgeInsets.symmetric(vertical: 20),
-                child:Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              ),
+              actions: <Widget>[
+                IconButton(
+                  icon: Icon(Icons.more_vert),
+                  onPressed: () {
+                    Scaffold.of(context).openDrawer();
+                  },
+                ),
+              ],
+              expandedHeight: 320.0,
+              floating: false,
+              pinned: true,
+              flexibleSpace: FlexibleSpaceBar(
+                background: Stack(
+                  fit: StackFit.expand,
                   children: <Widget>[
-                    Text('MYJIJI ORGANIZER BOARD',
-                      style: boldViewDown.copyWith(
-                        fontSize: LargeFontSize,
-                        color: Colors.white
+                    Container(
+                      decoration: BoxDecoration(
+                        color: AppSecondaryColor,
+                        image: DecorationImage(
+                          image: AssetImage(db.organizers[id]['profile']),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                      child: BackdropFilter(
+                        filter: ImageFilter.blur(sigmaX: 6, sigmaY: 6),
+                        child: Container(
+                          color: Colors.black.withOpacity(.5),
+                        ),
                       ),
                     ),
-                    Divider(
-                      thickness: 5,
-                      height: 20,
-                      color: Colors.grey[600],
-                      indent: orientation==Orientation.portrait?150:250,
-                      endIndent: orientation==Orientation.portrait?150:250,
-                      
+                    Center(
+                      child: CircleAvatar(
+                        radius: 60,
+                        backgroundImage:
+                            AssetImage(db.organizers[id]['profile']),
+                      ),
+                    ),
+                    Container(
+                      padding: EdgeInsets.only(left: 10, bottom: 16),
+                      alignment: Alignment.bottomLeft,
+                      child: Text(
+                        db.organizers[id]['name'],
+                        style: boldViewDown.copyWith(
+                            color: Colors.white, fontSize: ExtraLargeSize),
+                      ),
                     )
                   ],
                 ),
-              )
+              ),
+              centerTitle: true,
+              title: Text(
+                "Myjiji Organizer",
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
             ),
+            SliverToBoxAdapter(
+                child: Container(
+                //  decoration: BoxDecoration(
+                //    gradient: LinearGradient(
+                //      begin: Alignment.topRight,
+                //      end: Alignment.bottomLeft,
+                //      colors: [Colors.black,Colors.grey,Colors.black]
+                //    ),
 
+                //  ),
+              padding: EdgeInsets.symmetric(vertical: 20),
+              margin: EdgeInsets.only(bottom: 20),
+
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Text(
+                    'DASHBOARD',
+                    style: boldViewDown.copyWith(fontSize: LargeFontSize),
+                  ),
+                  Divider(
+                    thickness: 5,
+                    height: 20,
+                    color: Colors.grey[600],
+                    indent: orientation == Orientation.portrait ? 150 : 250,
+                    endIndent: orientation == Orientation.portrait ? 150 : 250,
+                  )
+                ],
+              ),
+            )),
             SliverGrid(
               delegate: SliverChildBuilderDelegate(
                   (context, index) => _cardOption(context, index),
                   childCount: optionCard.length),
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: orientation == Orientation.portrait ? 3 : 4,
-                
-              ),
+                  crossAxisCount: orientation == Orientation.portrait ? 3 : 4,
+                  crossAxisSpacing: 3,
+                  mainAxisSpacing: 3),
             ),
           ],
         ));
@@ -132,29 +158,30 @@ class Home2 extends StatelessWidget {
           Navigator.push(context,
               MaterialPageRoute(builder: (context) => optionCard[i]['widget']));
         },
-        child: Card(
-          elevation: 2.0,
-          color: AppPrimaryDark,
+        child: Material(
+          elevation: 0.5,
+          color: Colors.white,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8)
+          ),
           child: Container(
-            padding: EdgeInsets.symmetric(vertical: 16.0),
+            padding: EdgeInsets.symmetric(vertical: 20.0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 CircleAvatar(
-                  radius: 30,
-                  backgroundColor: Colors.white,
-                  child:Icon(
-                  optionCard[i]['icon'],
-                  size: 40,
-                  color: i%2==0?AppPrimaryLight:AppSecondaryColor,
-                  )
-                ),
+                    radius: 28,
+                    backgroundColor:
+                        i % 2 == 0 ? AppPrimaryColor : AppSecondaryColor,
+                    child: Center(child:Icon(
+                      optionCard[i]['icon'],
+                      size: 25,
+                      color: Colors.white
+                    ))),
                 Text(
-                  optionCard[i]['title'].toString().toUpperCase(),
-                  style: boldViewDown.copyWith(
-                    color: Colors.white
-                  ),
+                  optionCard[i]['title'],
+                  style: TextStyle(fontSize:SmallFontSize)
                 )
               ],
             ),

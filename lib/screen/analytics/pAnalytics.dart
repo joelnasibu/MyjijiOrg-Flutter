@@ -4,11 +4,11 @@ import 'package:organizer/models/db.dart';
 import 'package:organizer/style.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 
-class PrtDashBoard extends StatefulWidget {
-  PrtDashBoardState createState() => PrtDashBoardState();
+class PrtAnalytics extends StatefulWidget {
+  PrtAnalyticsState createState() => PrtAnalyticsState();
 }
 
-class PrtDashBoardState extends State<PrtDashBoard>
+class PrtAnalyticsState extends State<PrtAnalytics>
     with TickerProviderStateMixin {
   // List<HomeJson> data = [];
   // HomeJson online = HomeJson();
@@ -86,11 +86,9 @@ class PrtDashBoardState extends State<PrtDashBoard>
     }
 
     final section_1 = Container(
-
-      margin: EdgeInsets.fromLTRB(0, 0, 0, 4),
      
       width: screenWidth,
-      height: 300,//screenHeight * .32,
+      height: 250,//screenHeight * .32,
       child: CarouselSlider(
           enlargeCenterPage: true, 
          // viewportFraction: 0.8,         

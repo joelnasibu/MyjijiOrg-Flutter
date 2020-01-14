@@ -1,16 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:organizer/models/db.dart';
-import 'package:organizer/models/slideUp.dart';
 import 'package:organizer/models/user.dart';
 import 'package:organizer/screen/Alert/oAlert.dart';
-import 'package:organizer/screen/Events/oEvents.dart';
-import 'package:organizer/screen/SetCategories/setCategories.dart';
+import 'package:organizer/screen/More/more.dart';
 import 'package:organizer/screen/chats/oChats.dart';
-import 'package:organizer/screen/createEvent/oCreateEvent.dart';
-import 'package:organizer/screen/dashBoard/oDashboard.dart';
 import 'package:organizer/screen/home/pHomepage.dart';
-import 'package:organizer/screen/home/tHomepage.dart';
 import 'package:organizer/screen/profile/oProfile.dart';
 import 'package:organizer/screen/venues/oVenues.dart';
 import 'package:organizer/style.dart';
@@ -38,15 +33,15 @@ class HomepageState extends State <Homepage>{
         break;
       case 3: return Profile();
         break;
-      case 4:return SetCategories();
+      case 4:return More();
         break;
       case 5:return Venue();
         break;
-      case 6:return DashBoard();
+      case 6:return Home();
         break;
-      case 7:return SetCategories();
+      case 7:return Home();
         break;
-      default: return DashBoard();                     
+      default: return Home();                     
         break;
                 }             
     
@@ -64,22 +59,7 @@ class HomepageState extends State <Homepage>{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton.extended(
-
-        icon:Icon(Icons.add_circle,color: Colors.black),
-        label:Text("Create Event",style: boldViewDown.copyWith(color: Colors.black)),
-
-        onPressed: (){
-          Route route = SlideUp(
-            widget: CreateEvent(),
-            time: 400,
-          );
-          Navigator.push(context, route);
-
-        },
-      
-        
-      ),
+     
       body: selectedPage(_selectedIndex),
       drawer: Drawer(
           child: ListView(            
@@ -132,8 +112,8 @@ class HomepageState extends State <Homepage>{
 
         items :[
 
-            _listBottomFormat(Icons.home, "Dashboard"),            
-            _listBottomFormat(Icons.question_answer, "Feedback"),      
+            _listBottomFormat(Icons.home, "Home"),            
+            _listBottomFormat(Icons.calendar_today, "Calendar"),      
             _listBottomFormat(Icons.notifications, "Alert"),          
             _listBottomFormat(Icons.person, "Profile"),               
             _listBottomFormat(Icons.more_vert, "More"),               

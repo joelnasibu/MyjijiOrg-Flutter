@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:organizer/screen/profile/tabs/fPage.dart';
-import 'package:organizer/screen/profile/tabs/sPage.dart';
-import 'package:organizer/screen/wall/pWall.dart';
-import 'package:organizer/screen/wall/tWall.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:organizer/screen/wall/wallEvent.dart';
+import 'package:organizer/screen/wall/wallPartners.dart';
 import 'package:organizer/style.dart';
 
 
@@ -16,12 +15,16 @@ class _WallState extends State<Wall> {
   int _currentIndex = 0;
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
 
       appBar: AppBar(
-        title:Text("My Events"),
+        title:Text("My Wall"),
       ),
-      bottomNavigationBar: BottomNavigationBar(
+      backgroundColor: Colors.grey[100],
+      
+      bottomNavigationBar: BottomNavigationBar(       
+        
         selectedItemColor: AppSecondaryDark,
         selectedLabelStyle: boldViewDown,
         
@@ -33,31 +36,31 @@ class _WallState extends State<Wall> {
           });
         },
         items: [
-         _bottomNavItem("Events"),
-         _bottomNavItem("Upcoming Event")
+         _bottomNavItem(Icons.event,"Events"),
+         _bottomNavItem(FontAwesomeIcons.networkWired,"My Network")
 
         ],
       ),
    
-      body: _selectedPage(_currentIndex),
+      body: _selectedPage(_currentIndex)
  
 
 
     );
   }
 
-  _bottomNavItem(String title){
+  _bottomNavItem(IconData icon,String title){
       return BottomNavigationBarItem(
-        icon: Container(),
+        icon: Icon(icon),
         title: Text(title)
       );
   }
 
   _selectedPage(int p){
     switch (p){
-      case 0: return FPage();break;
-      case 1: return SPage();break;
-      default: return FPage();break;
+      case 0: return WallEvent();break;
+      case 1: return WallPartners();break;
+      default: return WallEvent();break;
 
     }
   }
